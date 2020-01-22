@@ -1,8 +1,6 @@
 const user = require('../models/user');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { promisify } = require('util');
-const tokenConfig = require('../../config/token/tokenConfig');
+const authMethod = require('../../utils/authMethod');
 
 module.exports = {
     async store(req, res) {
@@ -42,12 +40,7 @@ module.exports = {
     async destroy(req, res) {
         const authHeader = req.headers.authorization;
 
-        const [_, token] = authHeader.split(' ');
-
-        const infoToken = await promisify(jwt.verify)(
-            token,
-            tokenConfig.secret
-        );
+        const infoToken = await authMethod(authHeader);
 
         const deleted = await user.destroy({
             where: {
@@ -62,5 +55,34 @@ module.exports = {
         }
 
         return res.json({ message: 'User deleted with success! ' });
+    },
+
+    async update(req, res) {
+        const authHeader = req.headers.authorization;
+
+        const infoToken = await authMethod(authHeader);
+
+        const { name, newemail = infoToken.email, pass, oldpass } = req.body;
+
+        const oldDataUser = await user.findOne({
+            where: {
+                email: infoToken.email,
+            },
+        });
+
+        const passwordold = await bcrypt.compare(oldpass, oldDataUser.password);
+
+        if (!passwordold) {
+            return res.status(401).json({ Error: 'Old password is invalid' });
+        }
+
+        const password = await bcrypt.hash(pass, 10);
+
+        await user.update(
+            { name, email: newemail, password },
+            { where: { email: infoToken.email } }
+        );
+
+        return res.json({ message: 'User updated with success! ' });
     },
 };
