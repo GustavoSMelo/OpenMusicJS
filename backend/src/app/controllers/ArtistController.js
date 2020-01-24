@@ -32,6 +32,7 @@ module.exports = {
             name_artistic,
             email,
             password,
+            avatar,
         });
 
         if (!created) {
