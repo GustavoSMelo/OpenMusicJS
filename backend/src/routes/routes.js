@@ -7,6 +7,7 @@ const ArtistController = require('../app/controllers/ArtistController');
 const ArtSessionController = require('../app/controllers/ArtSessionController');
 const multer = require('multer');
 const multerConfig = require('../config/uploads/multer');
+const MusicController = require('../app/controllers/MusicController');
 
 const upload = multer(multerConfig);
 
@@ -36,5 +37,14 @@ routes.put(
     ArtistController.update
 );
 routes.post('/login/artist', ArtSessionController.store);
+
+//routes of musics
+routes.post(
+    '/music',
+    authMiddleware,
+    upload.array('info', 2),
+    MusicController.store
+);
+routes.get('/musics', MusicController.index);
 
 module.exports = routes;
