@@ -6,6 +6,17 @@ module.exports = {
     async store(req, res) {
         const { name, email, pass } = req.body;
 
+        const img = req.file;
+
+        if (!img) {
+            return res.status(400).json({
+                Error:
+                    'Please, insert ur avatar image to continue the register ',
+            });
+        }
+
+        const avatar = img.filename;
+
         const newuser = await user.findOne({ where: { email } });
 
         if (newuser) {
@@ -16,7 +27,7 @@ module.exports = {
 
         const password = await bcrypt.hash(pass, 10);
 
-        const created = await user.create({ name, email, password });
+        const created = await user.create({ name, email, password, avatar });
 
         if (!created) {
             return res.status(500).json({ Error: '' });
@@ -70,6 +81,15 @@ module.exports = {
             },
         });
 
+        const img = req.file;
+        let avatar = '';
+
+        if (!img) {
+            avatar = oldDataUser.avatar;
+        } else {
+            avatar = img.filename;
+        }
+
         const passwordold = await bcrypt.compare(oldpass, oldDataUser.password);
 
         if (!passwordold) {
@@ -79,7 +99,7 @@ module.exports = {
         const password = await bcrypt.hash(pass, 10);
 
         await user.update(
-            { name, email: newemail, password },
+            { name, email: newemail, password, avatar },
             { where: { email: infoToken.email } }
         );
 
