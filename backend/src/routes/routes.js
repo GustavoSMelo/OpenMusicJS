@@ -46,5 +46,7 @@ routes.post(
     MusicController.store
 );
 routes.get('/musics', MusicController.index);
+routes.delete('/music', authMiddleware, MusicController.destroy);
+routes.put('/music', authMiddleware, MusicController.update);
 
 module.exports = routes;
