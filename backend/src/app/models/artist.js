@@ -8,6 +8,7 @@ class Artist extends Model {
                 name_artistic: DataTypes.STRING,
                 email: DataTypes.STRING,
                 password: DataTypes.STRING,
+                avatar: DataTypes.STRING,
             },
             { sequelize: connection }
         );
