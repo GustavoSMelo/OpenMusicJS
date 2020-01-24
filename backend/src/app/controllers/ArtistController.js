@@ -6,6 +6,17 @@ module.exports = {
     async store(req, res) {
         const { name, name_artistic, email, pass } = req.body;
 
+        const img = req.file;
+
+        if (!img) {
+            return res.status(400).json({
+                Error:
+                    'Please, insert ur avatar image to continue the register ',
+            });
+        }
+
+        const avatar = img.filename;
+
         const newartist = await artist.findOne({ where: { email } });
 
         if (newartist) {
@@ -75,6 +86,15 @@ module.exports = {
             },
         });
 
+        const img = req.file;
+        let avatar = '';
+
+        if (!img) {
+            avatar = oldDataArts.avatar;
+        } else {
+            avatar = img.filename;
+        }
+
         const passwordold = await bcrypt.compare(oldpass, oldDataArts.password);
 
         if (!passwordold) {
@@ -84,7 +104,7 @@ module.exports = {
         const password = await bcrypt.hash(pass, 10);
 
         await artist.update(
-            { name, email: newemail, password },
+            { name, email: newemail, password, avatar },
             { where: { email: infoToken.email } }
         );
 
