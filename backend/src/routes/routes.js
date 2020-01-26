@@ -8,6 +8,7 @@ const ArtSessionController = require('../app/controllers/ArtSessionController');
 const multer = require('multer');
 const multerConfig = require('../config/uploads/multer');
 const MusicController = require('../app/controllers/MusicController');
+const AlbumController = require('../app/controllers/AlbumController');
 
 const upload = multer(multerConfig);
 
