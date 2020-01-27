@@ -50,4 +50,14 @@ routes.get('/musics', MusicController.index);
 routes.delete('/music', authMiddleware, MusicController.destroy);
 routes.put('/music', authMiddleware, MusicController.update);
 
+//routes of album
+routes.post(
+    '/album',
+    authMiddleware,
+    upload.single('banner'),
+    AlbumController.store
+);
+routes.get('/album', AlbumController.index);
+routes.delete('/album', authMiddleware, AlbumController.delete);
+
 module.exports = routes;
