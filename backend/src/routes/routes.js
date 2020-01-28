@@ -9,6 +9,7 @@ const multer = require('multer');
 const multerConfig = require('../config/uploads/multer');
 const MusicController = require('../app/controllers/MusicController');
 const AlbumController = require('../app/controllers/AlbumController');
+const RelationshipAAM = require('../app/controllers/RelationshipAlbumMusicArtistController');
 
 const upload = multer(multerConfig);
 
@@ -59,5 +60,15 @@ routes.post(
 );
 routes.get('/album', AlbumController.index);
 routes.delete('/album', authMiddleware, AlbumController.delete);
+routes.put(
+    '/album',
+    authMiddleware,
+    upload.single('banner'),
+    AlbumController.update
+);
+
+routes.post('/add/album/music', authMiddleware, RelationshipAAM.store);
+routes.get('/album/music', RelationshipAAM.index);
+routes.delete('/album/musics', authMiddleware, RelationshipAAM.destroy);
 
 module.exports = routes;
