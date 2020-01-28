@@ -57,6 +57,7 @@ module.exports = {
             where: {
                 id: infoToken.id,
             },
+            limit: 1,
         });
 
         if (!deleted) {
@@ -100,7 +101,7 @@ module.exports = {
 
         await user.update(
             { name, email: newemail, password, avatar },
-            { where: { email: infoToken.email } }
+            { where: { email: infoToken.email }, limit: 1 }
         );
 
         return res.json({ message: 'User updated with success! ' });

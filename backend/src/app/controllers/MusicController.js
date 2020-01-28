@@ -94,7 +94,7 @@ module.exports = {
                 .json({ Error: 'Your account inst owner this music ' });
         }
 
-        await musics.destroy({ where: { id } });
+        await musics.destroy({ where: { id }, limit: 1 });
 
         return res.json({ message: 'Music deleted with success! ' });
     },
@@ -152,7 +152,7 @@ module.exports = {
         try {
             await musics.update(
                 { oldname, name, genre, singer },
-                { where: { id } }
+                { where: { id }, limit: 1 }
             );
 
             return res.json({ message: 'Music updated with success ' });

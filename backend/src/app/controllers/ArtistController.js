@@ -63,6 +63,7 @@ module.exports = {
             where: {
                 id: infoToken.id,
             },
+            limit: 1,
         });
 
         if (!deleted) {
@@ -85,6 +86,7 @@ module.exports = {
             where: {
                 email: infoToken.email,
             },
+            limit: 1,
         });
 
         const img = req.file;
