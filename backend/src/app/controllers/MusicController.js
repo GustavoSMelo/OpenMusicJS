@@ -3,12 +3,16 @@ const authMethod = require('../../utils/authMethod');
 
 module.exports = {
     async store(req, res) {
+        const authHeader = req.headers.authorization;
+
+        const { id: singer } = await authMethod(authHeader);
+
         const [banner, music] = req.files;
 
         if (!banner || !music) {
             return res.status(400).json({ Error: 'Some archive is missing ' });
         }
-        const { name = music.originalname, genre, singer } = req.body;
+        const { name = music.originalname, genre } = req.body;
 
         const musicNameExists = await musics.findOne({
             where: {
