@@ -10,6 +10,8 @@ const multerConfig = require('../config/uploads/multer');
 const MusicController = require('../app/controllers/MusicController');
 const AlbumController = require('../app/controllers/AlbumController');
 const RelationshipAAM = require('../app/controllers/RelationshipAlbumMusicArtistController');
+const users_like_musics = require('../app/controllers/users_like_musicsController');
+const users_like_albuns = require('../app/controllers/users_like_albunsController');
 
 const upload = multer(multerConfig);
 
@@ -67,8 +69,23 @@ routes.put(
     AlbumController.update
 );
 
-routes.post('/add/album/music', authMiddleware, RelationshipAAM.store);
-routes.get('/album/music', RelationshipAAM.index);
-routes.delete('/album/musics', authMiddleware, RelationshipAAM.destroy);
+//routes of relationship
+
+routes.post('/relationship/album/music', authMiddleware, RelationshipAAM.store);
+routes.get('/relationship/album/music', RelationshipAAM.index);
+routes.delete(
+    '/relationship/album/music',
+    authMiddleware,
+    RelationshipAAM.destroy
+);
+
+//routes of users_like_musics
+routes.post('/users/musics', authMiddleware, users_like_musics.store);
+routes.get('/users/musics', authMiddleware, users_like_musics.index);
+routes.delete('/users/musics', authMiddleware, users_like_musics.destroy);
+
+//routes of users_like_albuns
+
+routes.post('/users/albuns', authMiddleware, users_like_albuns.store);
 
 module.exports = routes;
