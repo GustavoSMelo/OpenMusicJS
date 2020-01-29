@@ -6,6 +6,12 @@ module.exports = {
     async store(req, res) {
         const { name, email, pass } = req.body;
 
+        if (!name || !email || !pass) {
+            return res
+                .status(400)
+                .json({ Error: 'Please, insert all fields to continue ' });
+        }
+
         const img = req.file;
 
         if (!img) {
