@@ -10,6 +10,12 @@ module.exports = {
 
         const { music } = req.body; //id Music
 
+        if (!music) {
+            return res
+                .status(400)
+                .json({ Error: 'Please, insert all fields to continue ' });
+        }
+
         const isOwnerMusic = await Musics.findOne({
             where: {
                 id: music,
@@ -25,15 +31,37 @@ module.exports = {
 
         const { album } = req.body;
 
+        if (!album) {
+            return res
+                .status(400)
+                .json({ Error: 'Please, insert all fields to continue ' });
+        }
+
         const isOwnerAlbum = await Albuns.findOne({
-            id: album,
-            artist: artists,
+            where: {
+                id: album,
+                artist: artists,
+            },
         });
 
         if (!isOwnerAlbum) {
             return res
                 .status(401)
                 .json({ Error: 'U isnt authorized to do this action ' });
+        }
+
+        const isExists = await RelationshipAAM.findOne({
+            where: {
+                artists,
+                album,
+                music,
+            },
+        });
+
+        if (isExists) {
+            return res
+                .status(400)
+                .json({ Error: 'Music already inserted in album ' });
         }
 
         await RelationshipAAM.create({ music, album, artists });
@@ -44,7 +72,11 @@ module.exports = {
     },
 
     async index(req, res) {
-        const albuns = await Albuns.findAll();
+        const albuns = await RelationshipAAM.findAll();
+
+        if (!albuns || albuns.length <= 0) {
+            return res.status(404).json({ Error: 'Relationship didnt found ' });
+        }
 
         return res.json(albuns);
     },
@@ -84,7 +116,7 @@ module.exports = {
             },
         });
 
-        if (!isOwner) {
+        if (!isOnwner) {
             return res.status(401).json({
                 Error:
                     'U isnt authorized to do this or the album didnt finded ',
@@ -99,6 +131,8 @@ module.exports = {
             },
             limit: 1,
         });
+
+        return res.json({ message: 'Album deleted with success! ' });
     },
 
     async update(req, res) {
