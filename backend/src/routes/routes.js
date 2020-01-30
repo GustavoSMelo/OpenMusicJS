@@ -13,6 +13,8 @@ const RelationshipAAM = require('../app/controllers/RelationshipAlbumMusicArtist
 const users_like_musics = require('../app/controllers/users_like_musicsController');
 const users_like_albuns = require('../app/controllers/users_like_albunsController');
 const users_like_artists = require('../app/controllers/users_like_artistsController');
+const viewsMusicMiddleware = require('../app/middlewares/viewsMusics/views.musics');
+const SearchMethod = require('../utils/SearchMethod');
 
 const upload = multer(multerConfig);
 
@@ -53,6 +55,12 @@ routes.post(
 routes.get('/musics', MusicController.index);
 routes.delete('/music', authMiddleware, MusicController.destroy);
 routes.put('/music', authMiddleware, MusicController.update);
+routes.get(
+    '/music',
+    authMiddleware,
+    viewsMusicMiddleware,
+    MusicController.show
+);
 
 //routes of album
 routes.post(
@@ -96,5 +104,10 @@ routes.delete('/users/albuns', authMiddleware, users_like_albuns.destroy);
 routes.post('/users/artists', authMiddleware, users_like_artists.store);
 routes.get('/users/artists', authMiddleware, users_like_artists.index);
 routes.post('/users/artists', authMiddleware, users_like_artists.destroy);
+
+//method search
+routes.post('/search', SearchMethod);
+
+//export
 
 module.exports = routes;
