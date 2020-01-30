@@ -1,4 +1,4 @@
-const Albuns = require('../models/users_like_albuns');
+const Albuns = require('../models/albuns');
 const authMethod = require('../../utils/authMethod');
 const users_like_albuns = require('../models/users_like_albuns');
 
@@ -39,7 +39,7 @@ module.exports = {
                 .json({ Error: 'U already like this album ' });
         }
 
-        await users_like_albuns.create({ album, user });
+        await users_like_albuns.create({ user, album });
 
         return res.json({ message: 'Album liked with success ' });
     },
@@ -74,7 +74,7 @@ module.exports = {
         const isAlbumExists = await Albuns.findOne({ where: { id: album } });
 
         if (!isAlbumExists) {
-            return res.status(404).json({ Error: 'Music didnt find ' });
+            return res.status(404).json({ Error: 'Album didnt find ' });
         }
 
         const isLiked = await users_like_albuns.findOne({
