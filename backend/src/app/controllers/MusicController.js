@@ -1,5 +1,6 @@
 const musics = require('../models/music');
 const authMethod = require('../../utils/authMethod');
+const viewsMusic = require('../models/views.musics');
 
 module.exports = {
     async store(req, res) {
@@ -165,5 +166,22 @@ module.exports = {
                 Error: `Ops, we have some error in server, please try to update again \n${err}`,
             });
         }
+    },
+
+    async show(req, res) {
+        const { musicid } = req.headers;
+
+        const musicinfo = await musics.findOne({
+            where: {
+                id: musicid,
+            },
+        });
+
+        const { qtd_views } = await viewsMusic.findOne({ music: musicid });
+
+        return res.json({
+            music: musicinfo,
+            qtd_views,
+        });
     },
 };
