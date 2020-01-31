@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
     });
 
     if (SearchMusic.length >= 1) {
-        info.push(SearchMusic);
+        info.push({ Musics: SearchMusic });
     }
 
     const SearchArtists = await artist.findAll({
@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
     });
 
     if (SearchArtists.length >= 1) {
-        info.push(SearchArtists);
+        info.push({ Artists: SearchArtists });
     }
 
     const SearchAlbum = await album.findAll({
@@ -49,7 +49,7 @@ module.exports = async (req, res) => {
     });
 
     if (SearchAlbum.length >= 1) {
-        info.push(SearchAlbum);
+        info.push({ Albums: SearchAlbum });
     }
 
     const SearchUsers = await user.findAll({
@@ -61,7 +61,7 @@ module.exports = async (req, res) => {
     });
 
     if (SearchUsers.length >= 1) {
-        info.push(SearchUsers);
+        info.push({ Users: SearchUsers });
     }
 
     if (!info || info.length <= 0) {
