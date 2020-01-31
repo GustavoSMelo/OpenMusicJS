@@ -1,23 +1,56 @@
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
+    up: (queryInterface, Sequelize) => {
+        return queryInterface.createTable('statistic_musics', {
+            id: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+                autoIncrement: true,
+            },
 
-      Example:
-      return queryInterface.createTable('users', { id: Sequelize.INTEGER });
-    */
-  },
+            last_date_update: {
+                type: Sequelize.DATE,
+                allowNull: false,
+            },
 
-  down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
+            music: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: {
+                    model: 'musics',
+                    key: 'id',
+                },
+            },
 
-      Example:
-      return queryInterface.dropTable('users');
-    */
-  }
+            artist: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: {
+                    model: 'artists',
+                    key: 'id',
+                },
+            },
+
+            qtd_views: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+            },
+
+            created_at: {
+                type: Sequelize.DATE,
+                allowNull: false,
+            },
+
+            updated_at: {
+                type: Sequelize.DATE,
+                allowNull: false,
+            },
+        });
+    },
+
+    down: queryInterface => {
+        return queryInterface.dropTable('statistic_musics');
+    },
 };
