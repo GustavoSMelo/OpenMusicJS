@@ -20,6 +20,7 @@ module.exports = async (req, res, next) => {
 
     if (!isViewsExists) {
         await ViewsMusics.create({
+            artist: musicExists.singer,
             qtd_views: 1,
             music,
             date: Date.now(),
@@ -27,6 +28,7 @@ module.exports = async (req, res, next) => {
     } else {
         const { qtd_views: views } = isViewsExists;
         await isViewsExists.update({
+            artist: musicExists.singer,
             qtd_views: views + 1,
             music,
             date: Date.now(),
