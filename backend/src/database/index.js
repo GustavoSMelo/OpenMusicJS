@@ -8,6 +8,7 @@ const RelationshipAAM = require('../app/models/relationship_album_music_artist')
 const users_like_musics_model = require('../app/models/users_like_musics');
 const users_like_albuns_model = require('../app/models/users_like_albuns');
 const users_like_artists_model = require('../app/models/users_like_artists');
+const statistic_music_model = require('../app/models/statistic_musics');
 
 //connections
 const connection = new Sequelize(dbConfig);
@@ -19,6 +20,7 @@ RelationshipAAM.init(connection);
 users_like_musics_model.init(connection);
 users_like_albuns_model.init(connection);
 users_like_artists_model.init(connection);
+statistic_music_model.init(connection);
 
 //relationship
 MusicModel.belongsTo(ArtistModel, { foreignKey: 'singer' });
@@ -32,5 +34,7 @@ users_like_albuns_model.belongsTo(UserModel, { foreignKey: 'user' });
 users_like_albuns_model.belongsTo(AlbunsModel, { foreignKey: 'album' });
 users_like_artists_model.belongsTo(UserModel, { foreignKey: 'user' });
 users_like_artists_model.belongsTo(ArtistModel, { foreignKey: 'artist' });
+statistic_music_model.belongsTo(MusicModel, { foreignKey: 'music' });
+statistic_music_model.belongsTo(ArtistModel, { foreignKey: 'artist' });
 
 module.exports = connection;
