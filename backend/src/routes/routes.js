@@ -15,6 +15,7 @@ const users_like_albuns = require('../app/controllers/users_like_albunsControlle
 const users_like_artists = require('../app/controllers/users_like_artistsController');
 const viewsMusicMiddleware = require('../app/middlewares/viewsMusics/views.musics');
 const SearchMethod = require('../utils/SearchMethod');
+const statistic_musics = require('../app/controllers/statistics_musicsController');
 
 const upload = multer(multerConfig);
 
@@ -108,6 +109,9 @@ routes.post('/users/artists', authMiddleware, users_like_artists.destroy);
 //method search
 routes.post('/search', SearchMethod);
 
-//export
+//routes of statistics
+routes.post('/statistic/music', authMiddleware, statistic_musics.store);
+routes.get('/statistic/music', authMiddleware, statistic_musics.index);
 
+//export
 module.exports = routes;
