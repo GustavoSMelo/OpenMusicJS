@@ -5,7 +5,7 @@ export default createGlobalStyle`
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: Verdana, Geneva, Tahoma, sans-serif
     }
 
     html, border-style, #root{
