@@ -1,28 +1,23 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    background-color: #101010;
+    background-color: #111111;
+    background-image: url(${props => props.img});
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: row;
-
-    aside {
-        margin-left: 2%;
-        width: 35%;
-        padding: 2%;
-        border-radius: 5px;
-        background-color: #fff;
-        transition: ease;
-    }
+    background-size: cover;
 
     h2 {
         margin: 10px;
     }
 
     main {
-        margin-right: 5%;
+        background-color: #000000dd;
+        padding: 30px;
+        border-radius: 5px;
     }
 
     main > h2 {
@@ -67,14 +62,6 @@ export const Container = styled.div`
     @media screen and (max-width: 970px) {
         justify-content: center;
         flex-direction: column;
-
-        aside {
-            width: 90%;
-        }
-
-        main {
-            margin-right: 0%;
-        }
 
         input {
             font-size: 14pt;
