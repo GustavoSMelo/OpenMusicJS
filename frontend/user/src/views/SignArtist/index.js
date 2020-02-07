@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container } from './styled';
 import Footer from '../../components/footer';
 import { FaArrowRight, FaCheck } from 'react-icons/fa';
+import background from '../../assets/img/backgroundLines.png';
 
 function SignArtist() {
     const [name, setName] = useState('');
@@ -33,18 +34,25 @@ function SignArtist() {
         setAvatar(e.target.value);
     }
 
-    function handlerButton() {
-        setHasInfo(hasInfo++);
-
-        if (hasInfo === 2) {
+    async function handlerButton() {
+        if (hasInfo === 1 && name) {
+            setHasInfo(hasInfo + 1);
             setInfoForm('name_artist');
-        } else if (hasInfo === 3) {
+        } else if (hasInfo === 2 && name_artist) {
+            setHasInfo(hasInfo + 1);
             setInfoForm('email');
-        } else if (hasInfo === 4) {
+        } else if (hasInfo === 3 && email) {
+            setHasInfo(hasInfo + 1);
             setInfoForm('pass');
-        } else {
+        } else if (hasInfo === 4 && pass) {
+            setHasInfo(hasInfo + 1);
             setInfoForm('avatar');
+        } else if (hasInfo === 5 && avatar) {
+            alert('acabou ');
+        } else {
+            alert('please, insert all fields ');
         }
+        console.log({ name, name_artist, email, pass, avatar });
     }
 
     function renderMainForm() {
@@ -58,6 +66,7 @@ function SignArtist() {
                         value={name}
                         placeholder={InfoForm}
                         onChange={handlerNameChange}
+                        required="required"
                     />
                     <br />
                     <button type="button" onClick={handlerButton}>
@@ -75,6 +84,7 @@ function SignArtist() {
                         value={name_artist}
                         placeholder={InfoForm}
                         onChange={handlerNameArtistChange}
+                        required="required"
                     />
                     <br />
                     <button type="button" onClick={handlerButton}>
@@ -92,6 +102,7 @@ function SignArtist() {
                         value={email}
                         placeholder={InfoForm}
                         onChange={handlerEmailChange}
+                        required="required"
                     />
                     <br />
                     <button type="button" onClick={handlerButton}>
@@ -109,6 +120,7 @@ function SignArtist() {
                         value={pass}
                         placeholder={InfoForm}
                         onChange={handlerPassChange}
+                        required="required"
                     />
                     <br />
                     <button type="button" onClick={handlerButton}>
@@ -125,6 +137,7 @@ function SignArtist() {
                         type="file"
                         placeholder={InfoForm}
                         onChange={handlerAvatarChange}
+                        required="required"
                     />
                     <br />
                     <button type="button" onClick={handlerButton}>
@@ -137,14 +150,7 @@ function SignArtist() {
 
     return (
         <>
-            <Container>
-                <aside>
-                    <h2>Name: {name} </h2>
-                    <h2>Name Artist: {name_artist} </h2>
-                    <h2>Email: {email}</h2>
-                    <h2>Avatar: {avatar}</h2>
-                </aside>
-
+            <Container img={background}>
                 <main>{renderMainForm()}</main>
             </Container>
 
