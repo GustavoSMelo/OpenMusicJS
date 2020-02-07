@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
     background-color: #101010;
@@ -22,7 +22,7 @@ export const Container = styled.div`
     }
 
     main {
-        margin-right: 15%;
+        margin-right: 5%;
     }
 
     main > h2 {
