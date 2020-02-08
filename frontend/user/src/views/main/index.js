@@ -4,6 +4,7 @@ import { Container, Image } from './styled';
 import backbubbles from '../../assets/img/bubbles-main.jpg';
 import { FaMusic } from 'react-icons/fa';
 import Footer from '../../components/footer';
+import { Link } from 'react-router-dom';
 
 function Main() {
     return (
@@ -16,8 +17,12 @@ function Main() {
                 </h1>
             </header>
             <main>
-                <button>LogIn to Listen</button>
-                <a href="/">create account for free </a>
+                <Link className="link-button" to="/login">
+                    LogIn to Listen
+                </Link>
+                <Link className="link" to="/sign">
+                    create account for free{' '}
+                </Link>
             </main>
             <Image img={backbubbles}>
                 <h1>Dive in the world of musics with Musicfy</h1>
@@ -33,9 +38,16 @@ function Main() {
                     </p>
 
                     <br />
-                    <button type="button">LogIn here</button>
+
+                    <Link className="link-button-img" to="/login">
+                        {' '}
+                        LogIn here{' '}
+                    </Link>
+
                     <br />
-                    <a href="/">Create account</a>
+                    <a href="/">
+                        <Link to="/sign">Create account</Link>
+                    </a>
                 </section>
 
                 <br />
