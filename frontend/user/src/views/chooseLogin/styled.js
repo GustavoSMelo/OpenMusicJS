@@ -8,7 +8,8 @@ export const Container = styled.main`
     height: 100vh;
     background-color: #fff;
 
-    button {
+    .button {
+        text-decoration: none;
         background: linear-gradient(to right, #c200ff, #5d15ff);
         border: none;
         border-radius: 10px;
@@ -23,7 +24,7 @@ export const Container = styled.main`
     }
 
     @media screen and (max-width: 970px) {
-        button {
+        .button {
             width: 75%;
         }
     }

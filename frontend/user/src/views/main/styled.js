@@ -25,7 +25,7 @@ export const Container = styled.div`
         flex-direction: column;
     }
 
-    main > button {
+    /*main > button {
         background: linear-gradient(to right, #c200ff, #5d15ff);
         border: none;
         border-radius: 10px;
@@ -37,12 +37,28 @@ export const Container = styled.div`
         text-align: center;
         cursor: pointer;
         margin: 15px;
-    }
+    }*/
     main > a {
         color: #c200ff;
         font-size: 16pt;
         text-decoration: none;
         margin: 10px;
+    }
+
+    .link-button {
+        background: linear-gradient(to right, #c200ff, #5d15ff);
+        border: none;
+        border-radius: 10px;
+        padding: 30px;
+        width: 270px;
+        color: #fff;
+        font-size: 100%;
+        font-weight: bold;
+        text-align: center;
+        cursor: pointer;
+        margin: 15px;
+        color: #fff;
+        text-decoration: none;
     }
 `;
 
@@ -93,7 +109,7 @@ export const Image = styled.div`
         text-align: right;
     }
 
-    button {
+    .link-button-img {
         background: linear-gradient(to right, #c200ff, #5d15ff);
         border: none;
         border-radius: 10px;
