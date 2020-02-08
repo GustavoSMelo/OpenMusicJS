@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from './styled';
 import Footer from '../../components/footer';
-import { FaArrowRight, FaCheck } from 'react-icons/fa';
+import { FaArrowRight, FaCheck, FaTimes } from 'react-icons/fa';
 import background from '../../assets/img/backgroundLines.png';
 
 function SignArtist() {
@@ -42,23 +42,29 @@ function SignArtist() {
             setHasInfo(hasInfo + 1);
             setInfoForm('email');
         } else if (hasInfo === 3 && email) {
-            setHasInfo(hasInfo + 1);
-            setInfoForm('pass');
+            const [mail, domain] = email.split('@');
+
+            if (!mail || !domain) {
+                alert('email not valid, insert another email or try again ');
+            } else {
+                setHasInfo(hasInfo + 1);
+                setInfoForm('pass');
+            }
         } else if (hasInfo === 4 && pass) {
             setHasInfo(hasInfo + 1);
             setInfoForm('avatar');
         } else if (hasInfo === 5 && avatar) {
-            alert('acabou ');
+            setHasInfo(hasInfo + 1);
         } else {
             alert('please, insert all fields ');
         }
-        console.log({ name, name_artist, email, pass, avatar });
+        return console.log({ name, name_artist, email, pass, avatar });
     }
 
     function renderMainForm() {
         if (hasInfo === 1) {
             return (
-                <>
+                <article>
                     <h2>Insert your {InfoForm}</h2>
 
                     <input
@@ -66,17 +72,16 @@ function SignArtist() {
                         value={name}
                         placeholder={InfoForm}
                         onChange={handlerNameChange}
-                        required="required"
                     />
                     <br />
                     <button type="button" onClick={handlerButton}>
                         Next <FaArrowRight />
                     </button>
-                </>
+                </article>
             );
         } else if (hasInfo === 2) {
             return (
-                <>
+                <article>
                     <h2>Insert your {InfoForm}</h2>
 
                     <input
@@ -84,35 +89,33 @@ function SignArtist() {
                         value={name_artist}
                         placeholder={InfoForm}
                         onChange={handlerNameArtistChange}
-                        required="required"
                     />
                     <br />
                     <button type="button" onClick={handlerButton}>
                         Next <FaArrowRight />
                     </button>
-                </>
+                </article>
             );
         } else if (hasInfo === 3) {
             return (
-                <>
+                <article>
                     <h2>Insert your {InfoForm}</h2>
 
                     <input
-                        type="email"
+                        type="email" //error
                         value={email}
                         placeholder={InfoForm}
                         onChange={handlerEmailChange}
-                        required="required"
                     />
                     <br />
                     <button type="button" onClick={handlerButton}>
                         Next <FaArrowRight />
                     </button>
-                </>
+                </article>
             );
         } else if (hasInfo === 4) {
             return (
-                <>
+                <article>
                     <h2>Insert your {InfoForm}</h2>
 
                     <input
@@ -120,30 +123,45 @@ function SignArtist() {
                         value={pass}
                         placeholder={InfoForm}
                         onChange={handlerPassChange}
-                        required="required"
                     />
                     <br />
                     <button type="button" onClick={handlerButton}>
                         Next <FaArrowRight />
                     </button>
-                </>
+                </article>
             );
         } else if (hasInfo === 5) {
             return (
-                <>
+                <article>
                     <h2>Insert your {InfoForm}</h2>
 
                     <input
                         type="file"
                         placeholder={InfoForm}
                         onChange={handlerAvatarChange}
-                        required="required"
                     />
                     <br />
                     <button type="button" onClick={handlerButton}>
                         Finish <FaCheck />
                     </button>
-                </>
+                </article>
+            );
+        } else if (hasInfo === 6) {
+            return (
+                <section>
+                    <h3>Confirm your datas </h3>
+                    <h2>Name: {name}</h2>
+                    <h2>Name Artistic: {name_artist}</h2>
+                    <h2>email: {email}</h2>
+                    <h2>avatar: {avatar}</h2>
+
+                    <button>
+                        Confirm <FaCheck />
+                    </button>
+                    <button className="cancel">
+                        Cancel <FaTimes />{' '}
+                    </button>
+                </section>
             );
         }
     }
@@ -151,7 +169,7 @@ function SignArtist() {
     return (
         <>
             <Container img={background}>
-                <main>{renderMainForm()}</main>
+                <>{renderMainForm()}</>
             </Container>
 
             <Footer />
