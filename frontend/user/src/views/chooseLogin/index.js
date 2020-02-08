@@ -1,12 +1,17 @@
 import React from 'react';
 import { Container } from './styled';
 import Footer from '../../components/footer';
+import { Link } from 'react-router-dom';
 
 function ChooseLogin() {
     return (
         <Container>
-            <button>LogIn with user </button>
-            <button>LogIn with artist </button>
+            <Link className="button" to="/login/user">
+                LogIn with user{' '}
+            </Link>
+            <Link className="button" to="/login/artist">
+                LogIn with artist{' '}
+            </Link>
             <Footer />
         </Container>
     );
