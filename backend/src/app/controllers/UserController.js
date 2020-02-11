@@ -12,32 +12,32 @@ module.exports = {
                 .json({ Error: 'Please, insert all fields to continue ' });
         }
 
-        const img = req.file;
+        const avatar = req.file;
 
-        if (!img) {
+        console.log(req.file);
+
+        if (!avatar) {
             return res.status(400).json({
-                Error:
-                    'Please, insert ur avatar image to continue the register ',
+                Error: `Please, insert ur avatar image to continue the register ${req.file}`,
             });
         }
 
-        const avatar = img.filename;
+        const avatar_name = avatar.filename;
 
         const newuser = await user.findOne({ where: { email } });
 
         if (newuser) {
-            return res
-                .status(400)
-                .json({ Error: 'Erro in create a new user ' });
+            return res.status(400).json({ Error: 'User already exists ' });
         }
 
         const password = await bcrypt.hash(pass, 10);
 
-        const created = await user.create({ name, email, password, avatar });
-
-        if (!created) {
-            return res.status(500).json({ Error: '' });
-        }
+        await user.create({
+            name,
+            email,
+            password,
+            avatar_name,
+        });
 
         return res.json({ message: 'User created with success!  ' });
     },
