@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.main`
     background-color: #fff;
     display: flex;
     align-items: center;
@@ -60,4 +60,19 @@ export const Container = styled.div`
             width: 75%;
         }
     }
+`;
+
+export const ContainerError = styled.section`
+    width: 50%;
+    background-color: #ff6363;
+    color: #ff0500;
+    padding: 30px;
+    font-weight: bold;
+`;
+
+export const ContainerSuccess = styled.section`
+    width: 50%;
+    background-color: #82ff94;
+    color: #00ff05;
+    padding: 30px;
 `;
