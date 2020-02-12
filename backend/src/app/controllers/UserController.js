@@ -12,17 +12,16 @@ module.exports = {
                 .json({ Error: 'Please, insert all fields to continue ' });
         }
 
-        const avatar = req.file;
+        const { filename: avatar } = req.file;
 
         console.log(req.file);
+        console.log(` | Name > ${avatar}`);
 
         if (!avatar) {
             return res.status(400).json({
                 Error: `Please, insert ur avatar image to continue the register ${req.file}`,
             });
         }
-
-        const avatar_name = avatar.filename;
 
         const newuser = await user.findOne({ where: { email } });
 
@@ -36,7 +35,7 @@ module.exports = {
             name,
             email,
             password,
-            avatar_name,
+            avatar,
         });
 
         return res.json({ message: 'User created with success!  ' });
