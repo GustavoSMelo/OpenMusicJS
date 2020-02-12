@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, ContainerError, ContainerSuccess } from './styled';
 import Footer from '../../components/footer';
 import Logo from '../../assets/img/logo.png';
@@ -9,9 +9,7 @@ function SignUser() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [avatar, setAvatar] = useState(null);
-    const [result, setResult] = useState('');
-
-    const changeResult = useEffect(() => result, [result]);
+    const [result, setResult] = useState(null);
 
     function handlerNameChange(event) {
         return setName(event.target.value);
@@ -29,27 +27,25 @@ function SignUser() {
         return setAvatar(event.target.files[0]);
     }
 
+    function renderStatusForUser() {
+        return result;
+    }
+
     async function onButtonClick(e) {
         e.preventDefault();
 
         const fd = new FormData();
-        fd.append('avatar', avatar);
 
+        fd.append('name', name);
+        fd.append('email', email);
+        fd.append('pass', pass);
+        fd.append('avatar', avatar);
         try {
-            const registreInfo = await api.post(
-                '/user',
-                {
-                    name,
-                    email,
-                    pass,
-                    avatar: fd,
+            const registreInfo = await api.post('/user', fd, {
+                headers: {
+                    'content-type': `multipart/form-data; boundary=${fd._boundary}`,
                 },
-                {
-                    headers: {
-                        'Content-type': `multipart/form-data; boundary=${fd._boundary}`,
-                    },
-                }
-            );
+            });
 
             console.log(registreInfo);
 
@@ -61,29 +57,36 @@ function SignUser() {
                 );
             }
 
-            return setResult(
+            console.log('user inserted with success! ');
+            setResult(
                 <ContainerSuccess>
-                    <h1>{registreInfo}</h1>
+                    <h1>Success to create a new user </h1>
                 </ContainerSuccess>
             );
+
+            return renderStatusForUser();
         } catch (err) {
             console.log({ Error: err });
+            const message = err.response.data.Error;
+            setResult(
+                <ContainerError>
+                    <h1>{message}</h1>
+                </ContainerError>
+            );
+
+            return renderStatusForUser();
         }
     }
 
     return (
         <Container>
-            {changeResult}
             <header>
                 <img src={Logo} alt="logo-icon" />
             </header>
+
+            <>{renderStatusForUser()}</>
             <br />
-            <form
-                action="/user"
-                method="post"
-                encType="multipart/form-data"
-                onSubmit={onButtonClick}
-            >
+            <form action="/user" method="post" encType="multipart/form-data">
                 <h2>Complete all the fields and sign to use musicfy</h2>
 
                 <input
@@ -121,7 +124,9 @@ function SignUser() {
                     required="required"
                 />
 
-                <button type="submit">Sign Up</button>
+                <button type="button" onClick={onButtonClick}>
+                    Sign Up
+                </button>
             </form>
             <Footer className="foot" />
         </Container>
