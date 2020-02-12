@@ -1,4 +1,13 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const animationStatus = keyframes`
+    from{
+        transform: translateX(-30deg) scale(-0.8);
+    }
+    to{
+        transform: translateX(0deg) scale(0);
+    }
+`;
 
 export const Container = styled.main`
     background-color: #fff;
@@ -64,15 +73,21 @@ export const Container = styled.main`
 
 export const ContainerError = styled.section`
     width: 50%;
-    background-color: #ff6363;
+    background-color: #e88a89;
     color: #ff0500;
     padding: 30px;
     font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    animation: ${animationStatus} 2s linear;
 `;
 
 export const ContainerSuccess = styled.section`
     width: 50%;
-    background-color: #82ff94;
+    background-color: #d8fade;
     color: #00ff05;
     padding: 30px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
 `;
