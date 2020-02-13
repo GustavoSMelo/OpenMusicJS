@@ -8,6 +8,15 @@ const animationInput = keyframes`
     }
 `;
 
+const animationStatus = keyframes`
+    from{
+        transform: translateX(-30deg) scale(-0.8);
+    }
+    to{
+        transform: translateX(0deg) scale(0);
+    }
+`;
+
 const animationInput2 = keyframes`
     from{
         transform: translateX(-15%);
@@ -22,7 +31,7 @@ export const Container = styled.main`
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
     background-size: cover;
 
     h2 {
@@ -98,5 +107,40 @@ export const Container = styled.main`
         input {
             font-size: 14pt;
         }
+    }
+`;
+
+export const ContainerSuccess = styled.section`
+    display: flex;
+    width: 50%;
+    background-color: #d8fade !important;
+    color: #00ff05;
+    padding: 30px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    animation: ${animationStatus} 2s;
+    flex-direction: column;
+    margin: 30px;
+
+    @media screen and (max-width: 780px) {
+        margin: 0px;
+    }
+`;
+export const ContainerError = styled.section`
+    display: flex;
+    width: 50%;
+    background-color: #e88a89 !important;
+    color: #ff0500;
+    padding: 30px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    animation: ${animationStatus} 2s;
+    flex-direction: column;
+    margin: 30px;
+
+    @media screen and (max-width: 780px) {
+        margin: 0px;
     }
 `;
