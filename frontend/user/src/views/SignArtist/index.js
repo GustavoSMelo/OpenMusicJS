@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Container } from './styled';
+import { Container, ContainerError, ContainerSuccess } from './styled';
 import Footer from '../../components/footer';
 import { FaArrowRight, FaCheck, FaTimes } from 'react-icons/fa';
 import background from '../../assets/img/backgroundLines.png';
+import api from '../../api';
 
 function SignArtist() {
     const [name, setName] = useState('');
@@ -11,8 +12,9 @@ function SignArtist() {
     const [pass, setPass] = useState('');
     const [avatar, setAvatar] = useState('');
 
-    let [hasInfo, setHasInfo] = useState(1);
-    let [InfoForm, setInfoForm] = useState('name');
+    const [hasInfo, setHasInfo] = useState(1);
+    const [InfoForm, setInfoForm] = useState('name');
+    const [result, setResult] = useState(null);
 
     function handlerNameChange(e) {
         setName(e.target.value);
@@ -30,8 +32,8 @@ function SignArtist() {
         setPass(e.target.value);
     }
 
-    function handlerAvatarChange(e) {
-        setAvatar(e.target.value);
+    async function handlerAvatarChange(e) {
+        await setAvatar(e.target.files[0]);
     }
 
     async function handlerButton() {
@@ -58,7 +60,6 @@ function SignArtist() {
         } else {
             alert('please, insert all fields ');
         }
-        return console.log({ name, name_artist, email, pass, avatar });
     }
 
     function renderMainForm() {
@@ -153,12 +154,11 @@ function SignArtist() {
                     <h2>Name: {name}</h2>
                     <h2>Name Artistic: {name_artist}</h2>
                     <h2>email: {email}</h2>
-                    <h2>avatar: {avatar}</h2>
 
-                    <button>
+                    <button type="button" onClick={onCreateUser}>
                         Confirm <FaCheck />
                     </button>
-                    <button className="cancel">
+                    <button className="cancel" type="button">
                         Cancel <FaTimes />{' '}
                     </button>
                 </section>
@@ -166,9 +166,49 @@ function SignArtist() {
         }
     }
 
+    async function onCreateUser() {
+        const fd = new FormData();
+
+        fd.append('name', name);
+        fd.append('name_artistic', name_artist);
+        fd.append('email', email);
+        fd.append('pass', pass);
+        fd.append('avatar', avatar);
+
+        try {
+            await api.post('/artist', fd, {
+                headers: {
+                    'content-type': `multipart/form-data; boundary=${fd._boundary}`,
+                },
+            });
+
+            setResult(
+                <ContainerSuccess>
+                    <h1>User inserted with success! </h1>
+                </ContainerSuccess>
+            );
+
+            return renderStatusForUser();
+        } catch (err) {
+            const message = err.response.data.Error;
+            setResult(
+                <ContainerError>
+                    <h1>{message} </h1>
+                </ContainerError>
+            );
+
+            return renderStatusForUser();
+        }
+    }
+
+    function renderStatusForUser() {
+        return result;
+    }
+
     return (
         <>
             <Container img={background}>
+                <>{renderStatusForUser()}</>
                 <>{renderMainForm()}</>
             </Container>
 
