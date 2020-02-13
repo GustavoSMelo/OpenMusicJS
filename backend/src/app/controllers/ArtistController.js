@@ -6,38 +6,37 @@ module.exports = {
     async store(req, res) {
         const { name, name_artistic, email, pass } = req.body;
 
-        const img = req.file;
-
-        if (!img) {
-            return res.status(400).json({
-                Error:
-                    'Please, insert ur avatar image to continue the register ',
-            });
-        }
-
-        const avatar = img.filename;
+        const { filename: avatar } = req.file;
 
         const newartist = await artist.findOne({ where: { email } });
 
         if (newartist) {
-            return res
-                .status(400)
-                .json({ Error: 'Error in create a new artist ' });
+            return res.status(400).json({
+                Error:
+                    'Artist already exists in database (email already registred) ',
+            });
+        }
+
+        const nameArtistExists = await artist.findOne({
+            where: { name_artistic },
+        });
+
+        if (nameArtistExists) {
+            return res.status(400).json({
+                Error:
+                    'Artist already exists in database (name already registred) ',
+            });
         }
 
         const password = await bcrypt.hash(pass, 10);
 
-        const created = await artist.create({
+        await artist.create({
             name,
             name_artistic,
             email,
             password,
             avatar,
         });
-
-        if (!created) {
-            return res.status(500).json({ Error: '' });
-        }
 
         return res.json({ message: 'Artist created with success!  ' });
     },
