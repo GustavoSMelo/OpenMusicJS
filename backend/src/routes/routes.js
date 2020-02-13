@@ -53,7 +53,7 @@ routes.post(
     upload.array('info', 2),
     MusicController.store
 );
-routes.get('/musics', MusicController.index);
+routes.get('/musics', authMiddleware, MusicController.index);
 routes.delete('/music', authMiddleware, MusicController.destroy);
 routes.put('/music', authMiddleware, MusicController.update);
 routes.get(
