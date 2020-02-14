@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import api from '../api';
 
 export default async function getApi(route) {
