@@ -2,7 +2,10 @@ const express = require('express');
 const app = express();
 const routes = require('./routes/routes');
 const cors = require('cors');
+const path = require('path');
 require('./database/index');
+
+app.use(express.static(path.join(__dirname, '../tmp/uploads')));
 
 app.use(cors());
 app.use(express.json({ limit: '512mb' }));
