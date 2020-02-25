@@ -1,12 +1,15 @@
 import React from 'react';
+import { MP3Player } from './styled';
 
-function Player() {
-    <audio controls>
-        <source
-            src={`http://localhost:3333/music/${props.musicname}`}
-            type="audio/mpeg"
-        />
-    </audio>;
+function Player(props) {
+    return (
+        <MP3Player controls>
+            <source
+                src={`http://localhost:3333/music/${props.musicpath}`}
+                type="audio/mpeg"
+            />
+        </MP3Player>
+    );
 }
 
 export default Player;
