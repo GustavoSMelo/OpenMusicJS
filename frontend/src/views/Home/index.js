@@ -33,7 +33,10 @@ function Home() {
                         {info ? (
                             info.map(item => (
                                 <li key={item.id}>
-                                    <img src={imgTest} alt="banner of music" />
+                                    <img
+                                        src={`http://localhost:3333/img/${item.banner_path}`}
+                                        alt="banner of music"
+                                    />
                                     <p>{item.name}</p>
                                     <p>{item.genre}</p>
 
