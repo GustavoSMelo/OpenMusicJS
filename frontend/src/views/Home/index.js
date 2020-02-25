@@ -3,13 +3,14 @@ import authToken from '../../utils/authToken';
 import Navbar from '../../components/navbar';
 import { Container, ContainerNotLogged } from './styled';
 import { FaThumbsUp, FaHeadphones } from 'react-icons/fa';
-import imgTest from '../../assets/img/login-theme2.jpg';
 import Footer from '../../components/footer';
 import { Link } from 'react-router-dom';
+import Player from '../../components/player';
 
 function Home() {
     const [info, setInfo] = useState('');
-
+    const [haveMusic, setHaveMusic] = useState(false);
+    const [MusicName, setMusicName] = useState('');
     useEffect(() => {
         async function getDataByAPI() {
             const data = await authToken('/musics');
@@ -22,6 +23,12 @@ function Home() {
 
         getDataByAPI();
     }, []);
+
+    async function ListenMusic(musicpath) {
+        await setHaveMusic(false);
+        await setMusicName(musicpath);
+        return await setHaveMusic(true);
+    }
 
     function LayoutLogged() {
         return (
@@ -44,6 +51,9 @@ function Home() {
                                         <button
                                             className="listen"
                                             type="button"
+                                            onClick={() =>
+                                                ListenMusic(item.path)
+                                            } //Error = ListenMusic(item.path) //Success = () => ListenMusic(item.path)
                                         >
                                             <FaHeadphones /> Listen
                                         </button>
@@ -55,11 +65,12 @@ function Home() {
                             ))
                         ) : (
                             <h1>
-                                Does not have any music registred in database{' '}
+                                Doesn't have any music registred in database{' '}
                             </h1>
                         )}
                     </ul>
                 </Container>
+                {haveMusic ? <Player musicpath={MusicName} /> : <></>}
                 <Footer />
             </>
         );
