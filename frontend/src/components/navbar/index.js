@@ -12,7 +12,7 @@ function Navbar() {
             </figure>
 
             <nav className="link-container">
-                <Link className="link" to="/">
+                <Link className="link" to="/profile">
                     <FaUserAlt /> <span>Profile</span>
                 </Link>
                 <Link className="link" to="/">
