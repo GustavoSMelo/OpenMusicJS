@@ -1,6 +1,6 @@
 # :hammer: This project be in process
 
-## but if you want run this project, to do this:
+## but if you want to run this project, to do this:
 
 ### :file_folder: Backend:
 
@@ -20,8 +20,8 @@
 
 ### Things to do:
 
-- :heavy_check_mark: create backend
-- :hammer: create frontend web for users
-- :clock12: create frontend web for artists
-- :clock12: create frontend mobile for users
-- :clock12: create frontend mobile for artists
+- :heavy_check_mark: to create backend
+- :hammer: to create frontend web for users
+- :clock12: to create frontend web for artists
+- :clock12: to create frontend mobile for users
+- :clock12: to create frontend mobile for artists
