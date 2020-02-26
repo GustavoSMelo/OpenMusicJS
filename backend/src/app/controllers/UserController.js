@@ -111,4 +111,25 @@ module.exports = {
 
         return res.json({ message: 'User updated with success! ' });
     },
+
+    async show(req, res) {
+        const { authorization } = req.headers;
+
+        const info = await authMethod(authorization);
+
+        const data = await user.findOne({
+            where: {
+                id: info.id,
+            },
+        });
+
+        return res.json({
+            user: {
+                id: data.id,
+                name: data.name,
+                email: data.email,
+                avatar: data.avatar,
+            },
+        });
+    },
 };
