@@ -1,6 +1,6 @@
 # :hammer: This project be in process
 
-## but if you want run this project, do this:
+## but if you want run this project, to do this:
 
 ### :file_folder: Backend:
 
@@ -17,3 +17,11 @@
 - First, you need to do the procediments of backend.
 - After this, you need to run yarn in your console (inside folder of frontend)
 - and run yarn start
+
+### Things to do:
+
+- :heavy_check_mark: create backend
+- :hammer: create frontend web for users
+- :clock12: create frontend web for artists
+- :clock12: create frontend mobile for users
+- :clock12: create frontend mobile for artists
