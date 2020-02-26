@@ -3,7 +3,7 @@ const tokenConfig = require('../config/token/tokenConfig');
 const jwt = require('jsonwebtoken');
 
 module.exports = async function returnInfoToken(auth) {
-    const [Bearer, token] = auth.split(' ');
+    const [, token] = auth.split(' ');
 
     if (!token) {
         res.status(400).json({ Error: 'Token is not sended' });
