@@ -33,6 +33,7 @@ routes.put(
 routes.post('/files', upload.single('avatar'), (req, res) => {
     return res.json(req.file);
 });
+routes.get('/user/show', authMiddleware, UserController.show);
 
 //routes of artist
 routes.post('/artist', upload.single('avatar'), ArtistController.store);
