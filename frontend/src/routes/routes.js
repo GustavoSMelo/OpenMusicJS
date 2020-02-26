@@ -8,6 +8,7 @@ import LoginUser from '../views/LoginUser';
 import SignUser from '../views/SignUser';
 import SignArtist from '../views/SignArtist';
 import Home from '../views/Home';
+import Profile from '../views/profile';
 
 function Routes() {
     return (
@@ -21,6 +22,7 @@ function Routes() {
                 <Route exact path="/sign/user" component={SignUser} />
                 <Route exact path="/sign/artist" component={SignArtist} />
                 <Route exact path="/home" component={Home} />
+                <Route exact path="/profile" component={Profile} />
             </Switch>
         </BrowserRouter>
     );
