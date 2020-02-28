@@ -1,6 +1,7 @@
 const musics = require('../models/music');
 const authMethod = require('../../utils/authMethod');
 const viewsMusic = require('../models/views.musics');
+const users_like_musics = require('../models/users_like_musics');
 
 module.exports = {
     async store(req, res) {
@@ -53,7 +54,19 @@ module.exports = {
             });
         }
 
-        return res.json(allmusics);
+        const authHeader = req.headers.authorization;
+
+        const { id: user_auth_id } = await authMethod(authHeader);
+
+        //realizar map na const allmusics
+
+        const likes_of_user = await users_like_musics.findAll({
+            where: {
+                user: user_auth_id,
+            },
+        });
+
+        return res.json({ allmusics, likes_of_user });
     },
 
     async destroy(req, res) {
