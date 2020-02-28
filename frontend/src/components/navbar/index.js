@@ -7,9 +7,11 @@ import { Container } from './styled';
 function Navbar() {
     return (
         <Container>
-            <figure>
-                <img src={logo} alt="logo" />
-            </figure>
+            <Link to="/home">
+                <figure>
+                    <img src={logo} alt="logo" />
+                </figure>
+            </Link>
 
             <nav className="link-container">
                 <Link className="link" to="/profile">
