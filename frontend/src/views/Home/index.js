@@ -11,14 +11,18 @@ function Home() {
     const [info, setInfo] = useState('');
     const [haveMusic, setHaveMusic] = useState(false);
     const [MusicName, setMusicName] = useState('');
+    const [likesUser, setLikesUser] = useState([]);
+
     useEffect(() => {
         async function getDataByAPI() {
             const data = await authToken('/musics');
+            console.log(data);
 
             if (!data) {
                 return setInfo(null);
             }
-            return setInfo(data.data);
+            setInfo(data.data.allmusics);
+            setLikesUser(data.data.likes_of_user);
         }
 
         getDataByAPI();
@@ -31,6 +35,7 @@ function Home() {
     }
 
     function LayoutLogged() {
+        info.map(item => console.log(item));
         return (
             <>
                 <Navbar />
@@ -57,9 +62,30 @@ function Home() {
                                         >
                                             <FaHeadphones /> Listen
                                         </button>
-                                        <button className="like" type="button">
-                                            <FaThumbsUp />
-                                        </button>
+
+                                        {likesUser.map(like => {
+                                            if (like.music === item.id) {
+                                                return (
+                                                    <button
+                                                        key={like.id}
+                                                        className="liked"
+                                                        type="button"
+                                                    >
+                                                        <FaThumbsUp />
+                                                    </button>
+                                                );
+                                            } else {
+                                                return (
+                                                    <button
+                                                        key={like.id}
+                                                        className="needlike"
+                                                        type="button"
+                                                    >
+                                                        <FaThumbsUp />
+                                                    </button>
+                                                );
+                                            }
+                                        })}
                                     </span>
                                 </li>
                             ))
