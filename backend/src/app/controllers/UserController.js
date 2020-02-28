@@ -1,6 +1,9 @@
 const user = require('../models/user');
 const bcrypt = require('bcryptjs');
 const authMethod = require('../../utils/authMethod');
+const users_like_albuns = require('../models/users_like_albuns');
+const users_like_musics = require('../models/users_like_musics');
+const users_like_artists = require('../models/users_like_artists');
 
 module.exports = {
     async store(req, res) {
@@ -117,18 +120,48 @@ module.exports = {
 
         const info = await authMethod(authorization);
 
-        const data = await user.findOne({
+        const dataUser = await user.findOne({
             where: {
                 id: info.id,
             },
         });
 
+        const dataUserAlbuns = await users_like_albuns.findAll({
+            where: {
+                user: info.id,
+            },
+        });
+
+        const dataUserMusics = await users_like_musics.findAll({
+            where: {
+                user: info.id,
+            },
+        });
+
+        const dataUserArtists = await users_like_artists.findAll({
+            where: {
+                user: info.id,
+            },
+        });
+
         return res.json({
             user: {
-                id: data.id,
-                name: data.name,
-                email: data.email,
-                avatar: data.avatar,
+                id: dataUser.id,
+                name: dataUser.name,
+                email: dataUser.email,
+                avatar: dataUser.avatar,
+            },
+
+            user_artist: {
+                dataUserArtists,
+            },
+
+            user_albuns: {
+                dataUserAlbuns,
+            },
+
+            user_musics: {
+                dataUserMusics,
             },
         });
     },
