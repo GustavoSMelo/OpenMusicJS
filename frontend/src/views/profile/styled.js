@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.main`
     background-color: #303030;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,6 +29,10 @@ export const Container = styled.main`
 
     span {
         margin-top: 30px;
+    }
+
+    section {
+        margin-bottom: 30px;
     }
 
     .btnEdit {
@@ -70,6 +73,15 @@ export const Container = styled.main`
         background-color: #ff6d6d;
         color: #303030;
         box-shadow: 1px 1px 1px #ff6d6d;
+    }
+
+    .ErrorBox {
+        width: 100%;
+        background-color: #ff6d6d;
+        color: #ff3624;
+        text-align: center;
+        padding: 20px;
+        border-radius: 5px;
     }
 
     @media screen and (max-width: 440px) {
