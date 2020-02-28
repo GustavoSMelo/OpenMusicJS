@@ -65,7 +65,7 @@ export const Container = styled.main`
         transition: 0.3s;
     }
 
-    li > span > .like {
+    .needlike {
         background-color: #ffffff00;
         border: none;
         width: 25%;
@@ -74,7 +74,21 @@ export const Container = styled.main`
         transition: 0.5s;
     }
 
-    li > span > .like:hover {
+    .liked {
+        border: none;
+        width: 25%;
+        cursor: pointer;
+        font-size: 20pt;
+        transition: 0.5s;
+        color: #c200ff;
+    }
+
+    .liked:hover {
+        color: #000;
+        transition: 0.5s;
+    }
+
+    .needlike:hover {
         color: #c200ff;
         transition: 0.5s;
     }
