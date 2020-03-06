@@ -6,6 +6,7 @@ import { FaThumbsUp, FaHeadphones } from 'react-icons/fa';
 import Footer from '../../components/footer';
 import { Link } from 'react-router-dom';
 import Player from '../../components/player';
+import api from '../../api';
 
 function Home() {
     const [info, setInfo] = useState('');
@@ -16,7 +17,7 @@ function Home() {
     useEffect(() => {
         async function getDataByAPI() {
             const data = await authToken('/musics');
-            console.log(data);
+            //console.log(data);
 
             if (!data) {
                 return setInfo(null);
@@ -26,7 +27,7 @@ function Home() {
         }
 
         getDataByAPI();
-    }, []);
+    }, [likesUser]);
 
     async function ListenMusic(musicpath) {
         await setHaveMusic(false);
@@ -34,8 +35,38 @@ function Home() {
         return await setHaveMusic(true);
     }
 
+    async function handlerLikeMusic(music) {
+        try {
+            const newinfos = await api.post('/users/musics', music, {
+                headers: {
+                    authorization: localStorage.getItem('token'),
+                    music,
+                },
+            });
+
+            return console.log(newinfos);
+        } catch (err) {
+            return console.error({ Error: err });
+        }
+    }
+
+    async function handlerRemoveLikeMusic(music) {
+        try {
+            const response = await api.delete('/users/musics', {
+                headers: {
+                    authorization: localStorage.getItem('token'),
+                    music,
+                },
+            });
+
+            //console.log(response);
+        } catch (err) {
+            console.error({ Error: err });
+        }
+    }
+
     function LayoutLogged() {
-        info.map(item => console.log(item));
+        //info.map(item => console.log(item));
         return (
             <>
                 <Navbar />
@@ -63,29 +94,52 @@ function Home() {
                                             <FaHeadphones /> Listen
                                         </button>
 
-                                        {likesUser.map(like => {
-                                            if (like.music === item.id) {
-                                                return (
-                                                    <button
-                                                        key={like.id}
-                                                        className="liked"
-                                                        type="button"
-                                                    >
-                                                        <FaThumbsUp />
-                                                    </button>
-                                                );
-                                            } else {
-                                                return (
-                                                    <button
-                                                        key={like.id}
-                                                        className="needlike"
-                                                        type="button"
-                                                    >
-                                                        <FaThumbsUp />
-                                                    </button>
-                                                );
-                                            }
-                                        })}
+                                        {likesUser.length >= 1 ? (
+                                            likesUser.map(like => {
+                                                if (like.music === item.id) {
+                                                    return (
+                                                        <button
+                                                            key={like.id}
+                                                            className="liked"
+                                                            type="button"
+                                                            onClick={() =>
+                                                                handlerRemoveLikeMusic(
+                                                                    like.music
+                                                                )
+                                                            }
+                                                        >
+                                                            <FaThumbsUp />
+                                                        </button>
+                                                    );
+                                                } else {
+                                                    return (
+                                                        <button
+                                                            key={item.id}
+                                                            className="needlike"
+                                                            type="button"
+                                                            onClick={() =>
+                                                                handlerLikeMusic(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                        >
+                                                            <FaThumbsUp />
+                                                        </button>
+                                                    );
+                                                }
+                                            })
+                                        ) : (
+                                            <button
+                                                key={item.id}
+                                                className="needlike"
+                                                type="button"
+                                                onClick={() =>
+                                                    handlerLikeMusic(item.id)
+                                                }
+                                            >
+                                                <FaThumbsUp />
+                                            </button>
+                                        )}
                                     </span>
                                 </li>
                             ))
