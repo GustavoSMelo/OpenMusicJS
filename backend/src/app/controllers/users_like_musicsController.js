@@ -8,7 +8,7 @@ module.exports = {
 
         const { id: user } = await authMethod(authHeader);
 
-        const { music } = req.body;
+        const { music } = req.headers;
 
         if (!music) {
             return res
@@ -65,10 +65,9 @@ module.exports = {
 
     async destroy(req, res) {
         const authHeader = req.headers.authorization;
+        const { music } = req.headers;
 
         const { id: user } = await authMethod(authHeader);
-
-        const { music } = req.body;
 
         const musicExists = await Musics.findOne({ where: { id: music } });
 
