@@ -17,7 +17,6 @@ function Home() {
     useEffect(() => {
         async function getDataByAPI() {
             const data = await authToken('/musics');
-            //console.log(data);
 
             if (!data) {
                 return setInfo(null);
@@ -43,8 +42,6 @@ function Home() {
                     music,
                 },
             });
-
-            return console.log(newinfos);
         } catch (err) {
             return console.error({ Error: err });
         }
@@ -58,15 +55,53 @@ function Home() {
                     music,
                 },
             });
-
-            //console.log(response);
         } catch (err) {
             console.error({ Error: err });
         }
     }
 
+    function renderButtonLike(id) {
+        if (likesUser.length >= 1) {
+            likesUser.map(like => {
+                if (like.music === id) {
+                    return (
+                        <button
+                            key={like.id}
+                            className="liked"
+                            type="button"
+                            onClick={() => handlerRemoveLikeMusic(like.music)}
+                        >
+                            <FaThumbsUp />
+                        </button>
+                    );
+                } else {
+                    return (
+                        <button
+                            key={like.id}
+                            className="needlike"
+                            type="button"
+                            onClick={() => handlerLikeMusic(like.music)}
+                        >
+                            <FaThumbsUp />
+                        </button>
+                    );
+                }
+            });
+        } else {
+            return (
+                <button
+                    key={id}
+                    className="needlike"
+                    type="button"
+                    onClick={() => handlerLikeMusic(id)}
+                >
+                    <FaThumbsUp />
+                </button>
+            );
+        }
+    }
+
     function LayoutLogged() {
-        //info.map(item => console.log(item));
         return (
             <>
                 <Navbar />
@@ -92,54 +127,10 @@ function Home() {
                                             } //Error = ListenMusic(item.path) //Success = () => ListenMusic(item.path)
                                         >
                                             <FaHeadphones /> Listen
+                                            {likesUser.map(item => {})}
                                         </button>
 
-                                        {likesUser.length >= 1 ? (
-                                            likesUser.map(like => {
-                                                if (like.music === item.id) {
-                                                    return (
-                                                        <button
-                                                            key={like.id}
-                                                            className="liked"
-                                                            type="button"
-                                                            onClick={() =>
-                                                                handlerRemoveLikeMusic(
-                                                                    like.music
-                                                                )
-                                                            }
-                                                        >
-                                                            <FaThumbsUp />
-                                                        </button>
-                                                    );
-                                                } else {
-                                                    return (
-                                                        <button
-                                                            key={item.id}
-                                                            className="needlike"
-                                                            type="button"
-                                                            onClick={() =>
-                                                                handlerLikeMusic(
-                                                                    item.id
-                                                                )
-                                                            }
-                                                        >
-                                                            <FaThumbsUp />
-                                                        </button>
-                                                    );
-                                                }
-                                            })
-                                        ) : (
-                                            <button
-                                                key={item.id}
-                                                className="needlike"
-                                                type="button"
-                                                onClick={() =>
-                                                    handlerLikeMusic(item.id)
-                                                }
-                                            >
-                                                <FaThumbsUp />
-                                            </button>
-                                        )}
+                                        {renderButtonLike(item.id)}
                                     </span>
                                 </li>
                             ))
