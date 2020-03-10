@@ -108,7 +108,8 @@ routes.get('/users/artists', authMiddleware, users_like_artists.index);
 routes.post('/users/artists', authMiddleware, users_like_artists.destroy);
 
 //method search
-routes.post('/search', SearchMethod);
+routes.post('/search', authMiddleware, SearchMethod.index);
+routes.get('/search', authMiddleware, SearchMethod.show);
 
 //routes of statistics
 routes.post('/statistic/music', authMiddleware, statistic_musics.store);
