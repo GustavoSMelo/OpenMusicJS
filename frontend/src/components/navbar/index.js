@@ -17,7 +17,7 @@ function Navbar() {
                 <Link className="link" to="/profile">
                     <FaUserAlt /> <span>Profile</span>
                 </Link>
-                <Link className="link" to="/">
+                <Link className="link" to="/search">
                     <FaSearch /> <span>Search</span>
                 </Link>
                 <Link className="link" to="/">
