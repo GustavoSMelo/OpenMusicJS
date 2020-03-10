@@ -3,7 +3,7 @@ import api from '../../api';
 import Navbar from '../../components/navbar/index';
 import DoLogin from '../../components/Layout/DoLogin';
 import { Container, ContainerError, ContainerAlbum } from './styled';
-import { FaSearch, FaChessBishop } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
 
 function Search() {
     const [Auth, setAuth] = useState('');
