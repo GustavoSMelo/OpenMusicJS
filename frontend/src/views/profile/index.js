@@ -11,6 +11,7 @@ import {
     FaBroom,
 } from 'react-icons/fa';
 import { Container } from './styled';
+import DoLogin from '../../components/Layout/DoLogin';
 
 function Profile() {
     const [user, setUser] = useState('');
@@ -41,15 +42,14 @@ function Profile() {
     }, []);
 
     function RenderWithUser() {
-        console.log(user);
-        console.log(UserAlbunsFavorites);
-        console.log(UserMusicsFavorites);
-        console.log(UserArtistsFavorites);
         return (
             <>
                 <Navbar />
                 <Container>
-                    <img src={`http://localhost:3333/img/${user.avatar}`} />
+                    <img
+                        src={`http://localhost:3333/img/${user.avatar}`}
+                        alt="avatar_profile"
+                    />
                     <h1>{user.name}</h1>
                     <h2>
                         {' '}
@@ -111,7 +111,7 @@ function Profile() {
     }
 
     function RenderWithOutUser() {
-        return <h1>Please, make login</h1>;
+        return <DoLogin />;
     }
 
     return <>{user ? RenderWithUser() : RenderWithOutUser()}</>;
