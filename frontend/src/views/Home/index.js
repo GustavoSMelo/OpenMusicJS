@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import authToken from '../../utils/authToken';
 import Navbar from '../../components/navbar';
-import { Container, ContainerNotLogged } from './styled';
+import { Container } from './styled';
 import { FaThumbsUp, FaHeadphones } from 'react-icons/fa';
 import Footer from '../../components/footer';
-import { Link } from 'react-router-dom';
 import Player from '../../components/player';
 import api from '../../api';
+import DoLogin from '../../components/Layout/DoLogin';
 
 function Home() {
     const [info, setInfo] = useState('');
@@ -148,14 +148,7 @@ function Home() {
     }
 
     function LayoutNotLogged() {
-        return (
-            <ContainerNotLogged>
-                <h1>To continue, please make login</h1>
-                <Link className="btnLogin" to="/login/user">
-                    Login
-                </Link>
-            </ContainerNotLogged>
-        );
+        return <DoLogin />;
     }
 
     return <>{info ? LayoutLogged() : LayoutNotLogged()}</>;
