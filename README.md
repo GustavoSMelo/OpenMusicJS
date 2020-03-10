@@ -2,6 +2,12 @@
 
 ## but if you want to run this project, to do this:
 
+### :clipboard: Things that you need to have:
+
+- MySQL
+- Node.JS
+- Yarn (recommend, but not needed)
+
 ### :file_folder: Backend:
 
 - open the backend folder in your terminal
