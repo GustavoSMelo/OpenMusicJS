@@ -5,7 +5,6 @@ export const Container = styled.main`
     color: #fff;
     display: flex;
     flex-direction: column;
-    height: 100vh;
     align-items: center;
 
     h1 {
@@ -43,7 +42,7 @@ export const Container = styled.main`
         transition: 0.5s;
     }
 
-    button:hover {
+    form > button:hover {
         transition: 0.5s;
         color: #c200ff;
     }
@@ -56,7 +55,16 @@ export const Container = styled.main`
     }
     ul {
         width: 100%;
-        display: flex;
+    }
+
+    @media screen and (max-width: 580px) {
+        form > input {
+            margin: 5px;
+        }
+
+        form > button {
+            margin: 5px;
+        }
     }
 `;
 
@@ -75,7 +83,7 @@ export const ContainerError = styled.section`
     margin: 10px;
 `;
 
-export const ContainerAlbum = styled.li`
+export const ContainerCard = styled.li`
     list-style-type: none;
     background-color: #fff;
     color: #000;
@@ -106,9 +114,32 @@ export const ContainerAlbum = styled.li`
         margin-right: 20px;
     }
 
-    @media screen and (max-width: 500px) {
+    button {
+        border: none;
+        width: 300px;
+        cursor: pointer;
+        font-size: 20pt;
+        transition: 0.5s;
+        margin: 5px;
+        border-radius: 5px;
+        color: #fff;
+        background: linear-gradient(to right, #c200ff, #5d15ff);
+    }
+
+    button:hover {
+        border: solid 1px #c200ff;
+        color: #c200ff;
+        background: #fff;
+        transition: 0.5s;
+    }
+
+    @media screen and (max-width: 780px) {
         display: flex;
         flex-direction: column;
         width: 100%;
+
+        button {
+            width: 100%;
+        }
     }
 `;
