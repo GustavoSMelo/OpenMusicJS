@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import api from '../../api';
 import Navbar from '../../components/navbar/index';
 import DoLogin from '../../components/Layout/DoLogin';
-import { Container, ContainerError, ContainerAlbum } from './styled';
+import { Container, ContainerError, ContainerCard } from './styled';
 import { FaSearch } from 'react-icons/fa';
+import Global from './global-style';
 
 function Search() {
     const [Auth, setAuth] = useState('');
@@ -58,6 +59,8 @@ function Search() {
             setArtists(info.data[1].Artists);
             setAlbuns(info.data[2].Albums);
             setUsers(info.data[3].Users);
+            setSearchString('');
+            setStatus4User(<></>);
         } catch (err) {
             return setStatus4User(
                 <ContainerError>{err.response.data.Error}</ContainerError>
@@ -88,7 +91,7 @@ function Search() {
                                 <ul>
                                     {Albuns.map(item => {
                                         return (
-                                            <ContainerAlbum key={item.id}>
+                                            <ContainerCard key={item.id}>
                                                 <figure>
                                                     <img
                                                         src={`http://localhost:3333/img/${item.banner}`}
@@ -109,7 +112,7 @@ function Search() {
                                                         </p>
                                                     }
                                                 </article>
-                                            </ContainerAlbum>
+                                            </ContainerCard>
                                         );
                                     })}
                                 </ul>
@@ -117,11 +120,95 @@ function Search() {
                         ) : (
                             <></>
                         )}
-                        {Artists.length >= 1 ? <h1>Artists</h1> : <></>}
-                        {Users.length >= 1 ? <h1>Users</h1> : <></>}
-                        {Musics.length >= 1 ? <h1>Musics</h1> : <></>}
+                        {Artists.length >= 1 ? (
+                            <>
+                                <h1>Artists</h1>
+
+                                <ul>
+                                    {Artists.map(item => (
+                                        <ContainerCard key={item.id}>
+                                            <figure>
+                                                {' '}
+                                                <img
+                                                    src={`http://localhost:3333/img/${item.avatar}`}
+                                                    alt="Avatar singer"
+                                                />
+                                            </figure>
+
+                                            <article>
+                                                <h1>{item.name_artistic}</h1>
+                                                <br />
+                                                <button type="button">
+                                                    Access profile
+                                                </button>
+                                                <br />
+                                                <button type="button">
+                                                    Like Artist
+                                                </button>
+                                            </article>
+                                        </ContainerCard>
+                                    ))}
+                                </ul>
+                            </>
+                        ) : (
+                            <></>
+                        )}
+                        {Users.length >= 1 ? (
+                            <>
+                                <h1>Users</h1>
+
+                                <ul>
+                                    {Users.map(item => (
+                                        <ContainerCard key={item.key}>
+                                            <figure>
+                                                <img
+                                                    src={`http://localhost:3333/img/${item.avatar}`}
+                                                    alt="Avatar user"
+                                                />
+                                            </figure>
+
+                                            <article>
+                                                <span>Name: </span> {item.name}
+                                                <br />
+                                                <button>Access profile</button>
+                                            </article>
+                                        </ContainerCard>
+                                    ))}
+                                </ul>
+                            </>
+                        ) : (
+                            <></>
+                        )}
+                        {Musics.length >= 1 ? (
+                            <>
+                                <h1>Musics</h1>
+
+                                <ul>
+                                    {Musics.map(item => (
+                                        <ContainerCard key={item.id}>
+                                            <figure>
+                                                <img
+                                                    src={`http://localhost:3333/img/${item.banner_path}`}
+                                                    alt="banner of music"
+                                                />
+                                            </figure>
+                                            <article>
+                                                <span>Nome: </span>
+                                                {item.name}
+                                                <br />
+                                                <button>Like music</button>
+                                                <button>Play music</button>
+                                            </article>
+                                        </ContainerCard>
+                                    ))}
+                                </ul>
+                            </>
+                        ) : (
+                            <></>
+                        )}
                     </section>
                 </Container>
+                <Global />
             </>
         );
     }
