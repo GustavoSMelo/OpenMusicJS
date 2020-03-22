@@ -12,13 +12,13 @@ export const Container = styled.main`
         font-weight: bold;
     }
 
-    form {
+    .form {
         border-bottom: solid 2px #272727;
         width: 100%;
         margin-bottom: 30px;
     }
 
-    form > input {
+    .form > input {
         margin: 50px;
         padding: 15px;
         width: 75%;
@@ -31,7 +31,7 @@ export const Container = styled.main`
         box-shadow: 1px 1px 2px #707070;
     }
 
-    form > button {
+    .form > button {
         background-color: #303030;
         width: 10%;
         padding: 20px;
@@ -42,7 +42,7 @@ export const Container = styled.main`
         transition: 0.5s;
     }
 
-    form > button:hover {
+    .form > button:hover {
         transition: 0.5s;
         color: #c200ff;
     }
@@ -58,11 +58,11 @@ export const Container = styled.main`
     }
 
     @media screen and (max-width: 580px) {
-        form > input {
+        .form > input {
             margin: 5px;
         }
 
-        form > button {
+        .form > button {
             margin: 5px;
         }
     }
@@ -114,7 +114,8 @@ export const ContainerCard = styled.li`
         margin-right: 20px;
     }
 
-    button {
+    button,
+    .link {
         border: none;
         width: 300px;
         cursor: pointer;
@@ -126,7 +127,8 @@ export const ContainerCard = styled.li`
         background: linear-gradient(to right, #c200ff, #5d15ff);
     }
 
-    button:hover {
+    button:hover,
+    .link:hover {
         border: solid 1px #c200ff;
         color: #c200ff;
         background: #fff;
@@ -138,7 +140,8 @@ export const ContainerCard = styled.li`
         flex-direction: column;
         width: 100%;
 
-        button {
+        button,
+        .link {
             width: 100%;
         }
     }
