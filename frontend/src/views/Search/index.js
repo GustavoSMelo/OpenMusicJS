@@ -6,6 +6,7 @@ import { Container, ContainerError, ContainerCard } from './styled';
 import { FaSearch } from 'react-icons/fa';
 import Global from './global-style';
 import MP3player from '../../components/player';
+import { Link } from 'react-router-dom';
 
 function Search() {
     const [Auth, setAuth] = useState('');
@@ -15,6 +16,7 @@ function Search() {
     const [Albuns, setAlbuns] = useState([]);
     const [searchString, setSearchString] = useState('');
     const [Status4User, setStatus4User] = useState('');
+    const [musicPath, setMusicPath] = useState('');
     useEffect(() => {
         try {
             async function getTokenAPI() {
@@ -62,6 +64,7 @@ function Search() {
             setUsers(info.data[3].Users);
             setSearchString('');
             setStatus4User(<></>);
+            console.log(info);
         } catch (err) {
             return setStatus4User(
                 <ContainerError>{err.response.data.Error}</ContainerError>
@@ -70,7 +73,7 @@ function Search() {
     }
 
     function PlayMusic(music) {
-        return <MP3player musicpath={music.target.value} />;
+        setMusicPath(music);
     }
 
     function Layout() {
@@ -78,7 +81,7 @@ function Search() {
             <>
                 <Navbar />
                 <Container>
-                    <form>
+                    <article className="form">
                         <input
                             placeholder="Insert a name of artist, music, album and etc."
                             onChange={e => setSearchString(e.target.value)}
@@ -87,7 +90,7 @@ function Search() {
                         <button type="button" onClick={SearchMethod}>
                             <FaSearch />
                         </button>
-                    </form>
+                    </article>
                     {Status4User}
                     <section>
                         {Albuns.length >= 1 ? (
@@ -143,9 +146,18 @@ function Search() {
                                             <article>
                                                 <h1>{item.name_artistic}</h1>
                                                 <br />
-                                                <button type="button">
+                                                <Link
+                                                    to={{
+                                                        pathname:
+                                                            '/artist/profile/public',
+                                                        state: {
+                                                            idArtist: item.id,
+                                                        },
+                                                    }}
+                                                    className="link"
+                                                >
                                                     Access profile
-                                                </button>
+                                                </Link>
                                                 <br />
                                                 <button type="button">
                                                     Like Artist
@@ -203,7 +215,9 @@ function Search() {
                                                 <br />
                                                 <button>Like music</button>
                                                 <button
-                                                    onClick={() => PlayMusic()}
+                                                    onClick={() =>
+                                                        PlayMusic(item.path)
+                                                    }
                                                 >
                                                     Play music
                                                 </button>
@@ -216,6 +230,7 @@ function Search() {
                             <></>
                         )}
                     </section>
+                    {musicPath ? <MP3player musicpath={musicPath} /> : <></>}
                 </Container>
                 <Global />
             </>
