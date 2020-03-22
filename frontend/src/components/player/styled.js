@@ -9,4 +9,5 @@ export const MP3Player = styled.audio`
     width: 100%;
     padding: 20px;
     position: fixed;
+    top: 92%;
 `;
