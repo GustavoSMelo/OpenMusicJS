@@ -1,6 +1,7 @@
 const artist = require('../models/artist');
 const bcrypt = require('bcryptjs');
 const authMethod = require('../../utils/authMethod');
+const musics = require('../models/music');
 
 module.exports = {
     async store(req, res) {
@@ -111,5 +112,41 @@ module.exports = {
         );
 
         return res.json({ message: 'Artist updated with success! ' });
+    },
+
+    async show(req, res) {
+        const { idArtist: id } = req.body;
+        console.log(id);
+
+        const info = await artist.findOne({
+            where: {
+                id,
+            },
+        });
+
+        if (!info) {
+            return res.json({
+                Error: 'Sorry, but this artist doesnt exists! :(',
+            });
+        }
+
+        const musicsOfArtists = await musics.findOne({
+            where: {
+                singer: id,
+            },
+        });
+
+        return res.json({
+            Artist: {
+                name: info.name,
+                name_artistic: info.name_artistic,
+                avatar: info.avatar,
+                id: info.id,
+            },
+
+            Musics: {
+                musicsOfArtists,
+            },
+        });
     },
 };
