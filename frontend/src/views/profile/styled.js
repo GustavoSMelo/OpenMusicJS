@@ -61,6 +61,25 @@ export const Container = styled.main`
         transition: 0.3s;
     }
 
+    .btnExit {
+        border-radius: 30px;
+        border: solid 3px #fff;
+        background-color: #303030;
+        color: #fff;
+        width: 120px;
+        margin: 10px;
+        cursor: pointer;
+        padding: 15px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .btnExit:hover {
+        background-color: #fff;
+        border: solid 3px #303030;
+        color: #303030;
+        transition: 0.3s;
+    }
+
     .btnEdit:hover {
         transition: 0.3s;
         background-color: #ffd53d;
