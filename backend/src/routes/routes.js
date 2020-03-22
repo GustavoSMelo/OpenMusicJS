@@ -45,6 +45,7 @@ routes.put(
     upload.single('avatar'),
     ArtistController.update
 );
+routes.post('/artist/info', authMiddleware, ArtistController.show);
 routes.post('/login/artist', ArtSessionController.store);
 
 //routes of musics
