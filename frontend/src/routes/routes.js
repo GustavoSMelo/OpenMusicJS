@@ -10,6 +10,7 @@ import SignArtist from '../views/SignArtist';
 import Home from '../views/Home';
 import Profile from '../views/profile';
 import Search from '../views/Search';
+import ArtistProfile4Public from '../views/ArtistProfile4Public';
 
 function Routes() {
     return (
@@ -25,6 +26,16 @@ function Routes() {
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/search" component={Search} />
+                <Route
+                    exact
+                    path="/artist/profile/public"
+                    render={props => (
+                        <ArtistProfile4Public
+                            idArtist={props.location.state.idArtist}
+                            {...props}
+                        />
+                    )}
+                />
             </Switch>
         </BrowserRouter>
     );
