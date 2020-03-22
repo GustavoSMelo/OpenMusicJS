@@ -9,6 +9,7 @@ import {
     FaFolderOpen,
     FaMusic,
     FaBroom,
+    FaDoorOpen,
 } from 'react-icons/fa';
 import { Container } from './styled';
 import DoLogin from '../../components/Layout/DoLogin';
@@ -41,6 +42,11 @@ function Profile() {
         getApiData();
     }, []);
 
+    function HandlerUserExit() {
+        localStorage.setItem('token', '');
+        document.location = 'http://localhost:3000/';
+    }
+
     function RenderWithUser() {
         return (
             <>
@@ -62,6 +68,12 @@ function Profile() {
                         </button>
                         <button className="btnDelete">
                             <FaTrash /> Delete
+                        </button>
+                        <button
+                            className="btnExit"
+                            onClick={() => HandlerUserExit()}
+                        >
+                            <FaDoorOpen /> Exit
                         </button>
                     </span>
 
