@@ -21,7 +21,9 @@ function LoginUser() {
         return result;
     }
 
-    async function onButtonClick() {
+    async function onButtonClick(e) {
+        e.preventDefault();
+
         try {
             const response = await api.post('/login/user', { email, pass });
 
@@ -46,7 +48,7 @@ function LoginUser() {
     return (
         <Container img={background}>
             {returnResultStatus4User()}
-            <article>
+            <form>
                 <h1>Login for users</h1>
                 <input
                     placeholder="insert your email here"
@@ -58,10 +60,10 @@ function LoginUser() {
                     onChange={handlerPassChange}
                     type="password"
                 />
-                <button type="button" onClick={onButtonClick}>
+                <button type="button" onClick={e => onButtonClick(e)}>
                     <FaCheck /> Login
                 </button>
-            </article>
+            </form>
         </Container>
     );
 }
