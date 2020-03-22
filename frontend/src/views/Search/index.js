@@ -5,6 +5,7 @@ import DoLogin from '../../components/Layout/DoLogin';
 import { Container, ContainerError, ContainerCard } from './styled';
 import { FaSearch } from 'react-icons/fa';
 import Global from './global-style';
+import MP3player from '../../components/player';
 
 function Search() {
     const [Auth, setAuth] = useState('');
@@ -66,6 +67,10 @@ function Search() {
                 <ContainerError>{err.response.data.Error}</ContainerError>
             );
         }
+    }
+
+    function PlayMusic(music) {
+        return <MP3player musicpath={music.target.value} />;
     }
 
     function Layout() {
@@ -197,7 +202,11 @@ function Search() {
                                                 {item.name}
                                                 <br />
                                                 <button>Like music</button>
-                                                <button>Play music</button>
+                                                <button
+                                                    onClick={() => PlayMusic()}
+                                                >
+                                                    Play music
+                                                </button>
                                             </article>
                                         </ContainerCard>
                                     ))}
