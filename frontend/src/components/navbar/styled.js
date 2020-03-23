@@ -33,5 +33,9 @@ export const Container = styled.header`
         span {
             display: none;
         }
+
+        .link {
+            margin: none;
+        }
     }
 `;
