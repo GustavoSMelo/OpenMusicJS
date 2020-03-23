@@ -3,12 +3,13 @@ import api from '../../api';
 import Navbar from '../../components/navbar';
 import DoLogin from '../../components/Layout/DoLogin';
 import Global from './global';
-import Footer from '../../components/footer';
-import { Container } from './style';
-import { FaHeart } from 'react-icons/fa';
+import { Container, ContainerError } from './style';
+import { FaHeart, FaHeadphones } from 'react-icons/fa';
+import MP3Player from '../../components/player';
 
 function ArtistProfile4Public(props) {
     const [haveInfo, setHaveInfo] = useState([]);
+    const [PathMusic, setPathMusic] = useState('');
     useEffect(() => {
         async function getAPIInfo() {
             try {
@@ -32,6 +33,11 @@ function ArtistProfile4Public(props) {
         getAPIInfo();
     }, []);
 
+    async function playMusic(music) {
+        await setPathMusic(null);
+        await setPathMusic(music);
+    }
+
     function layout() {
         if (haveInfo.length <= 0 || !haveInfo) {
             return <DoLogin />;
@@ -44,6 +50,7 @@ function ArtistProfile4Public(props) {
                             <figure>
                                 <img
                                     src={`http://localhost:3333/img/${haveInfo.Artist.avatar}`}
+                                    alt="avatar artist"
                                 />
                             </figure>
                             <h1>
@@ -60,16 +67,41 @@ function ArtistProfile4Public(props) {
                         </section>
                         <section className="artistMusic">
                             <h1>Musics</h1>
-                            {haveInfo.Musics.musicOfArtist ? (
-                                <h1>Ok</h1>
+                            {haveInfo.Musics.musicsOfArtists.length >= 1 ? (
+                                haveInfo.Musics.musicsOfArtists.map(item => (
+                                    <article key={item.id}>
+                                        <figure>
+                                            <img
+                                                src={`http://localhost:3333/img/${item.banner_path}`}
+                                                alt="music banner"
+                                            />
+                                        </figure>
+                                        <section>
+                                            <h1>{item.name}</h1>
+                                            <h2>{item.genre}</h2>
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    playMusic(item.path)
+                                                }
+                                            >
+                                                {' '}
+                                                <FaHeadphones /> Listen
+                                            </button>
+                                        </section>
+                                    </article>
+                                ))
                             ) : (
-                                <h1>
-                                    This artist doesn't upload any music yet
-                                </h1>
+                                <ContainerError>
+                                    <h1>
+                                        This artist doesn't upload any music yet
+                                    </h1>
+                                </ContainerError>
                             )}
                         </section>
                     </Container>
                     <Global />
+                    {PathMusic ? <MP3Player musicpath={PathMusic} /> : <></>}
                 </>
             );
         }
