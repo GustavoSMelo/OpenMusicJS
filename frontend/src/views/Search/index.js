@@ -47,29 +47,68 @@ function Search() {
             );
         }
 
-        try {
-            const info = await api.post(
-                '/search',
-                { searchString },
-                {
-                    headers: {
-                        Authorization: localStorage.getItem('token'),
-                    },
-                }
-            );
+        const info = await api.post(
+            '/search',
+            { searchString },
+            {
+                headers: {
+                    Authorization: localStorage.getItem('token'),
+                },
+            }
+        );
 
+        console.log(info);
+        console.log(`Posição 0: ${info.data[0]}`);
+        console.log(`Posição 1: ${info.data[1]}`);
+        console.log(`Posição 2: ${info.data[2]}`);
+        console.log(`Posição 3: ${info.data[3]}`);
+
+        /*if (!info || info.data.length <= 0);
+            {
+                ErrorEvent();
+            }*/
+
+        let controlData = 0;
+
+        if (info.data[0].Musics.length <= 0) {
+            setMusics([]);
+            controlData++;
+        } else {
             setMusics(info.data[0].Musics);
-            setArtists(info.data[1].Artists);
-            setAlbuns(info.data[2].Albums);
-            setUsers(info.data[3].Users);
-            setSearchString('');
-            setStatus4User(<></>);
-            console.log(info);
-        } catch (err) {
-            return setStatus4User(
-                <ContainerError>{err.response.data.Error}</ContainerError>
-            );
         }
+
+        if (info.data[1].Artists.length <= 0) {
+            setArtists([]);
+            controlData++;
+        } else {
+            setArtists(info.data[1].Artists);
+        }
+
+        if (info.data[2].Albums.length <= 0) {
+            setAlbuns([]);
+            controlData++;
+        } else {
+            setAlbuns(info.data[2].Albums);
+        }
+
+        if (info.data[3].Users.length <= 0) {
+            setUsers([]);
+            controlData++;
+        } else {
+            setUsers(info.data[3].Users);
+        }
+
+        if (controlData === 4) {
+            console.log(controlData);
+            setStatus4User(
+                <ContainerError>
+                    Any artist, music, album or user is finded :({' '}
+                </ContainerError>
+            );
+        } else {
+            setStatus4User(<></>);
+        }
+        setSearchString('');
     }
 
     function PlayMusic(music) {
@@ -77,6 +116,11 @@ function Search() {
     }
 
     function Layout() {
+        console.log(Albuns);
+        console.log(Musics);
+        console.log(Artists);
+        console.log(Users);
+        console.log(' ');
         return (
             <>
                 <Navbar />
