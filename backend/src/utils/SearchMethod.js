@@ -26,9 +26,7 @@ module.exports = {
             },
         });
 
-        if (SearchMusic.length >= 1) {
-            info.push({ Musics: SearchMusic });
-        }
+        info.push({ Musics: SearchMusic });
 
         const SearchArtists = await artist.findAll({
             where: {
@@ -38,9 +36,7 @@ module.exports = {
             },
         });
 
-        if (SearchArtists.length >= 1) {
-            info.push({ Artists: SearchArtists });
-        }
+        info.push({ Artists: SearchArtists });
 
         const SearchAlbum = await album.findAll({
             where: {
@@ -50,9 +46,7 @@ module.exports = {
             },
         });
 
-        if (SearchAlbum.length >= 1) {
-            info.push({ Albums: SearchAlbum });
-        }
+        info.push({ Albums: SearchAlbum });
 
         const SearchUsers = await user.findAll({
             where: {
@@ -62,9 +56,7 @@ module.exports = {
             },
         });
 
-        if (SearchUsers.length >= 1) {
-            info.push({ Users: SearchUsers });
-        }
+        info.push({ Users: SearchUsers });
 
         if (!info || info.length <= 0) {
             return res
