@@ -130,7 +130,7 @@ module.exports = {
             });
         }
 
-        const musicsOfArtists = await musics.findOne({
+        const musicsOfArtists = await musics.findAll({
             where: {
                 singer: id,
             },
