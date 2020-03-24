@@ -82,13 +82,18 @@ module.exports = {
 
         const infoToken = await authMethod(authHeader);
 
-        const { name, newemail = infoToken.email, pass, oldpass } = req.body;
-
         const oldDataUser = await user.findOne({
             where: {
                 email: infoToken.email,
             },
         });
+
+        const {
+            name = oldDataUser.name,
+            newemail = infoToken.email,
+            pass,
+            oldpass,
+        } = req.body;
 
         const img = req.file;
         let avatar = '';
@@ -99,18 +104,30 @@ module.exports = {
             avatar = img.filename;
         }
 
-        const passwordold = await bcrypt.compare(oldpass, oldDataUser.password);
+        if (!pass) {
+            await user.update(
+                { name, email: newemail, avatar },
+                { where: { email: infoToken.email }, limit: 1 }
+            );
+        } else {
+            const passwordold = await bcrypt.compare(
+                oldpass,
+                oldDataUser.password
+            );
 
-        if (!passwordold) {
-            return res.status(401).json({ Error: 'Old password is invalid' });
+            if (!passwordold) {
+                return res
+                    .status(401)
+                    .json({ Error: 'Old password is invalid' });
+            }
+
+            const password = await bcrypt.hash(pass, 10);
+
+            await user.update(
+                { name, email: newemail, password, avatar },
+                { where: { email: infoToken.email }, limit: 1 }
+            );
         }
-
-        const password = await bcrypt.hash(pass, 10);
-
-        await user.update(
-            { name, email: newemail, password, avatar },
-            { where: { email: infoToken.email }, limit: 1 }
-        );
 
         return res.json({ message: 'User updated with success! ' });
     },
