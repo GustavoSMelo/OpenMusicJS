@@ -11,6 +11,7 @@ import Home from '../views/Home';
 import Profile from '../views/profile';
 import Search from '../views/Search';
 import ArtistProfile4Public from '../views/ArtistProfile4Public';
+import ChangeInfoUser from '../views/ChangeInfoUser';
 
 function Routes() {
     return (
@@ -33,6 +34,19 @@ function Routes() {
                         <ArtistProfile4Public
                             idArtist={props.location.state.idArtist}
                             {...props}
+                        />
+                    )}
+                />
+                <Route
+                    exact
+                    path="/edit/profile"
+                    render={props => (
+                        <ChangeInfoUser
+                            {...props}
+                            oldNameUser={props.location.state.oldNameUser}
+                            oldEmailUser={props.location.state.oldEmailUser}
+                            oldAvatarUser={props.location.state.oldAvatarUser}
+                            idUser={props.location.state.idUser}
                         />
                     )}
                 />
