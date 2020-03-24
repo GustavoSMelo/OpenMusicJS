@@ -46,6 +46,7 @@ export const Container = styled.main`
         padding: 15px;
         font-weight: bold;
         transition: 0.3s;
+        text-decoration: none;
     }
 
     .btnDelete {
