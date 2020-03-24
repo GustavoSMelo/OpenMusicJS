@@ -61,18 +61,44 @@ module.exports = {
 
         const infoToken = await authMethod(authHeader);
 
-        const deleted = await user.destroy({
+        const { pass } = req.headers;
+
+        const userInfo = await user.findOne({
+            where: {
+                id: infoToken.id,
+            },
+        });
+
+        const confirm = await bcrypt.compare(pass, userInfo.password);
+
+        if (!confirm) {
+            return res.status(400).json({ Error: 'Password doesnt match ' });
+        }
+
+        await users_like_albuns.destroy({
+            where: {
+                user: infoToken.id,
+            },
+        });
+
+        await users_like_musics.destroy({
+            where: {
+                user: infoToken.id,
+            },
+        });
+
+        await users_like_artists.destroy({
+            where: {
+                user: infoToken.id,
+            },
+        });
+
+        await user.destroy({
             where: {
                 id: infoToken.id,
             },
             limit: 1,
         });
-
-        if (!deleted) {
-            return res
-                .status(401)
-                .json({ Error: 'Token expires!, please, do login again ' });
-        }
 
         return res.json({ message: 'User deleted with success! ' });
     },
