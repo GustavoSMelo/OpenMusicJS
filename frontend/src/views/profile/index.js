@@ -13,6 +13,7 @@ import {
 } from 'react-icons/fa';
 import { Container } from './styled';
 import DoLogin from '../../components/Layout/DoLogin';
+import { Link } from 'react-router-dom';
 
 function Profile() {
     const [user, setUser] = useState('');
@@ -63,9 +64,20 @@ function Profile() {
                     </h2>
 
                     <span>
-                        <button className="btnEdit">
+                        <Link
+                            to={{
+                                pathname: '/edit/profile',
+                                state: {
+                                    oldNameUser: user.name,
+                                    oldEmailUser: user.email,
+                                    oldAvatarUser: user.avatar,
+                                    idUser: user.id,
+                                },
+                            }}
+                            className="btnEdit"
+                        >
                             <FaPen /> Edit
-                        </button>
+                        </Link>
                         <button className="btnDelete">
                             <FaTrash /> Delete
                         </button>
