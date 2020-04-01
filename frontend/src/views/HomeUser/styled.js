@@ -1,115 +1,117 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const animationHeart = keyframes`
+    0%{
+        transform: translate(0px, 0px);
+    }50%{
+        transform: translate(0px, -10px);
+    }
+    100%{
+        transform: translate(0px, 0px);
+    }
+`;
 
 export const Container = styled.main`
-    display: flex;
-    background-color: #202020;
-    flex-direction: column;
-    padding: 50px;
-    color: #fff;
+    padding: 30px;
 
     ul {
-        margin: 15px;
-        display: flex;
-        width: 50%;
-        height: 75%;
-        color: #000;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        list-style-type: none;
+        margin-left: 10px;
+        margin-right: 10px;
+        grid-gap: 10px;
     }
 
     li {
-        background-color: #fff;
-        display: flex;
-        flex-direction: column;
-        font-weight: bold;
-        font-size: 16pt;
-        margin: 2%;
-        width: 50%;
-        list-style-type: none;
+        text-align: center;
         border-radius: 5px;
-        box-shadow: 2px 2px 4px #101010;
-        height: 440px;
-    }
-
-    li > p {
-        padding: 10px;
-    }
-
-    li > img {
-        width: 100%;
-        height: 100%;
-        background-color: #7159ac;
-        background-size: cover;
+        width: 400px;
+        box-shadow: 1px 1px 3px #303030;
     }
 
     li > span {
-        display: flex;
-        width: 100%;
-        justify-content: space-around;
-        flex-direction: row;
         padding: 10px;
     }
 
-    li > span > .listen {
-        width: 55%;
-        padding: 15px;
-        cursor: pointer;
+    li > h1 {
+        text-transform: capitalize;
+    }
+
+    li > h2 {
+        color: #606060;
+        text-transform: capitalize;
+    }
+
+    li > figure > img {
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        width: 400px;
+    }
+    li > button {
         background-color: #c200ff;
         border: none;
-        border-radius: 5px;
-        font-weight: bold;
+        padding: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-bottom: 30px;
+        margin-left: 30px;
         color: #fff;
+        font-size: 12pt;
+        font-weight: bold;
         transition: 0.3s;
     }
 
-    li > span > .listen:hover {
-        background-color: #e054ff;
+    li > button:hover {
         transition: 0.3s;
     }
 
-    .needlike {
-        background-color: #ffffff00;
-        border: none;
-        width: 25%;
-        cursor: pointer;
+    li > .liked {
+        background-color: #00000000;
+        color: #e82a10;
+        font-size: 24pt;
+        transition: 0.35s;
+    }
+
+    li > .liked:hover {
+        color: #ffa1a1;
         font-size: 20pt;
-        transition: 0.5s;
+        transition: 0.35s;
     }
 
-    .liked {
-        border: none;
-        width: 25%;
-        cursor: pointer;
-        font-size: 20pt;
-        transition: 0.5s;
-        color: #c200ff;
+    li > .notLiked {
+        background-color: #00000000;
+        color: #909090;
+        font-size: 24pt;
+        transition: 0.3s;
     }
 
-    .liked:hover {
-        color: #000;
-        transition: 0.5s;
+    li > .notLiked:hover {
+        animation: ${animationHeart} infinite 1s;
+        color: #ffa1a1;
+        transition: 0.3s;
     }
 
-    .needlike:hover {
-        color: #c200ff;
-        transition: 0.5s;
-    }
-
-    @media screen and (max-width: 970px) {
-        align-items: center;
-        justify-content: center;
-
+    @media screen and (max-width: 1300px) {
         ul {
-            width: 100%;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 860px) {
+        ul {
+            display: flex;
+            align-items: center;
             flex-direction: column;
         }
 
         li {
-            width: 75%;
-            height: 100%;
+            box-shadow: 0px 0px 0px;
+            margin-top: 30px;
+            width: 90%;
         }
-    }
 
-    @media screen and (max-width: 560px) {
-        li {
+        li > figure > img {
             width: 100%;
         }
     }
