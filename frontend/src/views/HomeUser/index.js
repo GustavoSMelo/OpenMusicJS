@@ -1,157 +1,146 @@
 import React, { useEffect, useState } from 'react';
-import authToken from '../../utils/authToken';
-import Navbar from '../../components/navbar';
 import { Container } from './styled';
-import { FaThumbsUp, FaHeadphones } from 'react-icons/fa';
-import Footer from '../../components/footer';
-import Player from '../../components/player';
+import Navbar from '../../components/navbar';
+import MP3Player from '../../components/player';
 import api from '../../api';
 import DoLogin from '../../components/Layout/DoLogin';
+import { FaHeadphonesAlt, FaHeart, FaRegHeart } from 'react-icons/fa';
+import rnd from '../../utils/randomUniqueKey';
 
-function Home() {
-    const [info, setInfo] = useState('');
-    const [haveMusic, setHaveMusic] = useState(false);
-    const [MusicName, setMusicName] = useState('');
-    const [likesUser, setLikesUser] = useState([]);
+function HomeUser() {
+    const [musics, setMusics] = useState([]);
+    const [likes, setLikes] = useState([]);
+    const [UserOkay, setUserOkay] = useState(false);
+    const [LoadMusic, setLoadMusic] = useState('');
+    async function getDatabyAPI() {
+        try {
+            const response = await api.get('/musics', {
+                headers: {
+                    Authorization: localStorage.getItem('token'),
+                },
+            });
+
+            await setMusics(response.data.allmusics);
+            await setLikes(response.data.likes_of_user);
+            await setUserOkay(true);
+        } catch (err) {
+            return await setUserOkay(false);
+        }
+    }
 
     useEffect(() => {
-        async function getDataByAPI() {
-            const data = await authToken('/musics');
+        getDatabyAPI();
+    }, [likes]);
 
-            if (!data) {
-                return setInfo(null);
-            }
-            setInfo(data.data.allmusics);
-            setLikesUser(data.data.likes_of_user);
-        }
-
-        getDataByAPI();
-    }, [likesUser]);
-
-    async function ListenMusic(musicpath) {
-        await setHaveMusic(false);
-        await setMusicName(musicpath);
-        return await setHaveMusic(true);
+    async function ReturnMP3Player(music) {
+        await setLoadMusic('');
+        return await setLoadMusic(music);
     }
 
-    async function handlerLikeMusic(music) {
+    async function handlerAddLike(music) {
         try {
-            const newinfos = await api.post('/users/musics', music, {
-                headers: {
-                    authorization: localStorage.getItem('token'),
-                    music,
-                },
-            });
-        } catch (err) {
-            return console.error({ Error: err });
-        }
-    }
-
-    async function handlerRemoveLikeMusic(music) {
-        try {
-            const response = await api.delete('/users/musics', {
-                headers: {
-                    authorization: localStorage.getItem('token'),
-                    music,
-                },
-            });
-        } catch (err) {
-            console.error({ Error: err });
-        }
-    }
-
-    function renderButtonLike(id) {
-        if (likesUser.length >= 1) {
-            likesUser.map(like => {
-                if (like.music === id) {
-                    return (
-                        <button
-                            key={like.id}
-                            className="liked"
-                            type="button"
-                            onClick={() => handlerRemoveLikeMusic(like.music)}
-                        >
-                            <FaThumbsUp />
-                        </button>
-                    );
-                } else {
-                    return (
-                        <button
-                            key={like.id}
-                            className="needlike"
-                            type="button"
-                            onClick={() => handlerLikeMusic(like.music)}
-                        >
-                            <FaThumbsUp />
-                        </button>
-                    );
+            const { status } = await api.post(
+                '/users/musics',
+                { music },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem('token'),
+                    },
                 }
+            );
+
+            if (status !== 200) {
+                return console.error('Error to add a new like');
+            }
+
+            const tmpVectorLikes = likes;
+            tmpVectorLikes.push(music);
+
+            await setLikes(tmpVectorLikes);
+        } catch (err) {
+            return console.log({ err });
+        }
+    }
+
+    async function handlerDeleteLike(music) {
+        try {
+            await api.delete('/users/musics', {
+                headers: {
+                    Authorization: localStorage.getItem('token'),
+                    music,
+                },
             });
-        } else {
+
+            await setLikes(likes.filter(like => like !== music));
+        } catch (err) {
+            return console.log({ err });
+        }
+    }
+
+    function layout() {
+        if (UserOkay) {
             return (
-                <button
-                    key={id}
-                    className="needlike"
-                    type="button"
-                    onClick={() => handlerLikeMusic(id)}
-                >
-                    <FaThumbsUp />
-                </button>
+                <>
+                    <Navbar />
+                    <Container>
+                        <section>
+                            <h1>New Musics: </h1>
+                            <ul>
+                                {musics.map(song => (
+                                    <li key={song.id}>
+                                        <figure>
+                                            <img
+                                                src={`http://localhost:3333/img/${song.banner_path}`}
+                                                alt="MusicBanner"
+                                            />
+                                        </figure>
+                                        <h1>{song.name}</h1>
+                                        <h2>{song.genre}</h2>
+                                        <br />
+                                        <button
+                                            onClick={() =>
+                                                ReturnMP3Player(song.path)
+                                            }
+                                        >
+                                            <FaHeadphonesAlt /> Listen
+                                        </button>
+                                        {likes.find(
+                                            like => like.music === song.id
+                                        ) ? (
+                                            <button
+                                                key={rnd}
+                                                className="liked"
+                                                onClick={() =>
+                                                    handlerDeleteLike(song.id)
+                                                }
+                                            >
+                                                <FaHeart />
+                                            </button>
+                                        ) : (
+                                            <button
+                                                key={rnd}
+                                                className="notLiked"
+                                                onClick={() =>
+                                                    handlerAddLike(song.id)
+                                                }
+                                            >
+                                                <FaRegHeart />
+                                            </button>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+                    </Container>
+                    {LoadMusic ? <MP3Player musicpath={LoadMusic} /> : <></>}
+                </>
             );
         }
-    }
 
-    function LayoutLogged() {
-        return (
-            <>
-                <Navbar />
-                <Container>
-                    <h1>New musics: </h1>
-                    <ul>
-                        {info ? (
-                            info.map(item => (
-                                <li key={item.id}>
-                                    <img
-                                        src={`http://localhost:3333/img/${item.banner_path}`}
-                                        alt="banner of music"
-                                    />
-                                    <p>{item.name}</p>
-                                    <p>{item.genre}</p>
-
-                                    <span>
-                                        <button
-                                            className="listen"
-                                            type="button"
-                                            onClick={() =>
-                                                ListenMusic(item.path)
-                                            } //Error = ListenMusic(item.path) //Success = () => ListenMusic(item.path)
-                                        >
-                                            <FaHeadphones /> Listen
-                                            {likesUser.map(item => {})}
-                                        </button>
-
-                                        {renderButtonLike(item.id)}
-                                    </span>
-                                </li>
-                            ))
-                        ) : (
-                            <h1>
-                                Doesn't have any music registred in database{' '}
-                            </h1>
-                        )}
-                    </ul>
-                </Container>
-                {haveMusic ? <Player musicpath={MusicName} /> : <></>}
-                <Footer />
-            </>
-        );
-    }
-
-    function LayoutNotLogged() {
         return <DoLogin />;
     }
 
-    return <>{info ? LayoutLogged() : LayoutNotLogged()}</>;
+    return layout();
 }
 
-export default Home;
+export default HomeUser;
