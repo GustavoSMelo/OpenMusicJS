@@ -8,7 +8,7 @@ module.exports = {
 
         const { id: user } = await authMethod(authHeader);
 
-        const { music } = req.headers;
+        const { music } = req.body;
 
         if (!music) {
             return res
