@@ -7,10 +7,10 @@ function ChooseLogin() {
     return (
         <Container>
             <Link className="button" to="/login/user">
-                LogIn with user{' '}
+                LogIn how to user{' '}
             </Link>
             <Link className="button" to="/login/artist">
-                LogIn with artist{' '}
+                LogIn how to artist{' '}
             </Link>
             <Footer />
         </Container>
