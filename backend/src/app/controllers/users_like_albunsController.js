@@ -56,9 +56,7 @@ module.exports = {
         });
 
         if (!likes || likes.length <= 0) {
-            return res
-                .status(404)
-                .json({ Error: 'This user does not like any music ' });
+            return res.json({ Error: 'This user does not like any album ' });
         }
 
         return res.json(likes);
@@ -69,7 +67,7 @@ module.exports = {
 
         const { id: user } = await authMethod(authHeader);
 
-        const { album } = req.body;
+        const { album } = req.headers;
 
         const isAlbumExists = await Albuns.findOne({ where: { id: album } });
 
