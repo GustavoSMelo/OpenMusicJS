@@ -56,9 +56,7 @@ module.exports = {
         });
 
         if (!likes || likes.length <= 0) {
-            return res
-                .status(404)
-                .json({ Error: 'This user does not like any artist ' });
+            return res.json({ Error: 'This user does not like any artist ' });
         }
 
         return res.json(likes);
@@ -69,7 +67,7 @@ module.exports = {
 
         const { id: user } = await authMethod(authHeader);
 
-        const { artist } = req.body;
+        const { artist } = req.headers;
 
         const isArtistExists = await Artists.findOne({ where: { id: artist } });
 
