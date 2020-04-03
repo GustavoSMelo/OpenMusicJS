@@ -106,7 +106,7 @@ routes.delete('/users/albuns', authMiddleware, users_like_albuns.destroy);
 
 routes.post('/users/artists', authMiddleware, users_like_artists.store);
 routes.get('/users/artists', authMiddleware, users_like_artists.index);
-routes.post('/users/artists', authMiddleware, users_like_artists.destroy);
+routes.delete('/users/artists', authMiddleware, users_like_artists.destroy);
 
 //method search
 routes.post('/search', authMiddleware, SearchMethod.index);
