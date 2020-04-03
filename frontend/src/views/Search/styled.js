@@ -1,4 +1,18 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const HeartAnimation = keyframes`
+    0%{
+        transform: translate(0, 0);
+    }
+
+    50%{
+        transform: translate(0, 20);
+    }
+
+    100%{
+        transform: translate(0, 0);
+    }
+`;
 
 export const Container = styled.main`
     background-color: #303030;
@@ -57,6 +71,32 @@ export const Container = styled.main`
         width: 100%;
     }
 
+    .liked {
+        background: #00000000;
+        color: #e82a10;
+        width: 30px !important;
+        border: none;
+        margin: 30px;
+    }
+
+    .liked:hover {
+        border: none;
+        color: #ffa1a1;
+    }
+
+    .notLiked {
+        width: 30px !important;
+        background: #00000000;
+        color: #ffa1a1;
+        margin: 30px;
+    }
+
+    .notLiked:hover {
+        border: none;
+        color: #e82a10;
+        animation: ${HeartAnimation} 1s infinite;
+    }
+
     @media screen and (max-width: 580px) {
         .form > input {
             margin: 5px;
@@ -92,6 +132,7 @@ export const ContainerCard = styled.li`
     padding: 20px;
     margin: 20px auto;
     display: flex;
+    text-align: left;
 
     .desc {
         color: #707070;
@@ -117,7 +158,7 @@ export const ContainerCard = styled.li`
     button,
     .link {
         border: none;
-        width: 300px;
+        padding: 15px;
         cursor: pointer;
         font-size: 20pt;
         transition: 0.5s;
@@ -125,6 +166,7 @@ export const ContainerCard = styled.li`
         border-radius: 5px;
         color: #fff;
         background: linear-gradient(to right, #c200ff, #5d15ff);
+        text-decoration: none;
     }
 
     button:hover,
@@ -143,6 +185,10 @@ export const ContainerCard = styled.li`
         button,
         .link {
             width: 100%;
+        }
+
+        figure > img {
+            width: 100% !important;
         }
     }
 `;
