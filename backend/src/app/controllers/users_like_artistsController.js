@@ -71,7 +71,7 @@ module.exports = {
 
         const isArtistExists = await Artists.findOne({ where: { id: artist } });
 
-        if (!isArtistExistsExists) {
+        if (!isArtistExists) {
             return res.status(404).json({ Error: 'Artist didnt find ' });
         }
 
