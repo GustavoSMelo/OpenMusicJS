@@ -56,12 +56,20 @@ function Search() {
 
         if (!responseLikeAlbuns.data.Error) {
             await setLikeAlbuns(responseLikeAlbuns.data);
+        } else {
+            await setLikeAlbuns([]);
         }
+
         if (!responseLikeMusics.data.Error) {
             await setLikesMusics(responseLikeMusics.data);
+        } else {
+            await setLikesMusics([]);
         }
+
         if (!responseLikeArtists.data.Error) {
             await setLikeArtists(responseLikeArtists.data);
+        } else {
+            await setLikeArtists([]);
         }
 
         await setAuth(auth);
@@ -222,6 +230,7 @@ function Search() {
                     },
                 }
             );
+            await setHaveModificationLikes(true);
         } catch (err) {
             console.error({ Error: err });
         }
@@ -235,6 +244,8 @@ function Search() {
                     music,
                 },
             });
+
+            await setHaveModificationLikes(true);
         } catch (err) {
             console.error({ Error: err });
         }
@@ -242,57 +253,132 @@ function Search() {
 
     function Layout() {
         console.log(likeAlbuns);
-        return (
-            <>
-                <Navbar />
-                <Container>
-                    <article className="form">
-                        <input
-                            placeholder="Insert a name of artist, music, album and etc."
-                            onChange={e => setSearchString(e.target.value)}
-                            value={searchString}
-                        />
-                        <button type="button" onClick={SearchMethod}>
-                            <FaSearch />
-                        </button>
-                    </article>
-                    {Status4User}
-                    <section>
-                        {Albuns.length >= 1 ? (
-                            <>
-                                <h1>Albuns</h1>
-                                <ul>
-                                    {Albuns.map(item => {
-                                        return (
+        console.log(haveModificationLikes);
+
+        if (Auth) {
+            return (
+                <>
+                    <Navbar />
+                    <Container>
+                        <article className="form">
+                            <input
+                                placeholder="Insert a name of artist, music, album and etc."
+                                onChange={e => setSearchString(e.target.value)}
+                                value={searchString}
+                            />
+                            <button type="button" onClick={SearchMethod}>
+                                <FaSearch />
+                            </button>
+                        </article>
+                        {Status4User}
+                        <section>
+                            {Albuns.length >= 1 ? (
+                                <>
+                                    <h1>Albuns</h1>
+                                    <ul>
+                                        {Albuns.map(item => {
+                                            return (
+                                                <ContainerCard key={item.id}>
+                                                    <figure>
+                                                        <img
+                                                            src={`http://localhost:3333/img/${item.banner}`}
+                                                            alt="banner album"
+                                                        />
+                                                    </figure>
+                                                    <article>
+                                                        <span>Name:</span>{' '}
+                                                        {item.name} <br />
+                                                        <span>Genre:</span>{' '}
+                                                        {item.genre}{' '}
+                                                        {
+                                                            <p className="desc">
+                                                                {
+                                                                    (item.description =
+                                                                        'Description not pass')
+                                                                }
+                                                            </p>
+                                                        }
+                                                        {likeAlbuns.find(
+                                                            like =>
+                                                                like.album ===
+                                                                item.id
+                                                        ) ? (
+                                                            <button
+                                                                key={item.name}
+                                                                onClick={() =>
+                                                                    handlerDislikeAlbum(
+                                                                        item.id
+                                                                    )
+                                                                }
+                                                                className="liked"
+                                                            >
+                                                                <FaHeart />
+                                                            </button>
+                                                        ) : (
+                                                            <button
+                                                                key={item.name}
+                                                                onClick={() =>
+                                                                    handlerLikeAlbum(
+                                                                        item.id
+                                                                    )
+                                                                }
+                                                                className="notLiked"
+                                                            >
+                                                                <FaRegHeart />
+                                                            </button>
+                                                        )}
+                                                    </article>
+                                                </ContainerCard>
+                                            );
+                                        })}
+                                    </ul>
+                                </>
+                            ) : (
+                                <></>
+                            )}
+                            {Artists.length >= 1 ? (
+                                <>
+                                    <h1>Artists</h1>
+
+                                    <ul>
+                                        {Artists.map(item => (
                                             <ContainerCard key={item.id}>
                                                 <figure>
+                                                    {' '}
                                                     <img
-                                                        src={`http://localhost:3333/img/${item.banner}`}
-                                                        alt="banner album"
+                                                        src={`http://localhost:3333/img/${item.avatar}`}
+                                                        alt="Avatar singer"
                                                     />
                                                 </figure>
+
                                                 <article>
-                                                    <span>Name:</span>{' '}
-                                                    {item.name} <br />
-                                                    <span>Genre:</span>{' '}
-                                                    {item.genre}{' '}
-                                                    {
-                                                        <p className="desc">
-                                                            {
-                                                                (item.description =
-                                                                    'Description not pass')
-                                                            }
-                                                        </p>
-                                                    }
-                                                    {likeAlbuns.find(
+                                                    <h1>
+                                                        {item.name_artistic}
+                                                    </h1>
+                                                    <br />
+
+                                                    <Link
+                                                        className="link"
+                                                        to={{
+                                                            pathname:
+                                                                '/artist/profile/public',
+                                                            state: {
+                                                                idArtist:
+                                                                    item.id,
+                                                            },
+                                                        }}
+                                                    >
+                                                        Access profile
+                                                    </Link>
+                                                    <br />
+                                                    {likeArtists.find(
                                                         like =>
-                                                            like.album ===
+                                                            like.artist ===
                                                             item.id
                                                     ) ? (
                                                         <button
-                                                            key={item.name}
                                                             onClick={() =>
-                                                                handlerDislikeAlbum(
+                                                                handlerDislikeArtist(
                                                                     item.id
                                                                 )
                                                             }
@@ -302,9 +388,8 @@ function Search() {
                                                         </button>
                                                     ) : (
                                                         <button
-                                                            key={item.name}
                                                             onClick={() =>
-                                                                handlerLikeAlbum(
+                                                                handlerLikeArtist(
                                                                     item.id
                                                                 )
                                                             }
@@ -315,173 +400,115 @@ function Search() {
                                                     )}
                                                 </article>
                                             </ContainerCard>
-                                        );
-                                    })}
-                                </ul>
-                            </>
+                                        ))}
+                                    </ul>
+                                </>
+                            ) : (
+                                <></>
+                            )}
+                            {Users.length >= 1 ? (
+                                <>
+                                    <h1>Users</h1>
+
+                                    <ul>
+                                        {Users.map(item => (
+                                            <ContainerCard key={item.key}>
+                                                <figure>
+                                                    <img
+                                                        src={`http://localhost:3333/img/${item.avatar}`}
+                                                        alt="Avatar user"
+                                                    />
+                                                </figure>
+
+                                                <article>
+                                                    <span>Name: </span>{' '}
+                                                    {item.name}
+                                                    <br />
+                                                </article>
+                                            </ContainerCard>
+                                        ))}
+                                    </ul>
+                                </>
+                            ) : (
+                                <></>
+                            )}
+                            {Musics.length >= 1 ? (
+                                <>
+                                    <h1>Musics</h1>
+
+                                    <ul>
+                                        {Musics.map(item => (
+                                            <ContainerCard key={item.id}>
+                                                <figure>
+                                                    <img
+                                                        src={`http://localhost:3333/img/${item.banner_path}`}
+                                                        alt="banner of music"
+                                                    />
+                                                </figure>
+                                                <article>
+                                                    <span>Nome: </span>
+                                                    {item.name}
+                                                    <br />
+
+                                                    <button
+                                                        onClick={() =>
+                                                            PlayMusic(item.path)
+                                                        }
+                                                    >
+                                                        Like music
+                                                    </button>
+                                                    <br />
+                                                    {likesMusics.find(
+                                                        likes =>
+                                                            likes.music ===
+                                                            item.id
+                                                    ) ? (
+                                                        <button
+                                                            onClick={() =>
+                                                                handlerDislikeMusics(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="liked"
+                                                        >
+                                                            <FaHeart />
+                                                        </button>
+                                                    ) : (
+                                                        <button
+                                                            onClick={() =>
+                                                                handlerLikeMusics(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="notLiked"
+                                                        >
+                                                            <FaRegHeart />
+                                                        </button>
+                                                    )}
+                                                </article>
+                                            </ContainerCard>
+                                        ))}
+                                    </ul>
+                                </>
+                            ) : (
+                                <></>
+                            )}
+                        </section>
+                        {musicPath ? (
+                            <MP3player musicpath={musicPath} />
                         ) : (
                             <></>
                         )}
-                        {Artists.length >= 1 ? (
-                            <>
-                                <h1>Artists</h1>
+                    </Container>
+                    <Global />
+                </>
+            );
+        }
 
-                                <ul>
-                                    {Artists.map(item => (
-                                        <ContainerCard key={item.id}>
-                                            <figure>
-                                                {' '}
-                                                <img
-                                                    src={`http://localhost:3333/img/${item.avatar}`}
-                                                    alt="Avatar singer"
-                                                />
-                                            </figure>
-
-                                            <article>
-                                                <h1>{item.name_artistic}</h1>
-                                                <br />
-
-                                                <Link
-                                                    className="link"
-                                                    to={{
-                                                        pathname:
-                                                            '/artist/profile/public',
-                                                        state: {
-                                                            idArtist: item.id,
-                                                        },
-                                                    }}
-                                                >
-                                                    Access profile
-                                                </Link>
-                                                <br />
-                                                {likeArtists.find(
-                                                    like =>
-                                                        like.artist === item.id
-                                                ) ? (
-                                                    <button
-                                                        onClick={() =>
-                                                            handlerDislikeArtist(
-                                                                item.id
-                                                            )
-                                                        }
-                                                        className="liked"
-                                                    >
-                                                        <FaHeart />
-                                                    </button>
-                                                ) : (
-                                                    <button
-                                                        onClick={() =>
-                                                            handlerLikeArtist(
-                                                                item.id
-                                                            )
-                                                        }
-                                                        className="notLiked"
-                                                    >
-                                                        <FaRegHeart />
-                                                    </button>
-                                                )}
-                                            </article>
-                                        </ContainerCard>
-                                    ))}
-                                </ul>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                        {Users.length >= 1 ? (
-                            <>
-                                <h1>Users</h1>
-
-                                <ul>
-                                    {Users.map(item => (
-                                        <ContainerCard key={item.key}>
-                                            <figure>
-                                                <img
-                                                    src={`http://localhost:3333/img/${item.avatar}`}
-                                                    alt="Avatar user"
-                                                />
-                                            </figure>
-
-                                            <article>
-                                                <span>Name: </span> {item.name}
-                                                <br />
-                                            </article>
-                                        </ContainerCard>
-                                    ))}
-                                </ul>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                        {Musics.length >= 1 ? (
-                            <>
-                                <h1>Musics</h1>
-
-                                <ul>
-                                    {Musics.map(item => (
-                                        <ContainerCard key={item.id}>
-                                            <figure>
-                                                <img
-                                                    src={`http://localhost:3333/img/${item.banner_path}`}
-                                                    alt="banner of music"
-                                                />
-                                            </figure>
-                                            <article>
-                                                <span>Nome: </span>
-                                                {item.name}
-                                                <br />
-
-                                                <button
-                                                    onClick={() =>
-                                                        PlayMusic(item.path)
-                                                    }
-                                                >
-                                                    Like music
-                                                </button>
-                                                <br />
-                                                {likesMusics.find(
-                                                    likes =>
-                                                        likes.music === item.id
-                                                ) ? (
-                                                    <button
-                                                        onClick={() =>
-                                                            handlerDislikeMusics(
-                                                                item.id
-                                                            )
-                                                        }
-                                                        className="liked"
-                                                    >
-                                                        <FaHeart />
-                                                    </button>
-                                                ) : (
-                                                    <button
-                                                        onClick={() =>
-                                                            handlerLikeMusics(
-                                                                item.id
-                                                            )
-                                                        }
-                                                        className="notLiked"
-                                                    >
-                                                        <FaRegHeart />
-                                                    </button>
-                                                )}
-                                            </article>
-                                        </ContainerCard>
-                                    ))}
-                                </ul>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                    </section>
-                    {musicPath ? <MP3player musicpath={musicPath} /> : <></>}
-                </Container>
-                <Global />
-            </>
-        );
+        return <DoLogin />;
     }
 
-    return <>{Auth ? Layout() : <DoLogin />}</>;
+    return Layout();
 }
 
 export default Search;
