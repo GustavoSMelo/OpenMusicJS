@@ -3,7 +3,7 @@ import api from '../../api';
 import Navbar from '../../components/navbar/index';
 import DoLogin from '../../components/Layout/DoLogin';
 import { Container, ContainerError, ContainerCard } from './styled';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaHeart, FaRegHeart } from 'react-icons/fa';
 import Global from './global-style';
 import MP3player from '../../components/player';
 import { Link } from 'react-router-dom';
@@ -17,26 +17,60 @@ function Search() {
     const [searchString, setSearchString] = useState('');
     const [Status4User, setStatus4User] = useState('');
     const [musicPath, setMusicPath] = useState('');
-    useEffect(() => {
-        try {
-            async function getTokenAPI() {
-                const auth = await api.get('/search', {
-                    headers: {
-                        Authorization: localStorage.getItem('token'),
-                    },
-                });
-                if (!auth) {
-                    return console.error({ auth });
-                }
+    const [likesMusics, setLikesMusics] = useState([]);
+    const [likeAlbuns, setLikeAlbuns] = useState([]);
+    const [likeArtists, setLikeArtists] = useState([]);
+    const [haveModificationLikes, setHaveModificationLikes] = useState(false);
 
-                setAuth(auth);
-            }
+    async function getTokenAPI() {
+        const auth = await api.get('/search', {
+            headers: {
+                Authorization: localStorage.getItem('token'),
+            },
+        });
 
-            getTokenAPI();
-        } catch (err) {
-            console.error({ err });
+        const responseLikeMusics = await api.get('/users/musics', {
+            headers: {
+                Authorization: localStorage.getItem('token'),
+            },
+        });
+
+        const responseLikeAlbuns = await api.get('/users/albuns', {
+            headers: {
+                Authorization: localStorage.getItem('token'),
+            },
+        });
+
+        const responseLikeArtists = await api.get('/users/artists', {
+            headers: {
+                Authorization: localStorage.getItem('token'),
+            },
+        });
+
+        if (!responseLikeMusics) {
+            setLikesMusics([]);
         }
-    }, []);
+
+        console.log(responseLikeAlbuns);
+        console.log(responseLikeMusics);
+
+        if (!responseLikeAlbuns.data.Error) {
+            await setLikeAlbuns(responseLikeAlbuns.data);
+        }
+        if (!responseLikeMusics.data.Error) {
+            await setLikesMusics(responseLikeMusics.data);
+        }
+        if (!responseLikeArtists.data.Error) {
+            await setLikeArtists(responseLikeArtists.data);
+        }
+
+        await setAuth(auth);
+        await setHaveModificationLikes(false);
+    }
+
+    useEffect(() => {
+        getTokenAPI();
+    }, [haveModificationLikes]);
 
     async function SearchMethod() {
         if (searchString === null || searchString === '') {
@@ -62,11 +96,6 @@ function Search() {
         console.log(`Posição 1: ${info.data[1]}`);
         console.log(`Posição 2: ${info.data[2]}`);
         console.log(`Posição 3: ${info.data[3]}`);
-
-        /*if (!info || info.data.length <= 0);
-            {
-                ErrorEvent();
-            }*/
 
         let controlData = 0;
 
@@ -111,16 +140,108 @@ function Search() {
         setSearchString('');
     }
 
-    function PlayMusic(music) {
-        setMusicPath(music);
+    async function PlayMusic(music) {
+        await setMusicPath('');
+        await setMusicPath(music);
+    }
+
+    async function handlerLikeAlbum(album) {
+        try {
+            await api.post(
+                '/users/albuns',
+                { album },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem('token'),
+                    },
+                }
+            );
+
+            return await setHaveModificationLikes(true);
+        } catch (err) {
+            return console.error({ Error: err });
+        }
+    }
+
+    async function handlerDislikeAlbum(album) {
+        try {
+            await api.delete('/users/albuns', {
+                headers: {
+                    Authorization: localStorage.getItem('token'),
+                    album,
+                },
+            });
+
+            return await setHaveModificationLikes(true);
+        } catch (err) {
+            return console.error({ Error: err });
+        }
+    }
+
+    async function handlerLikeArtist(artist) {
+        try {
+            await api.post(
+                '/users/artists',
+                { artist },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem('token'),
+                    },
+                }
+            );
+
+            await setHaveModificationLikes(true);
+        } catch (err) {
+            console.error({ Error: err });
+        }
+    }
+
+    async function handlerDislikeArtist(artist) {
+        try {
+            await api.delete('/users/artists', {
+                headers: {
+                    Authorization: localStorage.getItem('token'),
+                    artist,
+                },
+            });
+
+            await setHaveModificationLikes(true);
+        } catch (err) {
+            console.error({ Error: err });
+        }
+    }
+
+    async function handlerLikeMusics(music) {
+        try {
+            await api.post(
+                '/users/musics',
+                { music },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem('token'),
+                    },
+                }
+            );
+        } catch (err) {
+            console.error({ Error: err });
+        }
+    }
+
+    async function handlerDislikeMusics(music) {
+        try {
+            await api.delete('/users/musics', {
+                headers: {
+                    Authorization: localStorage.getItem('token'),
+                    music,
+                },
+            });
+        } catch (err) {
+            console.error({ Error: err });
+        }
     }
 
     function Layout() {
-        console.log(Albuns);
-        console.log(Musics);
-        console.log(Artists);
-        console.log(Users);
-        console.log(' ');
+        console.log(likeAlbuns);
         return (
             <>
                 <Navbar />
@@ -163,6 +284,35 @@ function Search() {
                                                             }
                                                         </p>
                                                     }
+                                                    {likeAlbuns.find(
+                                                        like =>
+                                                            like.album ===
+                                                            item.id
+                                                    ) ? (
+                                                        <button
+                                                            key={item.name}
+                                                            onClick={() =>
+                                                                handlerDislikeAlbum(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="liked"
+                                                        >
+                                                            <FaHeart />
+                                                        </button>
+                                                    ) : (
+                                                        <button
+                                                            key={item.name}
+                                                            onClick={() =>
+                                                                handlerLikeAlbum(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="notLiked"
+                                                        >
+                                                            <FaRegHeart />
+                                                        </button>
+                                                    )}
                                                 </article>
                                             </ContainerCard>
                                         );
@@ -190,7 +340,9 @@ function Search() {
                                             <article>
                                                 <h1>{item.name_artistic}</h1>
                                                 <br />
+
                                                 <Link
+                                                    className="link"
                                                     to={{
                                                         pathname:
                                                             '/artist/profile/public',
@@ -198,14 +350,36 @@ function Search() {
                                                             idArtist: item.id,
                                                         },
                                                     }}
-                                                    className="link"
                                                 >
                                                     Access profile
                                                 </Link>
                                                 <br />
-                                                <button type="button">
-                                                    Like Artist
-                                                </button>
+                                                {likeArtists.find(
+                                                    like =>
+                                                        like.artist === item.id
+                                                ) ? (
+                                                    <button
+                                                        onClick={() =>
+                                                            handlerDislikeArtist(
+                                                                item.id
+                                                            )
+                                                        }
+                                                        className="liked"
+                                                    >
+                                                        <FaHeart />
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        onClick={() =>
+                                                            handlerLikeArtist(
+                                                                item.id
+                                                            )
+                                                        }
+                                                        className="notLiked"
+                                                    >
+                                                        <FaRegHeart />
+                                                    </button>
+                                                )}
                                             </article>
                                         </ContainerCard>
                                     ))}
@@ -231,7 +405,6 @@ function Search() {
                                             <article>
                                                 <span>Name: </span> {item.name}
                                                 <br />
-                                                <button>Access profile</button>
                                             </article>
                                         </ContainerCard>
                                     ))}
@@ -257,14 +430,41 @@ function Search() {
                                                 <span>Nome: </span>
                                                 {item.name}
                                                 <br />
-                                                <button>Like music</button>
+
                                                 <button
                                                     onClick={() =>
                                                         PlayMusic(item.path)
                                                     }
                                                 >
-                                                    Play music
+                                                    Like music
                                                 </button>
+                                                <br />
+                                                {likesMusics.find(
+                                                    likes =>
+                                                        likes.music === item.id
+                                                ) ? (
+                                                    <button
+                                                        onClick={() =>
+                                                            handlerDislikeMusics(
+                                                                item.id
+                                                            )
+                                                        }
+                                                        className="liked"
+                                                    >
+                                                        <FaHeart />
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        onClick={() =>
+                                                            handlerLikeMusics(
+                                                                item.id
+                                                            )
+                                                        }
+                                                        className="notLiked"
+                                                    >
+                                                        <FaRegHeart />
+                                                    </button>
+                                                )}
                                             </article>
                                         </ContainerCard>
                                     ))}
