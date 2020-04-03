@@ -55,9 +55,7 @@ module.exports = {
         });
 
         if (!likes || likes.length <= 0) {
-            return res
-                .status(404)
-                .json({ Error: 'This user does not like any music ' });
+            return res.json({ Error: 'This user does not like any music ' });
         }
 
         return res.json(likes);
