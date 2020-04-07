@@ -13,7 +13,8 @@ const animationHeart = keyframes`
 
 export const Container = styled.main`
     padding: 30px;
-
+    background-color: #303030;
+    color: #fff;
     ul {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -27,7 +28,7 @@ export const Container = styled.main`
         text-align: center;
         border-radius: 5px;
         width: 400px;
-        box-shadow: 1px 1px 3px #303030;
+        box-shadow: 1px 1px 3px #606060;
     }
 
     li > span {
@@ -39,7 +40,7 @@ export const Container = styled.main`
     }
 
     li > h2 {
-        color: #606060;
+        color: #e3b3e8;
         text-transform: capitalize;
     }
 
