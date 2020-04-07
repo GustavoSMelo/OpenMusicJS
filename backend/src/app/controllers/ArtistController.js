@@ -2,6 +2,7 @@ const artist = require('../models/artist');
 const bcrypt = require('bcryptjs');
 const authMethod = require('../../utils/authMethod');
 const musics = require('../models/music');
+const users_like_musics = require('../models/users_like_musics');
 
 module.exports = {
     async store(req, res) {
@@ -115,8 +116,11 @@ module.exports = {
     },
 
     async show(req, res) {
+        const likesMusics = [];
+        const { authorization } = req.headers;
+        const { id: user } = await authMethod(authorization);
+
         const { idArtist: id } = req.body;
-        console.log(id);
 
         const info = await artist.findOne({
             where: {
