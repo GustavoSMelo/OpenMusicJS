@@ -20,28 +20,17 @@ import api from '../../api';
 
 function Profile() {
     const [user, setUser] = useState('');
-    const [UserAlbunsFavorites, setUserAlbunsFavorites] = useState('');
-    const [UserMusicsFavorites, setUserMusicsFavorites] = useState('');
-    const [UserArtistsFavorites, setUserArtistsFavorites] = useState('');
     const [popup, setPopup] = useState(false);
     const [StatusPopup, setStatusPopup] = useState(<></>);
     const [pass, setPass] = useState('');
-
     useEffect(() => {
         async function getApiData() {
             try {
                 const datas = await authToken('/user/show');
                 console.log(datas);
                 await setUser(datas.data.user);
-                await setUserAlbunsFavorites(
-                    datas.data.user_albuns.dataUserAlbuns
-                );
-                await setUserArtistsFavorites(
-                    datas.data.user_artist.dataUserArtists
-                );
-                await setUserMusicsFavorites(
-                    datas.data.user_musics.dataUserMusics
-                );
+
+                console.log(datas.data);
             } catch (err) {
                 console.error('Some error happens ');
             }
@@ -91,7 +80,7 @@ function Profile() {
                             type="password"
                             placeholder="Inform your password "
                             required="required"
-                            onChange={e => setPass(e.target.value)}
+                            onChange={(e) => setPass(e.target.value)}
                             value={pass}
                         />
 
@@ -136,7 +125,7 @@ function Profile() {
                         src={`http://localhost:3333/img/${user.avatar}`}
                         alt="avatar_profile"
                     />
-                    <h1>{user.name}</h1>
+                    <h1>{(user.name = 'User of musicfy')}</h1>
                     <h2>
                         {' '}
                         <FaEnvelope /> {user.email}
@@ -170,46 +159,6 @@ function Profile() {
                             <FaDoorOpen /> Exit
                         </button>
                     </span>
-
-                    <section>
-                        <h1>
-                            {' '}
-                            <FaFolderOpen /> Albuns liked:{' '}
-                        </h1>
-                        {UserAlbunsFavorites.length >= 1 ? (
-                            <h2>Ok</h2>
-                        ) : (
-                            <h2 className="ErrorBox">
-                                You don't have any album favorited{' '}
-                            </h2>
-                        )}
-                    </section>
-
-                    <section>
-                        <h1>
-                            <FaMusic /> Musics liked:{' '}
-                        </h1>
-                        {UserMusicsFavorites.length >= 1 ? (
-                            <h2>OK</h2>
-                        ) : (
-                            <h2 className="ErrorBox">
-                                You don't have any musics favorited{' '}
-                            </h2>
-                        )}
-                    </section>
-
-                    <section>
-                        <h1>
-                            <FaBroom /> Artists liked:{' '}
-                        </h1>
-                        {UserArtistsFavorites.length >= 1 ? (
-                            <h2>OK</h2>
-                        ) : (
-                            <h2 className="ErrorBox">
-                                You don't have any artist favorited{' '}
-                            </h2>
-                        )}
-                    </section>
                 </Container>
                 <Footer />
             </>
