@@ -29,19 +29,23 @@ export const Container = styled.main`
         margin: 15px;
     }
 
-    .artistInfo > button > .icon-hearth {
-        color: #ffa1a1;
-        transition: 0.3s;
-    }
-
-    .artistInfo > button:hover {
-        transition: 0.3s;
-        border: solid 3px #303030;
+    .artistInfo > .liked {
         background-color: #ffa1a1;
+        border: solid 3px #303030;
         color: #fff;
+        transition: 0.3s;
     }
 
-    .artistInfo > button:hover > .icon-hearth {
+    .artistInfo > .liked:hover {
+        background-color: #303030;
+        border: solid 3px #ffa1a1;
+        color: #fff;
+        transition: 0.3s;
+    }
+
+    .artistInfo > .notLiked:hover {
+        background-color: #ffa1a1;
+        border: solid 3px #303030;
         color: #fff;
         transition: 0.3s;
     }
