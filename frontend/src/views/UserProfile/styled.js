@@ -6,6 +6,7 @@ export const Container = styled.main`
     flex-direction: column;
     align-items: center;
     color: #fff;
+    height: 100vh;
 
     img {
         margin-top: 50px;
