@@ -3,7 +3,7 @@ import { MP3Player } from './styled';
 
 function Player(props) {
     return (
-        <MP3Player controls>
+        <MP3Player controls autoplay>
             <source
                 src={`http://localhost:3333/music/${props.musicpath}`}
                 type="audio/mpeg"
