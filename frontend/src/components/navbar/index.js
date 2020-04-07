@@ -20,7 +20,7 @@ function Navbar() {
                 <Link className="link" to="/search">
                     <FaSearch /> <span>Search</span>
                 </Link>
-                <Link className="link" to="/">
+                <Link className="link" to="/likes">
                     <FaThumbsUp /> <span>Likes</span>
                 </Link>
             </nav>
