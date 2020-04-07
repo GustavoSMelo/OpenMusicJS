@@ -12,6 +12,7 @@ import Profile from '../views/UserProfile';
 import Search from '../views/Search';
 import ArtistProfile4Public from '../views/ArtistProfile4Public';
 import ChangeInfoUser from '../views/ChangeInfoUser';
+import LikesUser from '../views/LikesUser';
 
 function Routes() {
     return (
@@ -30,7 +31,7 @@ function Routes() {
                 <Route
                     exact
                     path="/artist/profile/public"
-                    render={props => (
+                    render={(props) => (
                         <ArtistProfile4Public
                             idArtist={props.location.state.idArtist}
                             {...props}
@@ -40,7 +41,7 @@ function Routes() {
                 <Route
                     exact
                     path="/edit/profile"
-                    render={props => (
+                    render={(props) => (
                         <ChangeInfoUser
                             {...props}
                             oldNameUser={props.location.state.oldNameUser}
@@ -50,6 +51,7 @@ function Routes() {
                         />
                     )}
                 />
+                <Route exact path="/likes" component={LikesUser} />
             </Switch>
         </BrowserRouter>
     );
