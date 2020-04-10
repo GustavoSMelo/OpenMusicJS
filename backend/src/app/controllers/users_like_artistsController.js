@@ -56,7 +56,7 @@ module.exports = {
         });
 
         if (!likes || likes.length <= 0) {
-            return res.json({ Error: 'This user does not like any artist ' });
+            return res.json([]);
         }
 
         return res.json(likes);
