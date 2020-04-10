@@ -2,71 +2,105 @@ import styled from 'styled-components';
 
 export const Container = styled.main`
     background-color: #303030;
-    color: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    color: #fff;
 
     h1 {
-        margin-top: 30px;
-        margin-bottom: 30px;
+        margin: 30px;
     }
 
-    .cardBox {
-        width: 40%;
+    button {
+        cursor: pointer;
+    }
+
+    article {
+        color: #000;
+
         display: flex;
         flex-direction: column;
-        background-color: #fff;
-        color: #000;
+        width: 40%;
     }
 
-    .cardBox > figure > img {
+    article > section > figure > img {
         width: 100%;
+        height: 300px;
     }
 
-    .cardBox > span {
+    article > section > span {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
         padding: 30px;
-        align-items: center;
+        justify-content: space-between;
     }
 
-    .listen {
-        padding: 20px;
-        height: 60px;
-        border-radius: 5px;
+    article > section {
+        background-color: #fff;
+        margin: 30px;
+    }
+
+    article > section > span > .classicButton {
+        background-color: #e880d7;
+        color: #fff;
         border: none;
-        background-color: #e3b3e8;
-        cursor: pointer;
+        border-radius: 5px;
+        height: 30px;
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16pt;
         font-weight: bold;
+        text-decoration: none;
     }
 
-    .like {
+    article > section > span > .heart {
         background-color: #00000000;
         color: #f00;
-        font-weight: bold;
         font-size: 24pt;
         border: none;
-        cursor: pointer;
+        transition: 0.4s;
+    }
+    article > section > span > .heart:hover {
+        background-color: #00000000;
+        color: #ffa5a5;
+        font-size: 20pt;
         transition: 0.4s;
     }
 
-    .like:hover {
-        font-size: 20pt;
-        color: #e89592;
-        transition: 0.4s;
+    @media screen and (max-width: 1130px) {
+        article > section > span {
+            flex-direction: column;
+        }
+    }
+
+    @media screen and (max-width: 920px) {
+        article {
+            width: 80%;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        article {
+            width: 100%;
+        }
+
+        article > section {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
     }
 `;
 
 export const ContainerError = styled.section`
-    padding: 50px;
-    text-align: center;
+    background-color: #ffa5a5 !important;
+    color: #f00;
+    padding: 30px;
     display: flex;
     align-items: center;
-    font-weight: bold;
-    background-color: #ffa9a9;
-    color: #f40000;
+    justify-content: center;
     border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
 `;
