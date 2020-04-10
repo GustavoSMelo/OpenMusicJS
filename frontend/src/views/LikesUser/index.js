@@ -1,109 +1,263 @@
 import React, { useState, useEffect } from 'react';
-import { Container, ContainerError } from './style';
 import Navbar from '../../components/navbar';
-import authToken from '../../utils/authToken';
 import DoLogin from '../../components/Layout/DoLogin';
+import authToken from '../../utils/authToken';
+import { Container, ContainerError } from './style';
 import {
-    FaMusic,
     FaPaintBrush,
     FaCompactDisc,
+    FaMusic,
     FaHeadphones,
     FaHeart,
+    FaHeadphonesAlt,
 } from 'react-icons/fa';
+import MP3Player from '../../components/player';
+import { Link } from 'react-router-dom';
+import api from '../../api';
 
 function LikesUser() {
-    const [likesArtists, setLikesArtists] = useState([]);
-    const [likesMusics, setLikesMusics] = useState([]);
-    const [likesAlbuns, setLikesAlbuns] = useState([]);
-    const [allArtists, setAllArtists] = useState([]);
     const [allMusics, setAllMusics] = useState([]);
+    const [LikesMusics, setLikesMusics] = useState([]);
+    const [allArtists, setAllArtists] = useState([]);
+    const [likesArtists, setLikesArtists] = useState([]);
     const [allAlbuns, setAllAlbuns] = useState([]);
-    const [haveChangeLikes, setHaveChangeLikes] = useState(false);
-    const [notLogged, setNotLogged] = useState(false);
-
-    async function getDatasByAPI() {
+    const [likesAlbuns, setLikesAlbuns] = useState([]);
+    const [pathMusic, setPathMusic] = useState('');
+    const [haveChange, setHaveChange] = useState(false);
+    const [auth, setAuth] = useState(false);
+    async function getDataByAPI() {
         try {
-            const infoLikesArtists = await authToken('/users/artists');
-            await setLikesArtists(infoLikesArtists.data);
+            const info = await authToken('/musics');
+            setAllMusics(info.data.allmusics);
+            setLikesMusics(info.data.likes_of_user);
 
-            const infoLikesMusics = await authToken('/users/musics');
-            await setLikesMusics(infoLikesMusics.data);
+            const infoArtists = await authToken('/artist');
+            setAllArtists(infoArtists.data);
 
-            const infoLikesAlbuns = await authToken('/users/albuns');
-            await setLikesAlbuns(infoLikesAlbuns.data);
+            const infoArtistsLikes = await authToken('/users/artists');
+            setLikesArtists(infoArtistsLikes.data);
 
             const infoAlbuns = await authToken('/album');
-            await setAllAlbuns(infoAlbuns.data);
+            setAllAlbuns(infoAlbuns.data);
 
-            const infoMusics = await authToken('/musics');
-            await setAllMusics(infoMusics.data.allmusics);
+            const infoAlbunsLikes = await authToken('/users/albuns');
+            setLikesAlbuns(infoAlbunsLikes.data);
 
-            const infoArtist = await authToken('/artist');
-            await setAllArtists(infoArtist.data);
+            console.log(infoAlbunsLikes);
+
+            setAuth(true);
+            setHaveChange(false);
         } catch (err) {
-            setNotLogged(true);
+            setAuth(false);
         }
     }
+
     useEffect(() => {
-        getDatasByAPI();
-    }, [haveChangeLikes]);
+        getDataByAPI();
+    }, [haveChange]);
 
-    function renderMusics() {
-        if (likesMusics.length <= 0 || allMusics.length <= 0) {
-            return (
-                <ContainerError>You don't have any music liked</ContainerError>
-            );
-        }
+    async function DislikeMusic(music) {
+        await api.delete('/users/musics', {
+            headers: {
+                Authorization: localStorage.getItem('token'),
+                music,
+            },
+        });
 
-        for (let i = 0; i < likesMusics.length; i++) {
-            for (let j = 0; j < allMusics.length; j++) {
-                if (likesMusics[i].music === allMusics[j].id) {
-                    return (
-                        <section className="cardBox">
-                            <figure>
-                                <img
-                                    src={`http://localhost:3333/img/${allMusics[j].banner_path}`}
-                                    alt="banner music"
-                                />
-                            </figure>
+        await setHaveChange(true);
+    }
 
-                            <span>
-                                <h1>{allMusics[j].name}</h1>
-                                <button className="listen" type="button">
-                                    <FaHeadphones /> Listen
-                                </button>
-                                <button className="like" type="button">
-                                    <FaHeart />
-                                </button>
-                            </span>
-                        </section>
-                    );
-                }
-            }
-        }
+    async function DislikeArtist(artist) {
+        await api.delete('/users/artists', {
+            headers: {
+                Authorization: localStorage.getItem('token'),
+                artist,
+            },
+        });
+
+        await setHaveChange(true);
+    }
+
+    async function DislikeAlbum(album) {
+        await api.delete('/users/albuns', {
+            headers: {
+                Authorization: localStorage.getItem('token'),
+                album,
+            },
+        });
+
+        await setHaveChange(true);
+    }
+
+    async function playMusic(music) {
+        await setPathMusic('');
+        await setPathMusic(music);
     }
 
     function Layout() {
-        if (notLogged) {
-            return <DoLogin />;
+        if (auth) {
+            return (
+                <>
+                    <Navbar />
+                    <Container>
+                        <h1>
+                            <FaMusic /> Musics:{' '}
+                        </h1>
+                        <article>
+                            {LikesMusics.length <= 0 ||
+                            allMusics.length <= 0 ? (
+                                <ContainerError>
+                                    <h2>You don't like any music yet</h2>
+                                </ContainerError>
+                            ) : (
+                                <></>
+                            )}
+                            {LikesMusics.map((likes) =>
+                                allMusics.map((musics) =>
+                                    musics.id === likes.music ? (
+                                        <section key={`${musics.id}-musics`}>
+                                            <figure>
+                                                <img
+                                                    src={`http://localhost:3333/img/${musics.banner_path}`}
+                                                    alt="bannerMusic"
+                                                />
+                                            </figure>
+                                            <span>
+                                                <h1>{musics.name}</h1>
+                                                <button
+                                                    className="classicButton"
+                                                    onClick={() =>
+                                                        playMusic(musics.path)
+                                                    }
+                                                >
+                                                    <FaHeadphonesAlt /> Listen
+                                                </button>
+                                                <button
+                                                    className="heart"
+                                                    onClick={() =>
+                                                        DislikeMusic(musics.id)
+                                                    }
+                                                >
+                                                    <FaHeart />
+                                                </button>
+                                            </span>
+                                        </section>
+                                    ) : (
+                                        <></>
+                                    )
+                                )
+                            )}
+                        </article>
+
+                        <h1>
+                            <FaPaintBrush /> Artists
+                        </h1>
+
+                        <article>
+                            {allArtists.length <= 0 ||
+                            likesArtists.length <= 0 ? (
+                                <ContainerError>
+                                    You don't have any artist liked yet
+                                </ContainerError>
+                            ) : (
+                                <></>
+                            )}
+
+                            {likesArtists.map((likes) =>
+                                allArtists.map((artists) =>
+                                    artists.id === likes.artist ? (
+                                        <section key={`${artists.id}-Artist`}>
+                                            <figure>
+                                                <img
+                                                    src={`http://localhost:3333/img/${artists.avatar}`}
+                                                    alt="bannerMusic"
+                                                />
+                                            </figure>
+                                            <span>
+                                                <h1>
+                                                    {artists.name} |{' '}
+                                                    {artists.name_artistic}
+                                                </h1>
+                                                <Link
+                                                    className="classicButton"
+                                                    to={{
+                                                        pathname:
+                                                            '/artist/profile/public',
+                                                        state: {
+                                                            idArtist:
+                                                                artists.id,
+                                                        },
+                                                    }}
+                                                >
+                                                    Access
+                                                </Link>
+                                                <button
+                                                    onClick={() =>
+                                                        DislikeArtist(
+                                                            artists.id
+                                                        )
+                                                    }
+                                                    className="heart"
+                                                >
+                                                    <FaHeart />
+                                                </button>
+                                            </span>
+                                        </section>
+                                    ) : (
+                                        <></>
+                                    )
+                                )
+                            )}
+                        </article>
+
+                        <h1>
+                            <FaCompactDisc /> Albuns
+                        </h1>
+
+                        <article>
+                            {allAlbuns.length <= 0 ||
+                            likesAlbuns.length <= 0 ? (
+                                <ContainerError>
+                                    You don't like any album yet
+                                </ContainerError>
+                            ) : (
+                                <></>
+                            )}
+                            {likesAlbuns.map((likes) =>
+                                allAlbuns.map((albuns) =>
+                                    albuns.id === likes.album ? (
+                                        <section>
+                                            <figure>
+                                                <img
+                                                    src={`http://localhost:3333/img/${albuns.banner}`}
+                                                    alt="bannerMusic"
+                                                />
+                                            </figure>
+                                            <span>
+                                                <h1>{albuns.name}</h1>
+                                                <button
+                                                    onClick={() =>
+                                                        DislikeAlbum(albuns.id)
+                                                    }
+                                                    className="heart"
+                                                >
+                                                    <FaHeart />
+                                                </button>
+                                            </span>
+                                        </section>
+                                    ) : (
+                                        <></>
+                                    )
+                                )
+                            )}
+                        </article>
+                    </Container>
+                    {pathMusic ? <MP3Player musicpath={pathMusic} /> : <></>}
+                </>
+            );
         }
-        return (
-            <>
-                <Navbar />
-                <Container>
-                    <h1>
-                        <FaMusic /> Musics:{' '}
-                    </h1>
-                    {renderMusics()}
-                    <h1>
-                        <FaPaintBrush /> Artists:{' '}
-                    </h1>
-                    <h1>
-                        <FaCompactDisc /> Albuns:{' '}
-                    </h1>
-                </Container>
-            </>
-        );
+
+        return <DoLogin />;
     }
 
     return Layout();
