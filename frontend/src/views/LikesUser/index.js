@@ -7,7 +7,6 @@ import {
     FaPaintBrush,
     FaCompactDisc,
     FaMusic,
-    FaHeadphones,
     FaHeart,
     FaHeadphonesAlt,
 } from 'react-icons/fa';
