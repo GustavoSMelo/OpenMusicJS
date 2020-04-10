@@ -56,7 +56,7 @@ module.exports = {
         });
 
         if (!likes || likes.length <= 0) {
-            return res.json({ Error: 'This user does not like any album ' });
+            return res.json([]);
         }
 
         return res.json(likes);
@@ -83,9 +83,7 @@ module.exports = {
         });
 
         if (!isLiked) {
-            return res
-                .status(400)
-                .json({ Error: 'U dont like this album to remove ur like ' });
+            return res.status(400).json([]);
         }
 
         await users_like_albuns.destroy({
