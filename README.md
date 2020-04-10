@@ -24,6 +24,18 @@
 - After this, you need to run yarn in your console (inside folder of frontend)
 - and run yarn start
 
+# images of project in this moment:
+
+![Screenshot_202a0-04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963607-6c79e180-7ace-11ea-8efc-7c9dc42f5076.png)
+
+![Screenshot_2020-04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963660-83b8cf00-7ace-11ea-8d4a-21acf824a073.jpg)
+
+![Screenshot_2020-04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963672-8e736400-7ace-11ea-8344-5e122eac961c.png)
+
+![Screenshot_2020-e04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963695-a1863400-7ace-11ea-88f8-64b3a3adc555.png)
+
+![Screenshot_2020-e04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963719-afd45000-7ace-11ea-871f-ca0d7b590d16.png)
+
 ### Things to do:
 
 - :heavy_check_mark: to create backend
