@@ -7,41 +7,40 @@ import { Container, ContainerError } from './style';
 import { FaHeadphones, FaHeart, FaRegHeart } from 'react-icons/fa';
 import MP3Player from '../../components/player';
 
-function ArtistProfile4Public(props) {
+function ArtistProfile4Public({ idArtist }) {
     const [haveInfo, setHaveInfo] = useState([]);
     const [PathMusic, setPathMusic] = useState('');
     const [likeArtist, setLikeArtist] = useState([]);
     const [giveLike, setGiveLike] = useState(false);
 
-    async function getAPIInfo() {
-        try {
-            const { idArtist } = props;
-            const info = await api.post(
-                '/artist/info',
-                { idArtist },
-                {
+    useEffect(() => {
+        async function getAPIInfo() {
+            try {
+                const info = await api.post(
+                    '/artist/info',
+                    { idArtist },
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem('token'),
+                        },
+                    }
+                );
+
+                const likeInfo = await api.get('/users/artists', {
                     headers: {
                         Authorization: localStorage.getItem('token'),
                     },
-                }
-            );
+                });
 
-            const likeInfo = await api.get('/users/artists', {
-                headers: {
-                    Authorization: localStorage.getItem('token'),
-                },
-            });
-
-            await setHaveInfo(info.data);
-            await setLikeArtist(likeInfo.data);
-            await setGiveLike(false);
-        } catch (err) {
-            console.error({ error: err });
+                await setHaveInfo(info.data);
+                await setLikeArtist(likeInfo.data);
+                await setGiveLike(false);
+            } catch (err) {
+                console.error({ error: err });
+            }
         }
-    }
-
-    useEffect(() => {
         getAPIInfo();
+        // eslint-disable-next-line
     }, [giveLike]);
 
     async function addLikeArtist(artist) {
