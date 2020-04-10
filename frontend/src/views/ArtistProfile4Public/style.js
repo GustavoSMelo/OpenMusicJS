@@ -110,6 +110,13 @@ export const Container = styled.main`
         .artistMusic > article > figure > img {
             margin-right: 10px;
         }
+
+        .artistMusic > article {
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+        }
     }
 `;
 
