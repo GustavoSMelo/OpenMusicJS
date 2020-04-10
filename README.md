@@ -34,8 +34,6 @@
 
 ![Screenshot_2020-e04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963695-a1863400-7ace-11ea-88f8-64b3a3adc555.png)
 
-![Screenshot_2020-e04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963719-afd45000-7ace-11ea-871f-ca0d7b590d16.png)
-
 ### Things to do:
 
 - :heavy_check_mark: to create backend
