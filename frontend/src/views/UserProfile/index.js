@@ -6,16 +6,13 @@ import {
     FaEnvelope,
     FaPen,
     FaTrash,
-    FaFolderOpen,
-    FaMusic,
-    FaBroom,
     FaDoorOpen,
     FaExclamation,
     FaSmileBeam,
 } from 'react-icons/fa';
 import { Container, PopupContainer, ContainerError } from './styled';
 import DoLogin from '../../components/Layout/DoLogin';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import api from '../../api';
 
 function Profile() {
@@ -23,6 +20,8 @@ function Profile() {
     const [popup, setPopup] = useState(false);
     const [StatusPopup, setStatusPopup] = useState(<></>);
     const [pass, setPass] = useState('');
+    const history = useHistory();
+
     useEffect(() => {
         async function getApiData() {
             try {
@@ -40,7 +39,7 @@ function Profile() {
 
     function HandlerUserExit() {
         localStorage.setItem('token', '');
-        document.location = 'http://localhost:3000/';
+        history.push('/');
     }
 
     async function handlerDeleteButton(e) {
