@@ -73,7 +73,6 @@ module.exports = {
 
     async index(req, res) {
         const albuns = await RelationshipAAM.findAll();
-
         if (!albuns || albuns.length <= 0) {
             return res.status(404).json({ Error: 'Relationship didnt found ' });
         }
@@ -204,5 +203,17 @@ module.exports = {
         );
 
         return res.json({ message: 'Success to update album of musics ' });
+    },
+
+    async show(req, res) {
+        const { albumID: album } = req.body;
+        console.log(album);
+        const infoAlbum = await RelationshipAAM.findAll({
+            where: {
+                album,
+            },
+        });
+
+        return res.json({ infoAlbum });
     },
 };
