@@ -69,6 +69,19 @@ export const Container = styled.main`
         transition: 0.4s;
     }
 
+    .link {
+        border: none;
+        padding: 15px;
+        cursor: pointer;
+        font-size: 20pt;
+        transition: 0.5s;
+        margin: 5px;
+        border-radius: 5px;
+        color: #fff;
+        background-color: #e880d7;
+        text-decoration: none;
+    }
+
     @media screen and (max-width: 1130px) {
         article > section > span {
             flex-direction: column;
