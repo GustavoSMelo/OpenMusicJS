@@ -234,6 +234,21 @@ function LikesUser() {
                                             </figure>
                                             <span>
                                                 <h1>{albuns.name}</h1>
+                                                <Link
+                                                    className="link"
+                                                    to={{
+                                                        pathname: '/album',
+                                                        state: {
+                                                            albumID: albuns.id,
+                                                            name: albuns.name,
+                                                            genre: albuns.genre,
+                                                            banner:
+                                                                albuns.banner,
+                                                        },
+                                                    }}
+                                                >
+                                                    Access{' '}
+                                                </Link>
                                                 <button
                                                     onClick={() =>
                                                         DislikeAlbum(albuns.id)
