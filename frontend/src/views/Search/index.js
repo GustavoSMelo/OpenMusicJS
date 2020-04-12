@@ -263,7 +263,9 @@ function Search() {
                         <article className="form">
                             <input
                                 placeholder="Insert a name of artist, music, album and etc."
-                                onChange={e => setSearchString(e.target.value)}
+                                onChange={(e) =>
+                                    setSearchString(e.target.value)
+                                }
                                 value={searchString}
                             />
                             <button type="button" onClick={SearchMethod}>
@@ -276,7 +278,7 @@ function Search() {
                                 <>
                                     <h1>Albuns</h1>
                                     <ul>
-                                        {Albuns.map(item => {
+                                        {Albuns.map((item) => {
                                             return (
                                                 <ContainerCard key={item.id}>
                                                     <figure>
@@ -299,7 +301,7 @@ function Search() {
                                                             </p>
                                                         }
                                                         {likeAlbuns.find(
-                                                            like =>
+                                                            (like) =>
                                                                 like.album ===
                                                                 item.id
                                                         ) ? (
@@ -327,6 +329,25 @@ function Search() {
                                                                 <FaRegHeart />
                                                             </button>
                                                         )}
+                                                        <Link
+                                                            className="link"
+                                                            to={{
+                                                                pathname:
+                                                                    '/album',
+                                                                state: {
+                                                                    albumID:
+                                                                        item.id,
+                                                                    name:
+                                                                        item.name,
+                                                                    genre:
+                                                                        item.genre,
+                                                                    banner:
+                                                                        item.banner,
+                                                                },
+                                                            }}
+                                                        >
+                                                            Access{' '}
+                                                        </Link>
                                                     </article>
                                                 </ContainerCard>
                                             );
@@ -341,7 +362,7 @@ function Search() {
                                     <h1>Artists</h1>
 
                                     <ul>
-                                        {Artists.map(item => (
+                                        {Artists.map((item) => (
                                             <ContainerCard key={item.id}>
                                                 <figure>
                                                     {' '}
@@ -372,7 +393,7 @@ function Search() {
                                                     </Link>
                                                     <br />
                                                     {likeArtists.find(
-                                                        like =>
+                                                        (like) =>
                                                             like.artist ===
                                                             item.id
                                                     ) ? (
@@ -411,7 +432,7 @@ function Search() {
                                     <h1>Users</h1>
 
                                     <ul>
-                                        {Users.map(item => (
+                                        {Users.map((item) => (
                                             <ContainerCard key={item.key}>
                                                 <figure>
                                                     <img
@@ -437,7 +458,7 @@ function Search() {
                                     <h1>Musics</h1>
 
                                     <ul>
-                                        {Musics.map(item => (
+                                        {Musics.map((item) => (
                                             <ContainerCard key={item.id}>
                                                 <figure>
                                                     <img
@@ -459,7 +480,7 @@ function Search() {
                                                     </button>
                                                     <br />
                                                     {likesMusics.find(
-                                                        likes =>
+                                                        (likes) =>
                                                             likes.music ===
                                                             item.id
                                                     ) ? (
