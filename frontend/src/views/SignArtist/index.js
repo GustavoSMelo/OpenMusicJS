@@ -4,6 +4,7 @@ import Footer from '../../components/footer';
 import { FaArrowRight, FaCheck, FaTimes } from 'react-icons/fa';
 import background from '../../assets/img/backgroundLines.png';
 import api from '../../api';
+import { useHistory } from 'react-router-dom';
 
 function SignArtist() {
     const [name, setName] = useState('');
@@ -15,6 +16,8 @@ function SignArtist() {
     const [hasInfo, setHasInfo] = useState(1);
     const [InfoForm, setInfoForm] = useState('name');
     const [result, setResult] = useState(null);
+
+    const history = useHistory();
 
     function handlerNameChange(e) {
         setName(e.target.value);
@@ -60,6 +63,10 @@ function SignArtist() {
         } else {
             alert('please, insert all fields ');
         }
+    }
+
+    function CancelRegister() {
+        history.push('/');
     }
 
     function renderMainForm() {
@@ -158,7 +165,11 @@ function SignArtist() {
                     <button type="button" onClick={onCreateUser}>
                         Confirm <FaCheck />
                     </button>
-                    <button className="cancel" type="button">
+                    <button
+                        className="cancel"
+                        type="button"
+                        onClick={CancelRegister}
+                    >
                         Cancel <FaTimes />{' '}
                     </button>
                 </section>
