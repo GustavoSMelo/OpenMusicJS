@@ -163,4 +163,16 @@ module.exports = {
             return res.status(400).json({ Error: `Image not found ${err}` });
         }
     },
+
+    async show(req, res) {
+        const { album: id } = req.headers;
+
+        const infoAlbum = await Albuns.findOne({
+            where: {
+                id,
+            },
+        });
+
+        return res.json({ infoAlbum });
+    },
 };
