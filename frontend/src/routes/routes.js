@@ -13,6 +13,7 @@ import Search from '../views/Search';
 import ArtistProfile4Public from '../views/ArtistProfile4Public';
 import ChangeInfoUser from '../views/ChangeInfoUser';
 import LikesUser from '../views/LikesUser';
+import Album from '../views/Album';
 
 function Routes() {
     return (
@@ -52,6 +53,19 @@ function Routes() {
                     )}
                 />
                 <Route exact path="/likes" component={LikesUser} />
+                <Route
+                    exact
+                    path="/album"
+                    render={(props) => (
+                        <Album
+                            {...props}
+                            albumID={props.location.state.albumID}
+                            name={props.location.state.name}
+                            genre={props.location.state.genre}
+                            banner={props.location.state.banner}
+                        />
+                    )}
+                />
             </Switch>
         </BrowserRouter>
     );
