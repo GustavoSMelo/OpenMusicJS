@@ -80,6 +80,7 @@ routes.put(
     upload.single('banner'),
     AlbumController.update
 );
+routes.get('/album/show', AlbumController.show);
 
 //routes of relationship
 
@@ -90,6 +91,7 @@ routes.delete(
     authMiddleware,
     RelationshipAAM.destroy
 );
+routes.post('/album/music/unique', RelationshipAAM.show);
 
 //routes of users_like_musics
 routes.post('/users/musics', authMiddleware, users_like_musics.store);
@@ -101,6 +103,7 @@ routes.delete('/users/musics', authMiddleware, users_like_musics.destroy);
 routes.post('/users/albuns', authMiddleware, users_like_albuns.store);
 routes.get('/users/albuns', authMiddleware, users_like_albuns.index);
 routes.delete('/users/albuns', authMiddleware, users_like_albuns.destroy);
+routes.post('/users/albuns/show', authMiddleware, users_like_albuns.show);
 
 //routes of users_like_artists
 
