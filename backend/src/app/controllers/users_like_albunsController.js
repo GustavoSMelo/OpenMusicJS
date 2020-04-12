@@ -96,4 +96,23 @@ module.exports = {
 
         return res.json({ message: 'Like Removed with success! ' });
     },
+    async show(req, res) {
+        const authHeader = req.headers.authorization;
+
+        const { id: user } = await authMethod(authHeader);
+        const { albumID: album } = req.body;
+
+        const likes = await users_like_albuns.findOne({
+            where: {
+                user,
+                album,
+            },
+        });
+
+        if (!likes || likes.length <= 0) {
+            return res.json([]);
+        }
+
+        return res.json({ likes });
+    },
 };
