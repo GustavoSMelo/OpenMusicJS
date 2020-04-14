@@ -14,6 +14,7 @@ import ArtistProfile4Public from '../views/ArtistProfile4Public';
 import ChangeInfoUser from '../views/ChangeInfoUser';
 import LikesUser from '../views/LikesUser';
 import Album from '../views/Album';
+import DashboardArtist from '../views/DashboardArtists';
 
 function Routes() {
     return (
@@ -63,6 +64,19 @@ function Routes() {
                             name={props.location.state.name}
                             genre={props.location.state.genre}
                             banner={props.location.state.banner}
+                        />
+                    )}
+                />
+                <Route
+                    exact
+                    path="/artist/dashboard"
+                    render={(props) => (
+                        <DashboardArtist
+                            {...props}
+                            artistID={props.location.state.artistID}
+                            artistEmail={props.location.state.artistEmail}
+                            name_artistic={props.location.state.name_artistic}
+                            avatar={props.location.state.avatar}
                         />
                     )}
                 />
