@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    background-image: url(${props => props.img});
+    background-image: url(${(props) => props.img});
     height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
@@ -54,4 +54,17 @@ export const Container = styled.div`
             width: 50%;
         }
     }
+`;
+
+export const ContainerError = styled.article`
+    display: flex;
+    margin: 14px;
+    width: 50%;
+    background-color: #e89a97;
+    font-weight: bold;
+    color: #f00 !important;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
 `;
