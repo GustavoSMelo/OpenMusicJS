@@ -30,6 +30,7 @@ module.exports = {
                 name_artistic: art.name_artistic,
                 email,
                 id: art.id,
+                avatar: art.avatar,
             },
             token: jwt.sign(
                 {
