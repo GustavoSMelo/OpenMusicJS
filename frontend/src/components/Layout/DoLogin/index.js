@@ -6,7 +6,7 @@ function DoLogin() {
     return (
         <ContainerNotLogged>
             <h1>To continue, please make login</h1>
-            <Link className="btnLogin" to="/login/user">
+            <Link className="btnLogin" to="/login">
                 Login
             </Link>
         </ContainerNotLogged>
