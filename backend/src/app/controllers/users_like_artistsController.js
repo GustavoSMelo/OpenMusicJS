@@ -1,6 +1,7 @@
 const Artists = require('../models/artist');
 const authMethod = require('../../utils/authMethod');
 const users_like_artists = require('../models/users_like_artists');
+const Users = require('../models/user');
 
 module.exports = {
     async store(req, res) {
@@ -59,6 +60,11 @@ module.exports = {
             return res.json([]);
         }
 
+        const allUsers = await Users.findAll();
+
+        res.header('CountLikes', likes.length);
+        res.header('CountUsers', allUsers.length);
+
         return res.json(likes);
     },
 
@@ -98,4 +104,6 @@ module.exports = {
 
         return res.json({ message: 'Like Removed with success! ' });
     },
+
+    async show(req, res) {},
 };
