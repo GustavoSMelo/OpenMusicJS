@@ -64,7 +64,6 @@ export const Container = styled.main`
     }
     .a > span {
         width: 80%;
-        border: solid black 1px;
         margin-left: 10px;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -74,12 +73,64 @@ export const Container = styled.main`
         width: 30%;
     }
 
-    .inserts > section {
+    .inserts > .btnMenu {
+        text-decoration: none;
+        color: #5d15ff;
+    }
+
+    .inserts > .btnMenu > section {
         border: 3px solid #5d15ff;
         padding: 30px;
         margin: 10px;
         border-radius: 5px;
         font-size: 16pt;
         font-weight: bold;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    .inserts > .btnMenu > section:hover {
+        background-color: #5d15ff;
+        color: #fff;
+        border: solid 3px #fff;
+        transition: 0.5s;
+    }
+
+    @media screen and (max-width: 1600px) {
+        flex-direction: column-reverse;
+
+        .inserts {
+            width: 70%;
+            margin: auto;
+        }
+
+        .a {
+            width: 80%;
+        }
+
+        .a > span {
+            width: 95%;
+        }
+    }
+
+    @media screen and (max-width: 1100px) {
+        .a {
+            width: 100%;
+        }
+
+        .a > span {
+            width: 100%;
+        }
+        .a > span {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+        }
+
+        .a > span > section {
+            margin-top: 60px;
+        }
     }
 `;
