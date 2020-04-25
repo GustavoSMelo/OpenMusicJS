@@ -1,6 +1,5 @@
 const musics = require('../models/music');
 const authMethod = require('../../utils/authMethod');
-const viewsMusic = require('../models/views.musics');
 const users_like_musics = require('../models/users_like_musics');
 
 module.exports = {
@@ -9,6 +8,7 @@ module.exports = {
 
         const { id: singer } = await authMethod(authHeader);
 
+        console.log(req.files);
         const [banner, music] = req.files;
 
         if (!banner || !music) {
@@ -190,11 +190,8 @@ module.exports = {
             },
         });
 
-        const { qtd_views } = await viewsMusic.findOne({ music: musicid });
-
         return res.json({
             music: musicinfo,
-            qtd_views,
         });
     },
 };
