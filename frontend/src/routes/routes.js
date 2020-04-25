@@ -15,6 +15,7 @@ import ChangeInfoUser from '../views/ChangeInfoUser';
 import LikesUser from '../views/LikesUser';
 import Album from '../views/Album';
 import DashboardArtist from '../views/DashboardArtists';
+import AddMusic from '../views/addMusic';
 
 function Routes() {
     return (
@@ -77,6 +78,16 @@ function Routes() {
                             artistEmail={props.location.state.artistEmail}
                             name_artistic={props.location.state.name_artistic}
                             avatar={props.location.state.avatar}
+                        />
+                    )}
+                />
+                <Route
+                    exact
+                    path="/add/music"
+                    render={(props) => (
+                        <AddMusic
+                            {...props}
+                            artistID={props.location.state.artistID}
                         />
                     )}
                 />
