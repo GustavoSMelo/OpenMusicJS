@@ -15,7 +15,7 @@ function Chartjs() {
     });
 
     console.log(data.chartData);
-    return <Doughnut data={data.chartData} width={3} height={1} />;
+    return <Doughnut data={data.chartData} width={2.5} height={1} />;
 }
 
 export default Chartjs;
