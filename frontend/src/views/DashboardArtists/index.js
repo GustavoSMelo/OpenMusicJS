@@ -81,25 +81,43 @@ function DashboardArtists(props) {
                         </span>
                     </div>
                     <div className="inserts">
-                        <section>
-                            <FaFolderPlus /> New Album
-                        </section>
+                        <Link className="btnMenu">
+                            <section>
+                                <FaFolderPlus /> New Album
+                            </section>
+                        </Link>
 
-                        <section>
-                            <FaPencilAlt /> Edit album
-                        </section>
+                        <Link className="btnMenu">
+                            <section>
+                                <FaPencilAlt /> Edit album
+                            </section>
+                        </Link>
 
-                        <section>
-                            <FaFolderPlus /> New Music
-                        </section>
+                        <Link
+                            className="btnMenu"
+                            to={{
+                                state: {
+                                    artistID: props.artistID,
+                                },
+                                pathname: '/add/music',
+                            }}
+                        >
+                            <section>
+                                <FaFolderPlus /> New Music
+                            </section>
+                        </Link>
 
-                        <section>
-                            <FaPencilAlt /> Edit musis
-                        </section>
+                        <Link className="btnMenu">
+                            <section>
+                                <FaPencilAlt /> Edit music
+                            </section>
+                        </Link>
 
-                        <section>
-                            <FaFolderPlus /> Insertion music in album
-                        </section>
+                        <Link className="btnMenu">
+                            <section>
+                                <FaFolderPlus /> Insertion music in album
+                            </section>
+                        </Link>
                     </div>
                 </Container>
                 <Footer />
