@@ -16,6 +16,8 @@ import LikesUser from '../views/LikesUser';
 import Album from '../views/Album';
 import DashboardArtist from '../views/DashboardArtists';
 import AddMusic from '../views/addMusic';
+import EditMusic from '../views/EditMusic';
+import AllMusics4Edit from '../views/allMusics4Edit';
 
 function Routes() {
     return (
@@ -86,6 +88,17 @@ function Routes() {
                     path="/add/music"
                     render={(props) => (
                         <AddMusic
+                            {...props}
+                            artistID={props.location.state.artistID}
+                        />
+                    )}
+                />
+                <Route exact path="/edit/music" component={EditMusic} />
+                <Route
+                    exact
+                    path="/show/musics/for/edit"
+                    render={(props) => (
+                        <AllMusics4Edit
                             {...props}
                             artistID={props.location.state.artistID}
                         />
