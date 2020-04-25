@@ -107,7 +107,15 @@ function DashboardArtists(props) {
                             </section>
                         </Link>
 
-                        <Link className="btnMenu">
+                        <Link
+                            className="btnMenu"
+                            to={{
+                                pathname: '/show/musics/for/edit',
+                                state: {
+                                    artistID: props.artistID,
+                                },
+                            }}
+                        >
                             <section>
                                 <FaPencilAlt /> Edit music
                             </section>
