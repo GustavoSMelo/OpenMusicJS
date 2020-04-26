@@ -12,7 +12,7 @@ function Main() {
             <header>
                 <img src={Logo} alt="logo-icon" />
                 <h1>
-                    Musicfy, <br />
+                    OpenMusicJS, <br />
                     Listen all your musics here!
                 </h1>
             </header>
@@ -25,7 +25,7 @@ function Main() {
                 </Link>
             </main>
             <Image img={backbubbles}>
-                <h1>Dive in the world of musics with Musicfy</h1>
+                <h1>Dive in the world of musics with OpenMusicJS</h1>
                 <br />
                 <h2>For Free</h2>
 
