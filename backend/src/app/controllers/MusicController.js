@@ -128,7 +128,9 @@ module.exports = {
 
         const { id: idArtist } = info;
 
-        const { id } = req.body;
+        const { id } = req.headers;
+
+        console.log(id);
 
         if (!id) {
             return res.status(400).json({ Error: 'Id not sended ' });
@@ -149,27 +151,22 @@ module.exports = {
         }
 
         const {
-            oldname = musicfinded.name,
-            newname: name,
+            newname: name = musicfinded.name,
             genre = musicfinded.genre,
-            singer = musicfinded.singer,
         } = req.body;
 
-        if (!oldname || !name || !genre || !singer) {
+        console.log(req);
+        const { filename: banner_path = musicfinded.banner_path } = req.file;
+
+        if (!name || !genre) {
             return res.status(400).json({
                 Error: 'Please, complete all the fields to continue ',
             });
         }
 
-        if (oldname !== musicfinded.name) {
-            return res
-                .status(404)
-                .json({ Error: 'oldname of music isnt valid ' });
-        }
-
         try {
             await musics.update(
-                { oldname, name, genre, singer },
+                { name, genre, banner_path },
                 { where: { id }, limit: 1 }
             );
 
