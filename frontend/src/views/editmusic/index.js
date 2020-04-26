@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DoLogin from '../../components/Layout/DoLogin';
 import { Container, ContainerError, ContainerSuccess } from './style';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
-import { FaPlusCircle } from 'react-icons/fa';
+import { FaPencilAlt } from 'react-icons/fa';
 import api from '../../api';
 import Verify from '../../utils/verify';
 import { useHistory } from 'react-router-dom';
@@ -10,34 +10,30 @@ import { useHistory } from 'react-router-dom';
 function EditMusic(props) {
     const [nameMusic, setNameMusic] = useState('');
     const [genreMusic, setGenreMusic] = useState('');
-    const [bannerMusic, setbannerMusic] = useState([]);
-    const [pathMusic, setPathMusic] = useState([]);
+    const [bannerMusic, setbannerMusic] = useState(null);
     const [status4Artist, setStatus4Artist] = useState(<></>);
     const history = useHistory();
 
-    async function handlerStoreMusic() {
-        const validation = await Verify(
-            nameMusic,
-            genreMusic,
-            bannerMusic,
-            pathMusic
-        );
+    async function handlerEditMusic() {
+        const validation = await Verify(nameMusic, genreMusic);
         console.log(validation);
         if (validation) {
             return await setStatus4Artist(
-                <ContainerError>Complete all the fields</ContainerError>
+                <ContainerError>
+                    Complete all the fields: name and genre
+                </ContainerError>
             );
         }
         try {
             const fd = new FormData();
-            fd.append('name', nameMusic);
+            fd.append('newname', nameMusic);
             fd.append('genre', genreMusic);
-            fd.append('info', bannerMusic);
-            fd.append('info', pathMusic);
-            await api.post('/music', fd, {
+            fd.append('banner_path', bannerMusic);
+            await api.put('/music', fd, {
                 headers: {
                     Authorization: localStorage.getItem('ArtistToken'),
                     'content-type': `multipart/form-data; boundary=${fd.bondary}`,
+                    id: props.musicID,
                 },
             });
             return await setStatus4Artist(
@@ -54,6 +50,9 @@ function EditMusic(props) {
     }
 
     function layout() {
+        if (props.musicID === null || props.musicID === undefined) {
+            return <DoLogin />;
+        }
         return (
             <Container>
                 {status4Artist}
@@ -66,13 +65,13 @@ function EditMusic(props) {
                     </button>
                     <input
                         type="text"
-                        placeholder="name"
+                        placeholder={`Old Name: ${props.name}`}
                         onChange={(e) => setNameMusic(e.target.value)}
                         value={nameMusic}
                     />
                     <input
                         type="text"
-                        placeholder="genre"
+                        placeholder={`Old Genre: ${props.genre}`}
                         onChange={(e) => setGenreMusic(e.target.value)}
                         value={genreMusic}
                     />
@@ -81,17 +80,12 @@ function EditMusic(props) {
                         placeholder="banner"
                         onChange={(e) => setbannerMusic(e.target.files[0])}
                     />
-                    <input
-                        type="file"
-                        placeholder="music"
-                        onChange={(e) => setPathMusic(e.target.files[0])}
-                    />
                     <button
                         type="button"
-                        onClick={handlerStoreMusic}
+                        onClick={handlerEditMusic}
                         className="btnAdd"
                     >
-                        <FaPlusCircle /> Add music{' '}
+                        <FaPencilAlt /> Edit music{' '}
                     </button>
                 </main>
             </Container>
