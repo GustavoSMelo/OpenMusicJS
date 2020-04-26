@@ -1,7 +1,29 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const animationButton = keyframes`
+    0%{
+        transform: translateX(0%);
+    }
+
+    50%{
+        transform: translateX(-30%);
+    }
+
+    100%{
+        transform: translateX(0%);
+    }
+`;
+
+export const ComeBack = styled.button`
+    margin: 50px;
+    border: none;
+    font-size: 26pt;
+    cursor: pointer;
+    padding: 5px;
+    animation: ${animationButton} infinite 1s;
+`;
 
 export const Container = styled.main`
-    background: linear-gradient(to bottom, #fff6f3, #aaaca8);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,6 +37,8 @@ export const Container = styled.main`
         border-radius: 5px;
         transition: 0.3s;
         flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
 
     h1 {
@@ -27,5 +51,28 @@ export const Container = styled.main`
         background-color: #60606099;
         box-shadow: 2px 2px 6px #101010;
         transition: 0.3s;
+    }
+
+    section > figure > img {
+        width: 250px;
+        margin: 30px;
+        border-radius: 10px;
+    }
+
+    section > article {
+        padding: 10px;
+    }
+
+    section > span > .btnLink {
+        background-color: #e37649;
+        padding: 20px;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        width: 100px;
+        text-decoration: none;
     }
 `;
