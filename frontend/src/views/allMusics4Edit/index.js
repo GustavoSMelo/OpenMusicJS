@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Container } from './style';
+import { Container, ComeBack } from './style';
 import api from '../../api';
+import { FaPencilAlt, FaArrowLeft } from 'react-icons/fa';
+import Local from './local';
+import { useHistory, Link } from 'react-router-dom';
 
 function AllMusics4Edit(props) {
     const [musics, setMusics] = useState([]);
+    const history = useHistory();
 
     async function getDataByAPI() {
         try {
@@ -24,53 +28,52 @@ function AllMusics4Edit(props) {
         }
     }
 
-    useEffect(() => getDataByAPI(), []);
+    useEffect(() => {
+        getDataByAPI();
+    }, []);
 
+    function GoBackPage() {
+        history.goBack();
+    }
     return (
-        <Container>
-            <h1>Select some music to modify: </h1>
-            {musics.map((item) => (
-                <section>
-                    <figure>
-                        <img
-                            src={`http://localhost:3333/img/${item.path}`}
-                            alt="banner music"
-                        />
-                    </figure>
-                    <article>
-                        <h1>name: {item.name}</h1>
-                        <h1>genero: {item.genre}</h1>
-                    </article>
-                </section>
-            ))}
-
-            <section>
-                <br />
-                <br />
-                <br />
-                <br />
-            </section>
-
-            <section>
-                <br />
-                <br />
-                <br />
-                <br />
-            </section>
-            <section>
-                <br />
-                <br />
-                <br />
-                <br />
-            </section>
-
-            <section>
-                <br />
-                <br />
-                <br />
-                <br />
-            </section>
-        </Container>
+        <>
+            <ComeBack className="ComeBack" onClick={() => history.goBack()}>
+                <FaArrowLeft />
+            </ComeBack>
+            <Container>
+                <h1>Select some music to modify: </h1>
+                {musics.map((item) => (
+                    <section key={item.id} id={item.id}>
+                        <figure>
+                            <img
+                                src={`http://localhost:3333/img/${item.banner_path}`}
+                                alt="banner music"
+                            />
+                        </figure>
+                        <article>
+                            <h1>name: {item.name}</h1>
+                            <h1>genero: {item.genre}</h1>
+                        </article>
+                        <span>
+                            <Link
+                                className="btnLink"
+                                to={{
+                                    state: {
+                                        name: item.name,
+                                        genre: item.genre,
+                                        musicID: item.id,
+                                    },
+                                    pathname: '/edit/music',
+                                }}
+                            >
+                                <FaPencilAlt /> Edit
+                            </Link>
+                        </span>
+                    </section>
+                ))}
+            </Container>
+            <Local />
+        </>
     );
 }
 
