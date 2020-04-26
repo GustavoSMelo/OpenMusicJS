@@ -93,7 +93,18 @@ function Routes() {
                         />
                     )}
                 />
-                <Route exact path="/edit/music" component={EditMusic} />
+                <Route
+                    exact
+                    path="/edit/music"
+                    render={(props) => (
+                        <EditMusic
+                            {...props}
+                            musicID={props.location.state.musicID}
+                            name={props.location.state.name}
+                            genre={props.location.state.genre}
+                        />
+                    )}
+                />
                 <Route
                     exact
                     path="/show/musics/for/edit"
