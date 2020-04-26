@@ -64,7 +64,7 @@ function DashboardArtists(props) {
                 </NavHeader>
                 <Container>
                     <div className="a">
-                        <h1>Relavancia: </h1>
+                        <h1>Relevance: </h1>
                         <span>
                             <section>
                                 <Chartjs />
