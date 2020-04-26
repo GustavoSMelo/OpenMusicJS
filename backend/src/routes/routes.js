@@ -55,7 +55,12 @@ routes.post(
 );
 routes.get('/musics', authMiddleware, MusicController.index);
 routes.delete('/music', authMiddleware, MusicController.destroy);
-routes.put('/music', authMiddleware, MusicController.update);
+routes.put(
+    '/music',
+    authMiddleware,
+    upload.single('banner_path'),
+    MusicController.update
+);
 routes.get('/music', authMiddleware, MusicController.show);
 
 //routes of album
