@@ -18,6 +18,7 @@ import DashboardArtist from '../views/DashboardArtists';
 import AddMusic from '../views/addMusic';
 import EditMusic from '../views/EditMusic';
 import AllMusics4Edit from '../views/allMusics4Edit';
+import AddAlbum from '../views/addAlbum';
 
 function Routes() {
     return (
@@ -110,6 +111,17 @@ function Routes() {
                     path="/show/musics/for/edit"
                     render={(props) => (
                         <AllMusics4Edit
+                            {...props}
+                            artistID={props.location.state.artistID}
+                        />
+                    )}
+                />
+
+                <Route
+                    exact
+                    path="/add/album"
+                    render={(props) => (
+                        <AddAlbum
                             {...props}
                             artistID={props.location.state.artistID}
                         />
