@@ -32,9 +32,6 @@ function AllMusics4Edit(props) {
         getDataByAPI();
     }, []);
 
-    function GoBackPage() {
-        history.goBack();
-    }
     return (
         <>
             <ComeBack className="ComeBack" onClick={() => history.goBack()}>
