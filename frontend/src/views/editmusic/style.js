@@ -1,15 +1,18 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    background-color: #e37649;
+    background-image: url(${(props) => props.img});
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     main {
-        background-color: #303030;
-        color: #fff;
+        background-color: #fff;
+        color: #000;
         display: flex;
         flex-direction: column;
         padding: 35px;
@@ -18,7 +21,7 @@ export const Container = styled.div`
     }
 
     main > .btnBack {
-        color: #fff;
+        color: #000;
         font-size: 24pt;
         width: 60px;
         cursor: pointer;
@@ -36,7 +39,7 @@ export const Container = styled.div`
         transition: 0.2s;
         border-bottom: 6px solid #e37649;
         background-color: #00000000;
-        color: #fff;
+        color: #000;
     }
 
     main > input:focus {
