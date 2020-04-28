@@ -6,6 +6,7 @@ import { FaPlusCircle } from 'react-icons/fa';
 import api from '../../api';
 import Verify from '../../utils/verify';
 import { useHistory } from 'react-router-dom';
+import Background from '../../assets/img/walp.jpg';
 
 function AddMusic(props) {
     const [nameMusic, setNameMusic] = useState('');
@@ -56,7 +57,7 @@ function AddMusic(props) {
     function layout() {
         if (props.artistID) {
             return (
-                <Container>
+                <Container img={Background}>
                     {status4Artist}
                     <main>
                         <button
