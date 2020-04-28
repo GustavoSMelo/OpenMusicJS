@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    background-color: #5d15ff;
+    background-image: url(${(props) => props.img});
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     height: 100vh;
     display: flex;
     align-items: center;
