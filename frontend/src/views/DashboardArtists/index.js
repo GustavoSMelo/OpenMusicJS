@@ -81,7 +81,15 @@ function DashboardArtists(props) {
                         </span>
                     </div>
                     <div className="inserts">
-                        <Link className="btnMenu">
+                        <Link
+                            className="btnMenu"
+                            to={{
+                                pathname: '/add/album',
+                                state: {
+                                    artistID: props.artistID,
+                                },
+                            }}
+                        >
                             <section>
                                 <FaFolderPlus /> New Album
                             </section>
