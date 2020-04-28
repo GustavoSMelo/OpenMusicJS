@@ -6,6 +6,7 @@ import { FaPencilAlt } from 'react-icons/fa';
 import api from '../../api';
 import Verify from '../../utils/verify';
 import { useHistory } from 'react-router-dom';
+import Background from '../../assets/img/walp3.jpg';
 
 function EditMusic(props) {
     const [nameMusic, setNameMusic] = useState('');
@@ -54,7 +55,7 @@ function EditMusic(props) {
             return <DoLogin />;
         }
         return (
-            <Container>
+            <Container img={Background}>
                 {status4Artist}
                 <main>
                     <button
