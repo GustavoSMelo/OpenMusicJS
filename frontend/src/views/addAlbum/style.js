@@ -1,4 +1,18 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const animationButton = keyframes`
+    0%{
+        transform: translateX(0%);
+    }
+
+    50%{
+        transform: translateX(-20%);
+    }
+
+    100%{
+        transform: translateX(0%);
+    }
+`;
 
 export const Container = styled.main`
     background-image: url(${(props) => props.img});
@@ -19,7 +33,7 @@ export const Container = styled.main`
         flex-direction: column;
         border-radius: 5px;
         box-shadow: 1px 1px 6px #ffc7e4;
-        height: 60%;
+        height: 65%;
         align-items: center;
     }
 
@@ -64,6 +78,19 @@ export const Container = styled.main`
         font-size: 16pt;
         font-weight: bold;
         border: none;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    section > span > .btnComeBack {
+        background-color: #00000000;
+        color: #ffc7e4;
+        text-align: left;
+        align-items: flex-start;
+        font-size: 24pt;
+        border: none;
+        padding: 15px;
+        animation: ${animationButton} 1s infinite;
         cursor: pointer;
     }
 
