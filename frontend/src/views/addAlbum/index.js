@@ -9,8 +9,10 @@ import {
     FaPenAlt,
     FaImage,
     FaCheckCircle,
+    FaArrowLeft,
 } from 'react-icons/fa';
 import DoLogin from '../../components/Layout/DoLogin';
+import { useHistory } from 'react-router-dom';
 
 function AddAlbum(props) {
     const [name, setName] = useState('');
@@ -19,6 +21,7 @@ function AddAlbum(props) {
     const [description, setDescription] = useState('');
     const [banner, setBanner] = useState([]);
     const [status4Artist, setStatus4Artist] = useState(<></>);
+    const history = useHistory();
 
     async function handlerButtonClick() {
         const fd = new FormData();
@@ -58,6 +61,15 @@ function AddAlbum(props) {
                 {status4Artist}
                 <section>
                     <span>
+                        <button
+                            type="button"
+                            onClick={() => history.goBack()}
+                            className="btnComeBack"
+                        >
+                            <FaArrowLeft />
+                        </button>
+                    </span>
+                    <span>
                         <FaMarker className="icon" />
                         <input
                             type="text"
@@ -80,7 +92,7 @@ function AddAlbum(props) {
                     <span>
                         <FaCalendarAlt className="icon" />
                         <input
-                            type="number"
+                            type="date"
                             onChange={(e) => setYear_lunched(e.target.value)}
                             placeholder="Insert a year of release here "
                             value={year_lunched}
