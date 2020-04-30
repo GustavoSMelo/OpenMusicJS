@@ -95,7 +95,15 @@ function DashboardArtists(props) {
                             </section>
                         </Link>
 
-                        <Link className="btnMenu">
+                        <Link
+                            className="btnMenu"
+                            to={{
+                                pathname: '/index/album',
+                                state: {
+                                    artistID: props.artistID,
+                                },
+                            }}
+                        >
                             <section>
                                 <FaPencilAlt /> Edit album
                             </section>
@@ -129,9 +137,16 @@ function DashboardArtists(props) {
                             </section>
                         </Link>
 
-                        <Link className="btnMenu">
+                        <Link
+                            className="btnMenu"
+                            to={{
+                                pathname: '/edit/album',
+                                state: { artistID: props.artistID },
+                            }}
+                        >
                             <section>
-                                <FaFolderPlus /> Insertion music in album
+                                <FaFolderPlus /> insert or delete a music inside
+                                album
                             </section>
                         </Link>
                     </div>
