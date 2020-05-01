@@ -47,7 +47,8 @@ function AddAlbum(props) {
             console.log({ error: err });
             await setStatus4Artist(
                 <ContainerError>
-                    Error in to update album, please, try again
+                    Error in to update album, complete all the fields and try
+                    again , please, try again
                 </ContainerError>
             );
         }
