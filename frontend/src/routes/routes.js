@@ -21,6 +21,8 @@ import AllMusics4Edit from '../views/allMusics4Edit';
 import AddAlbum from '../views/addAlbum';
 import AllAlbum4Edit from '../views/allAlbum4edit';
 import EditAlbum from '../views/editAlbum';
+import SelectMusicsInAlbum from '../views/SelectMusicsInAlbum';
+import InsertMusicsInAlbum from '../views/InsertMusicInAlbum';
 
 function Routes() {
     return (
@@ -150,6 +152,32 @@ function Routes() {
                             oldGenre={props.location.state.oldGenre}
                             oldDescription={props.location.state.oldDescription}
                             idAlbum={props.location.state.idAlbum}
+                        />
+                    )}
+                />
+
+                <Route
+                    exact
+                    path="/select/music/album"
+                    render={(props) => (
+                        <SelectMusicsInAlbum
+                            {...props}
+                            artistID={props.location.state.artistID}
+                        />
+                    )}
+                />
+
+                <Route
+                    exact
+                    path="/add/music/album"
+                    render={(props) => (
+                        <InsertMusicsInAlbum
+                            {...props}
+                            artistID={props.location.state.artistID}
+                            idAlbum={props.location.state.idAlbum}
+                            nameAlbum={props.location.state.nameAlbum}
+                            bannerAlbum={props.location.state.bannerAlbum}
+                            genreAlbum={props.location.state.genreAlbum}
                         />
                     )}
                 />
