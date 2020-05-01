@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavHeader, Container } from './style';
 import DoLogin from '../../components/Layout/DoLogin';
-import {
-    FaPowerOff,
-    FaFolderPlus,
-    FaPlusCircle,
-    FaPencilAlt,
-} from 'react-icons/fa';
+import { FaPowerOff, FaFolderPlus, FaPencilAlt } from 'react-icons/fa';
 import { useHistory, Link } from 'react-router-dom';
 import Footer from '../../components/footer';
 import Chartjs from '../../components/chartjs';
@@ -140,7 +135,7 @@ function DashboardArtists(props) {
                         <Link
                             className="btnMenu"
                             to={{
-                                pathname: '/edit/album',
+                                pathname: '/select/music/album',
                                 state: { artistID: props.artistID },
                             }}
                         >
