@@ -83,55 +83,25 @@ module.exports = {
     async destroy(req, res) {
         const authHeader = req.headers.authorization;
 
-        const { id: artist } = await authMethod(authHeader);
+        const { id: artists } = await authMethod(authHeader);
 
-        const { album } = req.body;
-        if (!album) {
-            return res
-                .status(400)
-                .json({ Error: 'Please, insert what album u want do delete ' });
-        }
+        const { album, music } = req.headers;
 
-        const hasAlbum = await Albuns.findOne({ where: { id: album } });
-
-        if (!hasAlbum) {
-            return req.status(404).json({ Error: 'This album doesnt exists ' });
-        }
-
-        const isInserted = await Albuns.findOne({
-            where: { id: album, artist },
-        });
-
-        if (!isInserted) {
+        try {
+            await RelationshipAAM.destroy({
+                where: {
+                    artists,
+                    album,
+                    music,
+                },
+            });
+        } catch (err) {
             return res
                 .status(401)
-                .json({ Error: 'U isnt authorized to do this action ' });
+                .json({
+                    Error: `Error in delete music inside album, please try again,\n ${err}`,
+                });
         }
-
-        const isOnwner = await RelationshipAAM.findOne({
-            where: {
-                album,
-                artists: artist,
-            },
-        });
-
-        if (!isOnwner) {
-            return res.status(401).json({
-                Error:
-                    'U isnt authorized to do this or the album didnt finded ',
-            });
-        }
-
-        const { id } = isOnwner;
-
-        await RelationshipAAM.destroy({
-            where: {
-                id,
-            },
-            limit: 1,
-        });
-
-        return res.json({ message: 'Album deleted with success! ' });
     },
 
     async update(req, res) {
