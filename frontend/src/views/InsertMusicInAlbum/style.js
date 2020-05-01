@@ -4,7 +4,6 @@ export const Container = styled.main`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #f0f0f8;
 
     figure {
         background-color: #70707030;
