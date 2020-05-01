@@ -1,58 +1,95 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../api';
 import { Container } from './style';
+import api from '../../api';
 import DoLogin from '../../components/Layout/DoLogin';
 import { FaTimes, FaCheck } from 'react-icons/fa';
+import Local from './local';
 
 function InsertMusicInAlbum(props) {
+    const [Relationship, setRelationship] = useState([]);
     const [allMusics, setAllMusics] = useState([]);
-    const [musicsInAlbum, setMusicsInAlbum] = useState([]);
-    const [musicsInAlbumFiltred, setMusicsInAlbumFiltred] = useState([]);
+    const [musicsFiltred, setMusicsFiltred] = useState([]);
+    const [musicsInsertedFiltred, setMusicsInsertedFiltred] = useState([]);
 
     async function getDataByAPI() {
-        try {
-            const response = await api.get('/musics', {
-                headers: {
-                    authorization: localStorage.getItem('ArtistToken'),
-                },
-            });
-            const MusicsOfArtist = response.data.allmusics.filter(
-                (music) => music.singer === props.artistID
-            );
-            await setAllMusics(MusicsOfArtist);
+        const response = await api.get('/relationship/album/music');
+        const relationshipOfAlbum = response.data.filter(
+            (item) => item.album === props.idAlbum
+        );
+        setRelationship(relationshipOfAlbum);
 
-            const response_two = await api.post('/album/music/unique', {
-                albumID: props.idAlbum,
-            });
-            const sentinel = response_two.data.infoAlbum.filter((item) =>
-                allMusics.map(
-                    (musics) =>
-                        item.album === props.idAlbum &&
-                        item.artists === props.artistID &&
-                        item.music === musics.id
-                )
-            );
+        const response2 = await api.get('/musics', {
+            headers: {
+                authorization: localStorage.getItem('ArtistToken'),
+            },
+        });
 
-            await setMusicsInAlbum(sentinel);
-            filter();
-            return;
-        } catch (err) {
-            console.error({ Error: err });
-            return;
-        }
+        const musicsOfArtist = response2.data.allmusics.filter(
+            (item) => item.singer === props.artistID
+        );
+        setAllMusics(musicsOfArtist);
+
+        filter();
     }
 
     function filter() {
-        const filtred = allMusics.filter((music) =>
-            musicsInAlbum.map((item) => music.id === item.music)
+        const filtMI = [];
+        Relationship.map((item) =>
+            allMusics.filter((musics) =>
+                item.music === musics.id ? filtMI.push(musics) : <></>
+            )
         );
 
-        setMusicsInAlbumFiltred(filtred);
+        console.log(filtMI);
+        setMusicsInsertedFiltred(filtMI);
+
+        const filtMF = allMusics;
+
+        musicsInsertedFiltred.map((item) =>
+            filtMF.filter((musics, index) =>
+                item.id === musics.id ? filtMF.splice(index, 1) : <></>
+            )
+        );
+
+        console.log(filtMF);
+        setMusicsFiltred(filtMF);
     }
 
     useEffect(() => {
-        getDataByAPI();
-    }, [musicsInAlbum]);
+        setTimeout(() => {
+            getDataByAPI();
+        }, 500);
+    }, [Relationship]);
+
+    async function insertMusicInsideAlbum(album, music) {
+        try {
+            await api.post(
+                '/relationship/album/music',
+                { album, music },
+                {
+                    headers: {
+                        authorization: localStorage.getItem('ArtistToken'),
+                    },
+                }
+            );
+        } catch (err) {
+            console.error({ Error: err });
+        }
+    }
+
+    async function removeMusicInsideAlbum(album, music) {
+        try {
+            await api.delete('/relationship/album/music', {
+                headers: {
+                    authorization: localStorage.getItem('ArtistToken'),
+                    album,
+                    music,
+                },
+            });
+        } catch (err) {
+            console.error({ Error: err });
+        }
+    }
 
     function Layout() {
         if (!props.artistID || !props.idAlbum) {
@@ -60,78 +97,73 @@ function InsertMusicInAlbum(props) {
         }
 
         return (
-            <Container>
-                <span>
-                    <figure>
-                        <img
-                            src={`http://localhost:3333/img/${props.bannerAlbum}`}
-                            alt="banner album"
-                        />
-                        <figcaption>
-                            <h1>{props.nameAlbum}</h1>{' '}
-                            <small>{props.genreAlbum}</small>
-                        </figcaption>
-                    </figure>
-                </span>
-                <section>
-                    <h1>Musics inside album</h1>
-                    {musicsInAlbumFiltred.map((music) => (
-                        <figure key={music.id} id={music.id}>
-                            <button>
-                                <FaTimes />
-                            </button>
+            <>
+                <Container>
+                    <span>
+                        <figure>
                             <img
-                                src={`http://localhost:3333/img/${music.banner_path}`}
-                                alt="banner music"
+                                src={`http://localhost:3333/img/${props.bannerAlbum}`}
+                                alt="banner album"
                             />
                             <figcaption>
-                                <h1>{music.name}</h1>{' '}
-                                <small>{music.genre}</small>
+                                <h1>{props.nameAlbum}</h1>{' '}
+                                <small>{props.genreAlbum}</small>
                             </figcaption>
                         </figure>
-                    ))}
-                </section>
-                <article>
-                    <h1>Musics outside album</h1>
-                    {musicsInAlbum.lenght >= 1
-                        ? allMusics.forEach((music) =>
-                              musicsInAlbum.find((item) =>
-                                  item.music === music.id ? (
-                                      <></>
-                                  ) : (
-                                      <figure key={music.id} id={music.id}>
-                                          <button>
-                                              <FaCheck />
-                                          </button>
-                                          <img
-                                              src={`http://localhost:3333/img/${music.banner_path}`}
-                                              alt="banner music not add"
-                                          />
-                                          <figcaption>
-                                              <h1>{music.name}</h1>{' '}
-                                              <small>Genre music</small>
-                                          </figcaption>
-                                      </figure>
-                                  )
-                              )
-                          )
-                        : allMusics.map((musics) => (
-                              <figure key={musics.id}>
-                                  <button>
-                                      <FaCheck />
-                                  </button>
-                                  <img
-                                      src={`http://localhost:3333/img/${musics.banner_path}`}
-                                      alt="banner music not add"
-                                  />
-                                  <figcaption>
-                                      <h1>{musics.name}</h1>{' '}
-                                      <small>Genre music</small>
-                                  </figcaption>
-                              </figure>
-                          ))}
-                </article>
-            </Container>
+                    </span>
+                    <section>
+                        <h1>Musics inside album</h1>
+                        {musicsInsertedFiltred.map((music) => (
+                            <figure key={music.id} id={music.id}>
+                                <button
+                                    onClick={() =>
+                                        removeMusicInsideAlbum(
+                                            props.idAlbum,
+                                            music.id
+                                        )
+                                    }
+                                >
+                                    <FaTimes />
+                                </button>
+                                <img
+                                    src={`http://localhost:3333/img/${music.banner_path}`}
+                                    alt="banner music"
+                                />
+                                <figcaption>
+                                    <h1>{music.name}</h1>{' '}
+                                    <small>{music.genre}</small>
+                                </figcaption>
+                            </figure>
+                        ))}
+                    </section>
+                    <article>
+                        <h1>Musics outside album</h1>
+                        {musicsFiltred.map((music) => (
+                            <figure key={music.id} id={music.id}>
+                                <button
+                                    onClick={() =>
+                                        insertMusicInsideAlbum(
+                                            props.idAlbum,
+                                            music.id
+                                        )
+                                    }
+                                >
+                                    <FaCheck />
+                                </button>
+                                <img
+                                    src={`http://localhost:3333/img/${music.banner_path}`}
+                                    alt="banner music"
+                                />
+                                <figcaption>
+                                    <h1>{music.name}</h1>{' '}
+                                    <small>{music.genre}</small>
+                                </figcaption>
+                            </figure>
+                        ))}
+                    </article>
+                </Container>
+                <Local />
+            </>
         );
     }
 
