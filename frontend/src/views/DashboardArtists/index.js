@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { NavHeader, Container } from './style';
 import DoLogin from '../../components/Layout/DoLogin';
-import { FaPowerOff, FaFolderPlus, FaPencilAlt } from 'react-icons/fa';
+import { FaPowerOff, FaFolderPlus, FaPencilAlt, FaHeart } from 'react-icons/fa';
 import { useHistory, Link } from 'react-router-dom';
 import Footer from '../../components/footer';
-import Chartjs from '../../components/chartjs';
 import api from '../../api';
 
 function DashboardArtists(props) {
+    const [qntLikes, setQntLikes] = useState(0);
     const history = useHistory();
-    const [countLikesArtist, setCountLikesArtist] = useState(0);
-
     async function getDataByAPI() {
-        const counts = await api.get('/users/artist', {
+        const response = await api.get('/users/artists/show', {
             headers: {
-                authorization: localStorage.getItem('TokenArtist'),
+                authorization: localStorage.getItem('ArtistToken'),
             },
         });
 
-        console.log(counts);
+        await setQntLikes(response.data.allLikes.count);
+        console.log(qntLikes);
+        return;
     }
 
-    useEffect(() => {}, []);
-
-    console.log(props);
+    useEffect(() => {
+        getDataByAPI();
+    }, [qntLikes]);
 
     function Logoff() {
         localStorage.setItem('ArtistToken', '');
@@ -34,12 +34,23 @@ function DashboardArtists(props) {
         if (!props.artistID) {
             return <DoLogin />;
         }
-
         return (
             <>
                 <NavHeader>
                     <span className="content">
-                        <Link className="link">
+                        <Link
+                            className="link"
+                            to={{
+                                pathname: '/edit/profile/artist',
+                                state: {
+                                    artistID: props.artistID,
+                                    name_artistic: props.name_artistic,
+                                    name: props.name,
+                                    avatar: props.avatar,
+                                    artistEmail: props.artistEmail,
+                                },
+                            }}
+                        >
                             <figure>
                                 <img
                                     src={`http://localhost:3333/img/${props.avatar}`}
@@ -58,92 +69,92 @@ function DashboardArtists(props) {
                     </span>
                 </NavHeader>
                 <Container>
-                    <div className="a">
-                        <h1>Relevance: </h1>
+                    <div className="Relevance">
                         <span>
-                            <section>
-                                <Chartjs />
-                            </section>
-                            <section>
-                                <Chartjs />
-                            </section>
-                            <section>
-                                <Chartjs />
-                            </section>
-                            <section>
-                                <Chartjs />
-                            </section>
+                            <h1>All likes of this user: </h1>
+                            <br />
+                            <h1>
+                                <FaHeart className="icon-heart" />
+                                <br />
+                                {qntLikes}
+                            </h1>
                         </span>
                     </div>
                     <div className="inserts">
-                        <Link
-                            className="btnMenu"
-                            to={{
-                                pathname: '/add/album',
-                                state: {
-                                    artistID: props.artistID,
-                                },
-                            }}
-                        >
-                            <section>
-                                <FaFolderPlus /> New Album
-                            </section>
-                        </Link>
+                        <span>
+                            <Link
+                                className="btnMenu"
+                                to={{
+                                    pathname: '/add/album',
+                                    state: {
+                                        artistID: props.artistID,
+                                    },
+                                }}
+                            >
+                                <section>
+                                    <FaFolderPlus /> New Album
+                                </section>
+                            </Link>
 
-                        <Link
-                            className="btnMenu"
-                            to={{
-                                pathname: '/index/album',
-                                state: {
-                                    artistID: props.artistID,
-                                },
-                            }}
-                        >
-                            <section>
-                                <FaPencilAlt /> Edit album
-                            </section>
-                        </Link>
+                            <Link
+                                className="btnMenu"
+                                to={{
+                                    pathname: '/index/album',
+                                    state: {
+                                        artistID: props.artistID,
+                                    },
+                                }}
+                            >
+                                <section>
+                                    <FaPencilAlt /> Edit album
+                                </section>
+                            </Link>
+                        </span>
 
-                        <Link
-                            className="btnMenu"
-                            to={{
-                                state: {
-                                    artistID: props.artistID,
-                                },
-                                pathname: '/add/music',
-                            }}
-                        >
-                            <section>
-                                <FaFolderPlus /> New Music
-                            </section>
-                        </Link>
+                        <span>
+                            <Link
+                                className="btnMenu"
+                                to={{
+                                    state: {
+                                        artistID: props.artistID,
+                                    },
+                                    pathname: '/add/music',
+                                }}
+                            >
+                                <section>
+                                    <FaFolderPlus /> New Music
+                                </section>
+                            </Link>
 
-                        <Link
-                            className="btnMenu"
-                            to={{
-                                pathname: '/show/musics/for/edit',
-                                state: {
-                                    artistID: props.artistID,
-                                },
-                            }}
-                        >
-                            <section>
-                                <FaPencilAlt /> Edit music
-                            </section>
-                        </Link>
+                            <Link
+                                className="btnMenu"
+                                to={{
+                                    pathname: '/show/musics/for/edit',
+                                    state: {
+                                        artistID: props.artistID,
+                                    },
+                                }}
+                            >
+                                <section>
+                                    <FaPencilAlt /> Edit music
+                                </section>
+                            </Link>
+                        </span>
 
-                        <Link
-                            className="btnMenu"
-                            to={{
-                                pathname: '/select/music/album',
-                                state: { artistID: props.artistID },
-                            }}
-                        >
-                            <section>
-                                <FaFolderPlus /> insert or delete a music inside
-                                album
-                            </section>
-                        </Link>
+                        <span>
+                            <Link
+                                className="btnMenu"
+                                to={{
+                                    pathname: '/select/music/album',
+                                    state: { artistID: props.artistID },
+                                }}
+                            >
+                                <section>
+                                    <FaFolderPlus /> insert or delete a music
+                                    inside album
+                                </section>
+                            </Link>
+                        </span>
                     </div>
                 </Container>
                 <Footer />
