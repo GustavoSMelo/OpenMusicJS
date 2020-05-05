@@ -81,7 +81,13 @@ module.exports = {
 
         const infoToken = await authMethod(authHeader);
 
-        const { name, newemail = infoToken.email, pass, oldpass } = req.body;
+        const {
+            name,
+            name_artistic,
+            newemail = infoToken.email,
+            pass,
+            oldpass,
+        } = req.body;
 
         const oldDataArts = await artist.findOne({
             where: {
@@ -91,6 +97,7 @@ module.exports = {
         });
 
         const img = req.file;
+        console.log(req.file);
         let avatar = '';
 
         if (!img) {
@@ -108,7 +115,7 @@ module.exports = {
         const password = await bcrypt.hash(pass, 10);
 
         await artist.update(
-            { name, email: newemail, password, avatar },
+            { name, name_artistic, email: newemail, password, avatar },
             { where: { email: infoToken.email } }
         );
 
