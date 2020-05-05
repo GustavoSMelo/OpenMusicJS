@@ -108,12 +108,11 @@ routes.post('/users/albuns/show', authMiddleware, users_like_albuns.show);
 routes.post('/users/artists', authMiddleware, users_like_artists.store);
 routes.get('/users/artists', authMiddleware, users_like_artists.index);
 routes.delete('/users/artists', authMiddleware, users_like_artists.destroy);
+routes.get('/users/artists/show', authMiddleware, users_like_artists.show);
 
 //method search
 routes.post('/search', authMiddleware, SearchMethod.index);
 routes.get('/search', authMiddleware, SearchMethod.show);
-
-//routes of statistics
 
 //export
 module.exports = routes;
