@@ -1,11 +1,11 @@
 module.exports = {
-  dialect: 'mysql',
-  database: 'Spotify',
-  host: 'localhost',
-  username: 'root',
-  password: '',
-  define: {
-    timestamps: true,
-    underscored: true
-  }
+    dialect: 'mysql',
+    database: 'OpenMusicJS',
+    host: 'localhost',
+    username: 'root',
+    password: '',
+    define: {
+        timestamps: true,
+        underscored: true,
+    },
 };
