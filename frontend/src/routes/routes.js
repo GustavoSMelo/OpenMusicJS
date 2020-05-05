@@ -23,6 +23,7 @@ import AllAlbum4Edit from '../views/allAlbum4edit';
 import EditAlbum from '../views/editAlbum';
 import SelectMusicsInAlbum from '../views/SelectMusicsInAlbum';
 import InsertMusicsInAlbum from '../views/InsertMusicInAlbum';
+import EditProfileArtist from '../views/EditProfileArtist';
 
 function Routes() {
     return (
@@ -85,6 +86,7 @@ function Routes() {
                             artistEmail={props.location.state.artistEmail}
                             name_artistic={props.location.state.name_artistic}
                             avatar={props.location.state.avatar}
+                            name={props.location.state.name}
                         />
                     )}
                 />
@@ -178,6 +180,21 @@ function Routes() {
                             nameAlbum={props.location.state.nameAlbum}
                             bannerAlbum={props.location.state.bannerAlbum}
                             genreAlbum={props.location.state.genreAlbum}
+                        />
+                    )}
+                />
+
+                <Route
+                    exact
+                    path="/edit/profile/artist"
+                    render={(props) => (
+                        <EditProfileArtist
+                            {...props}
+                            artistID={props.location.state.artistID}
+                            name_artistic={props.location.state.name_artistic}
+                            artistEmail={props.location.state.artistEmail}
+                            avatar={props.location.state.avatar}
+                            name={props.location.state.name}
                         />
                     )}
                 />
