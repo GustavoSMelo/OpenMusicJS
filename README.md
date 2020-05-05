@@ -12,9 +12,10 @@
 
 - open the backend folder in your terminal
 - run in your console: yarn (You need has yarn in your computer)
-- create a folder with name: "tmp"
+- create a folder inside of folder backend and outside folder "src" with name:
+  "tmp"
 - inside of tmp create two folder, with names: "img" and "music"
-- create a database with name "spotify"
+- create a database with name "OpenMusicJS"
 - run in your console: yarn sequelize db:migrate
 - after this, run of backend with "yarn start"
 
