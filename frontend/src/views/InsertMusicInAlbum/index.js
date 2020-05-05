@@ -39,8 +39,6 @@ function InsertMusicInAlbum(props) {
                 item.music === musics.id ? filtMI.push(musics) : <></>
             )
         );
-
-        console.log(filtMI);
         setMusicsInsertedFiltred(filtMI);
 
         const filtMF = allMusics;
@@ -50,8 +48,6 @@ function InsertMusicInAlbum(props) {
                 item.id === musics.id ? filtMF.splice(index, 1) : <></>
             )
         );
-
-        console.log(filtMF);
         setMusicsFiltred(filtMF);
     }
 
