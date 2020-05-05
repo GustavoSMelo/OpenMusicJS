@@ -40,6 +40,5 @@
 
 - :heavy_check_mark: to create backend
 - :heavy_check_mark: to create frontend web for users
-- :hammer: to create frontend web for artists
+- :heavy_check_mark: to create frontend web for artists
 - :clock12: to create frontend mobile for users
-- :clock12: to create frontend mobile for artists
