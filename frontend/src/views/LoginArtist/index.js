@@ -27,6 +27,7 @@ function LoginArtist() {
                     artistID: response.data.user.id,
                     artistEmail: response.data.user.email,
                     name_artistic: response.data.user.name_artistic,
+                    name: response.data.user.name,
                     avatar: response.data.user.avatar,
                 },
             });
