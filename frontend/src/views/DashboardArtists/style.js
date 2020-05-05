@@ -57,28 +57,35 @@ export const NavHeader = styled.header`
 export const Container = styled.main`
     margin-top: 30px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
-    .a {
-        width: 70%;
-    }
-    .a > span {
-        width: 80%;
-        margin-left: 10px;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+    .Relevance {
+        text-align: center;
+        margin: 30px;
     }
 
     .inserts {
-        width: 30%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
     }
 
-    .inserts > .btnMenu {
+    .icon-heart {
+        font-size: 66pt;
+        color: #f00;
+    }
+
+    .inserts > span {
+        margin: 10px;
+    }
+
+    .inserts > span > .btnMenu {
         text-decoration: none;
         color: #5d15ff;
     }
 
-    .inserts > .btnMenu > section {
+    .inserts > span > .btnMenu > section {
         border: 3px solid #5d15ff;
         padding: 30px;
         margin: 10px;
@@ -89,7 +96,7 @@ export const Container = styled.main`
         transition: 0.5s;
     }
 
-    .inserts > .btnMenu > section:hover {
+    .inserts > span > .btnMenu > section:hover {
         background-color: #5d15ff;
         color: #fff;
         border: solid 3px #fff;
