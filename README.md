@@ -7,6 +7,8 @@
 - MySQL
 - Node.JS
 - Yarn (recommend, but not needed)
+- Expo
+- Mobile Emulator (or cellphone physic)
 
 ### :file_folder: Backend:
 
@@ -14,7 +16,8 @@
 - run in your console: yarn (You need has yarn in your computer)
 - create a folder inside of folder backend and outside folder "src" with name:
   "tmp"
-- inside of tmp create two folder, with names: "img" and "music"
+- inside of tmp create a folder with name "uploads" and inside of this folder
+  create another two folders, with names: "img" and "music"
 - create a database with name "OpenMusicJS"
 - run in your console: yarn(or npx) sequelize db:migrate
 - after this, run of backend with "yarn start"
@@ -24,6 +27,24 @@
 - First, you need to do the procediments of backend.
 - After this, you need to run yarn in your console (inside folder of frontend)
 - and run yarn start
+
+### :iphone: Mobile (with android emulator)
+
+- First, run backend
+- Open your emulator android
+- Open the folder of mobile in console
+- run "yarn" or "npm install"
+- after this, run "expo start" and wait the application open
+- When the application is opened, enter in console and click 'A'
+
+### :iphone: Mobile (with cellphone)
+
+- Download the app of expo in your cellphone
+- Enter in app of expo
+- Open the folder of mobile in console
+- run "yarn" or "npm install"
+- after this, run "expo start" and wait the application open
+- When the application is opened, scan the QR CODE with your cellphone
 
 # images of project in this moment:
 
@@ -42,4 +63,4 @@
 - :heavy_check_mark: to create backend
 - :heavy_check_mark: to create frontend web for users
 - :heavy_check_mark: to create frontend web for artists
-- :hammer: to create frontend mobile for users
+- :hammer: to create mobile for users
