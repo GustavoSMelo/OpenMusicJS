@@ -16,7 +16,7 @@
   "tmp"
 - inside of tmp create two folder, with names: "img" and "music"
 - create a database with name "OpenMusicJS"
-- run in your console: yarn sequelize db:migrate
+- run in your console: yarn(or npx) sequelize db:migrate
 - after this, run of backend with "yarn start"
 
 ### :computer: Frontend:
@@ -42,4 +42,4 @@
 - :heavy_check_mark: to create backend
 - :heavy_check_mark: to create frontend web for users
 - :heavy_check_mark: to create frontend web for artists
-- :clock12: to create frontend mobile for users
+- :hammer: to create frontend mobile for users
