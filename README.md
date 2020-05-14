@@ -24,8 +24,7 @@
 ### :computer: Frontend:
 
 - Firstly, you need to do the backend step.
-- After that, you need to run `yarn` in your console (inside the `frontend` folder)
-- and run `yarn start`.
+- After that, you need to run `yarn` in your console (inside the `frontend` folder) and run `yarn start`.
 
 ### :iphone: Mobile (with Android emulator):
 
