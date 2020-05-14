@@ -1,52 +1,51 @@
-# :hammer: This project be in process
+# :hammer: This project is currently in progress
 
-## but if you want to run this project, to do this:
+## If you want to run it, do this:
 
-### :clipboard: Things that you need to have:
+### :clipboard: Things that you need:
 
 - MySQL
 - Node.JS
-- Yarn (recommend, but not needed)
+- Yarn (recommend, but not necessary)
 - Expo
-- Mobile Emulator (or cellphone physic)
+- Mobile Emulator (or physical cellphone)
 
 ### :file_folder: Backend:
 
-- open the backend folder in your terminal
-- run in your console: yarn (You need has yarn in your computer)
-- create a folder inside of folder backend and outside folder "src" with name:
-  "tmp"
-- inside of tmp create a folder with name "uploads" and inside of this folder
-  create another two folders, with names: "img" and "music"
-- create a database with name "OpenMusicJS"
-- run in your console: yarn(or npx) sequelize db:migrate
-- after this, run of backend with "yarn start"
+- Open the `backend` folder in your terminal.
+- Run in your console: `yarn` (in case you use yarn).
+- Create a new folder inside of the `backend` folder and outside the `src` folder called: "tmp".
+- Inside of `tmp`, create a new folder called `uploads` and inside of this folder
+  create another two folders: `img` and `music`.
+- Create a database called "OpenMusicJS".
+- Run in your console: `yarn (or npx) sequelize db:migrate`.
+- After that, go to `backend` and run `yarn start`.
 
 ### :computer: Frontend:
 
-- First, you need to do the procediments of backend.
-- After this, you need to run yarn in your console (inside folder of frontend)
-- and run yarn start
+- Firstly, you need to do the backend step.
+- After that, you need to run `yarn` in your console (inside the `frontend` folder)
+- and run `yarn start`.
 
-### :iphone: Mobile (with android emulator)
+### :iphone: Mobile (with Android emulator):
 
-- First, run backend
-- Open your emulator android
-- Open the folder of mobile in console
-- run "yarn" or "npm install"
-- after this, run "expo start" and wait the application open
-- When the application is opened, enter in console and click 'A'
+- First, run the backend.
+- Open your Android emulator.
+- Open the mobile folder in the console.
+- Run `yarn` or `npm install`.
+- After that, run `expo start` and wait until the application opens.
+- When the application opens, enter in the console and click 'A'.
 
-### :iphone: Mobile (with cellphone)
+### :iphone: Mobile (with physical cellphone):
 
-- Download the app of expo in your cellphone
-- Enter in app of expo
-- Open the folder of mobile in console
-- run "yarn" or "npm install"
-- after this, run "expo start" and wait the application open
-- When the application is opened, scan the QR CODE with your cellphone
+- Download the Expo app in your cellphone.
+- Enter the Expo app.
+- Open the mobile folder in the console.
+- Run `yarn` or `npm install`.
+- After that, run `expo start` and wait until the application opens.
+- When the application opens, scan the QR CODE with your cellphone.
 
-# images of project in this moment:
+# Screenshots of the project:
 
 ![Screenshot_202a0-04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963607-6c79e180-7ace-11ea-8efc-7c9dc42f5076.png)
 
@@ -60,7 +59,7 @@
 
 ### Things to do:
 
-- :heavy_check_mark: to create backend
-- :heavy_check_mark: to create frontend web for users
-- :heavy_check_mark: to create frontend web for artists
-- :hammer: to create mobile for users
+- :heavy_check_mark: Create the back-end.
+- :heavy_check_mark: Create the web front-end for the users.
+- :heavy_check_mark: create the web front-end for the artists.
+- :hammer: Create mobile app.
