@@ -35,8 +35,6 @@ export const TextTitleImage = styled.Text`
     font-weight: bold;
 `;
 
-export const Thumb = styled.Image``;
-
 export const Submit = styled.TouchableOpacity`
     background-color: #e85ace;
     padding: 20px;
@@ -51,4 +49,11 @@ export const SubmitText = styled.Text`
     font-size: 16px;
     font-weight: bold;
     text-align: center;
+`;
+
+export const Header = styled.View`
+    padding: 30px;
+    text-align: left;
+    align-items: flex-start !important;
+    background-color: #303030;
 `;
