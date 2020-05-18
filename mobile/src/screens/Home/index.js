@@ -1,7 +1,8 @@
 import React from 'react';
+import { Container } from './style';
 
 function Home() {
-    return <></>;
+    return <Container></Container>;
 }
 
 export default Home;
