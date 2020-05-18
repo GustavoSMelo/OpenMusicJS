@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     StatusBar,
     View,
     KeyboardAvoidingView,
     ToastAndroid,
+    AsyncStorage,
 } from 'react-native';
 import {
     Container,
@@ -23,6 +24,18 @@ function Welcome() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigation = useNavigation();
+
+    async function ThemeConfiguration() {
+        const theme = await AsyncStorage.getItem('Theme');
+
+        if (!theme || theme === null || theme === undefined || theme === '') {
+            await AsyncStorage.setItem('Theme', 'DarkMode');
+        }
+    }
+
+    useEffect(() => {
+        ThemeConfiguration();
+    }, []);
 
     async function handlerLoginPress() {
         if (
