@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ToastAndroid, TouchableOpacity } from 'react-native';
+import { ToastAndroid, TouchableOpacity, Text, Image } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import api from '../../api/api';
@@ -7,18 +7,20 @@ import {
     Form,
     TextField,
     ContainerForm,
-    Thumb,
     TextTitleImage,
     Submit,
     SubmitText,
+    Header,
 } from './style';
 import Icons from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
 function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [avatar, setAvatar] = useState({});
+    const navigation = useNavigation();
 
     useEffect(() => {
         getPermissionUser();
@@ -71,87 +73,105 @@ function Register() {
             );
         }
         try {
+            console.log(avatar);
             const fd = new FormData();
             fd.append('name', name);
             fd.append('email', email);
             fd.append('pass', pass);
-            fd.append('avatar', avatar);
-            const response = await api.post('/user', fd);
+            fd.append('avatar', {
+                uri: avatar.uri,
+                type: 'image/jpeg',
+                name: 'user_avatar',
+            });
+            const response = await api.post('/user', fd, {
+                headers: {
+                    'content-type': `multipart/form-data; boundary=${fd.boundary}`,
+                },
+            });
             ToastAndroid.show('User created with success! ', 10);
         } catch (err) {
-            console.log(err);
-            ToastAndroid.show('Error, user already created! ', 10);
+            console.log({ Error: err });
+            ToastAndroid.show(`${err}`, 10);
         }
     }
 
     return (
-        <Form>
-            <ContainerForm>
-                <Icons
-                    name="user"
-                    size={30}
-                    color="#fff"
-                    style={{ margin: '5%' }}
-                />
-                <TextField
-                    placeholder="Insert your name here "
-                    value={name}
-                    onChangeText={(e) => setName(e)}
-                />
-            </ContainerForm>
-            <ContainerForm>
-                <Icons
-                    name="envelope-square"
-                    size={30}
-                    color="#fff"
-                    style={{ margin: '5%' }}
-                />
-                <TextField
-                    placeholder="Insert your email here "
-                    value={email}
-                    onChangeText={(e) => setEmail(e)}
-                />
-            </ContainerForm>
-            <ContainerForm>
-                <Icons
-                    name="key"
-                    size={30}
-                    color="#fff"
-                    style={{ margin: '5%' }}
-                />
-                <TextField
-                    secureTextEntry={true}
-                    placeholder="Insert your password here "
-                    value={pass}
-                    onChangeText={(e) => setPass(e)}
-                />
-            </ContainerForm>
-
-            <ContainerForm>
-                <TextTitleImage>Select some image: </TextTitleImage>
-                <TouchableOpacity>
+        <>
+            <Header>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Text>
+                        <Icons name="arrow-left" size={26} color="#fff" />
+                    </Text>
+                </TouchableOpacity>
+            </Header>
+            <Form>
+                <ContainerForm>
                     <Icons
-                        name="photo"
+                        name="user"
                         size={30}
                         color="#fff"
                         style={{ margin: '5%' }}
-                        onPress={() => handlerGetImageUser()}
                     />
-                </TouchableOpacity>
-            </ContainerForm>
-            {avatar ? (
-                <Thumb
-                    source={{ uri: avatar.uri }}
-                    style={{ width: '75%', height: '20%' }}
-                    resizeMode="contain"
-                />
-            ) : (
-                console.log(avatar)
-            )}
-            <Submit onPress={() => handlerButtonPressed()}>
-                <SubmitText>Register</SubmitText>
-            </Submit>
-        </Form>
+                    <TextField
+                        placeholder="Insert your name here "
+                        value={name}
+                        onChangeText={(e) => setName(e)}
+                    />
+                </ContainerForm>
+                <ContainerForm>
+                    <Icons
+                        name="envelope-square"
+                        size={30}
+                        color="#fff"
+                        style={{ margin: '5%' }}
+                    />
+                    <TextField
+                        placeholder="Insert your email here "
+                        value={email}
+                        onChangeText={(e) => setEmail(e)}
+                    />
+                </ContainerForm>
+                <ContainerForm>
+                    <Icons
+                        name="key"
+                        size={30}
+                        color="#fff"
+                        style={{ margin: '5%' }}
+                    />
+                    <TextField
+                        secureTextEntry={true}
+                        placeholder="Insert your password here "
+                        value={pass}
+                        onChangeText={(e) => setPass(e)}
+                    />
+                </ContainerForm>
+
+                <ContainerForm>
+                    <TextTitleImage>Select some image: </TextTitleImage>
+                    <TouchableOpacity>
+                        <Icons
+                            name="photo"
+                            size={30}
+                            color="#fff"
+                            style={{ margin: '5%' }}
+                            onPress={() => handlerGetImageUser()}
+                        />
+                    </TouchableOpacity>
+                </ContainerForm>
+                {avatar ? (
+                    <Image
+                        source={{ uri: avatar.uri }}
+                        style={{ width: '75%', height: '20%' }}
+                        resizeMode="contain"
+                    />
+                ) : (
+                    console.log(avatar)
+                )}
+                <Submit onPress={() => handlerButtonPressed()}>
+                    <SubmitText>Register</SubmitText>
+                </Submit>
+            </Form>
+        </>
     );
 }
 
