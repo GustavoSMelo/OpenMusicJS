@@ -80,7 +80,7 @@ function Register() {
             fd.append('pass', pass);
             fd.append('avatar', {
                 uri: avatar.uri,
-                type: 'image/jpeg',
+                type: 'image/jpg',
                 name: 'user_avatar',
             });
             const response = await api.post('/user', fd, {
@@ -90,7 +90,7 @@ function Register() {
             });
             ToastAndroid.show('User created with success! ', 10);
         } catch (err) {
-            console.log({ Error: err });
+            console.log(err);
             ToastAndroid.show(`${err}`, 10);
         }
     }
