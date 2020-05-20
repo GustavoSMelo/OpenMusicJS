@@ -23,7 +23,6 @@ async function getTheme() {
 
 function TabRoute() {
     if (theme == 'DarkMode') {
-        console.log('aqui');
         return (
             <Tab.Navigator
                 screenOptions={({ route }) => ({
@@ -32,13 +31,27 @@ function TabRoute() {
 
                         if (route.name === 'Home') {
                             iconName = 'home';
+                        } else if (route.name === 'Search') {
+                            iconName = 'search';
+                        } else if (route.name === 'Likes') {
+                            iconName = 'heart';
+                        } else if (route.name === 'Profile') {
+                            iconName = 'user-circle';
                         } else {
-                            iconName = 'angellist';
+                            iconName = 'question';
                         }
 
-                        return <Icons name={iconName} size={26} />;
+                        return (
+                            <Icons name={iconName} size={26} color={color} />
+                        );
                     },
                 })}
+                tabBarOptions={{
+                    activeTintColor: '#e848e1',
+                    activeBackgroundColor: '#505050',
+                    inactiveTintColor: '#fff',
+                    inactiveBackgroundColor: '#404040',
+                }}
             >
                 <Tab.Screen name="Home" component={Home} />
                 <Tab.Screen name="Search" component={Search} />
@@ -48,7 +61,33 @@ function TabRoute() {
         );
     }
     return (
-        <Tab.Navigator>
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
+
+                    if (route.name === 'Home') {
+                        iconName = 'home';
+                    } else if (route.name === 'Search') {
+                        iconName = 'search';
+                    } else if (route.name === 'Likes') {
+                        iconName = 'heart';
+                    } else if (route.name === 'Profile') {
+                        iconName = 'user-circle';
+                    } else {
+                        iconName = 'question';
+                    }
+
+                    return <Icons name={iconName} size={26} color={color} />;
+                },
+            })}
+            tabBarOptions={{
+                activeBackgroundColor: '#AAAAAA',
+                activeTintColor: '#e848e1',
+                inactiveBackgroundColor: '#F1F1F1',
+                inactiveTintColor: '#000',
+            }}
+        >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Search" component={Search} />
             <Tab.Screen name="Likes" component={Likes} />
