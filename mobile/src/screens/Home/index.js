@@ -21,9 +21,10 @@ function Home(props) {
         try {
             console.log(props);
             const token = await AsyncStorage.getItem('token');
+            console.log(token);
             const resolve = await api.get('/musics', {
                 headers: {
-                    Authorization: token,
+                    Authorization: `Bearer ${token}`,
                 },
             });
 
