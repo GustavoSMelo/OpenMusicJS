@@ -48,12 +48,6 @@ module.exports = {
     async index(req, res) {
         const allmusics = await musics.findAll({ limit: 10 });
 
-        if (!allmusics || allmusics.length <= 0) {
-            return res.status(404).json({
-                Error: 'Any music did registre or finded in database ',
-            });
-        }
-
         const authHeader = req.headers.authorization;
 
         const { id: user_auth_id } = await authMethod(authHeader);
