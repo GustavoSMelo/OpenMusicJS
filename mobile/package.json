@@ -15,6 +15,7 @@
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "expo": "~37.0.3",
+    "expo-av": "~8.1.0",
     "expo-image-picker": "~8.1.0",
     "expo-linear-gradient": "~8.1.0",
     "expo-permissions": "~8.1.0",
