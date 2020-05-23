@@ -14,6 +14,7 @@ import DarkMode from '../../styles/themes/dark';
 import LightMode from '../../styles/themes/light';
 import Header from '../../components/header';
 import Icons from 'react-native-vector-icons/FontAwesome';
+import { Audio } from 'expo-av';
 
 function Home(props) {
     const [theme, setTheme] = useState('');
@@ -84,6 +85,20 @@ function Home(props) {
         }
     }
 
+    async function handlerMusicPlay(url) {
+        try {
+            Audio.setAudioModeAsync(true);
+            Audio.setIsEnabledAsync(true);
+
+            const soundObj = await Audio.Sound.createAsync(
+                { uri: `http://192.168.0.104:3333/music/${url}` },
+                { shouldPlay: true }
+            );
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     useEffect(() => {
         Theme();
         getDataByAPI();
@@ -111,7 +126,11 @@ function Home(props) {
                                     <TextDark>{music.name}</TextDark>
                                     <TextDark>{music.genre}</TextDark>
                                     <ActionContainer>
-                                        <ButtonListen>
+                                        <ButtonListen
+                                            onPress={() =>
+                                                handlerMusicPlay(music.path)
+                                            }
+                                        >
                                             <TextDark>
                                                 <Icons
                                                     name="headphones"
