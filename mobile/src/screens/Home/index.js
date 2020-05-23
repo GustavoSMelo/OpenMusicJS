@@ -56,7 +56,11 @@ function Home(props) {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            setLikes(newLikes);
+            const newItem = newLikes.data.filter((lk) =>
+                likes.map((allLks) => lk !== allLks)
+            );
+
+            setLikes([...likes, newItem]);
         } catch (err) {
             console.error(err);
         }
@@ -72,11 +76,9 @@ function Home(props) {
                 },
             });
 
-            const newLikes = await api.get('/users/musics', {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+            const rmvItem = likes.filter((lk) => lk.music === music);
 
-            setLikes(newLikes);
+            setLikes(rmvItem);
         } catch (err) {
             console.error(err);
         }
