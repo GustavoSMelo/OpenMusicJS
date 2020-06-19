@@ -16,7 +16,7 @@ import LikesUser from '../views/LikesUser';
 import Album from '../views/Album';
 import DashboardArtist from '../views/DashboardArtists';
 import AddMusic from '../views/addMusic';
-import EditMusic from '../views/EditMusic';
+import EditMusic from '../views/editmusic';
 import AllMusics4Edit from '../views/allMusics4Edit';
 import AddAlbum from '../views/addAlbum';
 import AllAlbum4Edit from '../views/allAlbum4edit';
