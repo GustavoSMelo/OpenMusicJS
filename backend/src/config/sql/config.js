@@ -1,11 +1,11 @@
 module.exports = {
-    dialect: 'mysql',
-    database: 'OpenMusicJS',
+    dialect: 'postgres',
+    database: 'openmusicjs',
     host: 'localhost',
-    username: 'root',
-    password: '',
+    username: 'postgres',
+    password: 'postgres',
     define: {
-        timestamps: true,
+        timestamps: false,
         underscored: true,
     },
 };
