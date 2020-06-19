@@ -4,7 +4,7 @@
 
 ### :clipboard: Things that you need:
 
-- MySQL
+- SGBD (I'm using postgres)
 - Node.JS
 - Yarn (recommend, but not necessary)
 - Expo
