@@ -15,18 +15,21 @@ import LightMode from '../../styles/themes/light';
 import Header from '../../components/header';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import { Audio } from 'expo-av';
+import { useNavigation } from '@react-navigation/native';
 
-function Home(props) {
+function Home() {
     const [theme, setTheme] = useState('');
     const [allMusics, setAllMusics] = useState([]);
-    const [likes, setLikes] = useState([]);
+	const [likes, setLikes] = useState([]);
+	const navigation = useNavigation();
 
     async function Theme() {
-        const theme = await getTheme();
-        setTheme(theme);
+        const response = await getTheme();
+        setTheme(response);
     }
 
     async function getDataByAPI() {
+        Theme();
         try {
             const token = await AsyncStorage.getItem('token');
             const resolve = await api.get('/musics', {
@@ -37,10 +40,8 @@ function Home(props) {
 
             await setAllMusics(resolve.data.allmusics);
             await setLikes(resolve.data.likes_of_user);
-            return;
         } catch (err) {
-            console.error(err);
-            return;
+            navigation.navigate('Welcome')
         }
     }
 
@@ -91,16 +92,16 @@ function Home(props) {
             Audio.setIsEnabledAsync(true);
 
             const soundObj = await Audio.Sound.createAsync(
-                { uri: `http://192.168.0.104:3333/music/${url}` },
+                { uri: `http://192.168.0.100:3333/music/${url}` },
                 { shouldPlay: true }
-            );
+			);
+
         } catch (err) {
             console.error(err);
         }
     }
 
     useEffect(() => {
-        Theme();
         getDataByAPI();
     }, [likes]);
 
@@ -112,14 +113,13 @@ function Home(props) {
                     <Container theme={DarkMode}>
                         <FlatList
                             data={allMusics}
-                            onEndReached={getDataByAPI}
                             onEndReachedThreshold={0.2}
-                            keyExtractor={(allMusics) => allMusics.id}
+							keyExtractor={(allMusics) => allMusics.id}
                             renderItem={({ item: music }) => (
                                 <MusicContainer>
                                     <Figure
                                         source={{
-                                            uri: `http://192.168.0.104:3333/img/${music.banner_path}`,
+                                            uri: `http://192.168.0.100:3333/img/${music.banner_path}`,
                                         }}
                                         resizeMode="stretch"
                                     />
@@ -128,7 +128,11 @@ function Home(props) {
                                     <ActionContainer>
                                         <ButtonListen
                                             onPress={() =>
-                                                handlerMusicPlay(music.path)
+                                                navigation.navigate('Sound', {
+                                                    image: music.banner_path,
+                                                    name: music.name,
+                                                    sound: music.path
+                                                })
                                             }
                                         >
                                             <TextDark>
