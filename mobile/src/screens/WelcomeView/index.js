@@ -64,7 +64,7 @@ function Welcome() {
             await AsyncStorage.setItem('token', response.data.token);
             await AsyncStorage.setItem('email', response.data.user.email);
 
-            navigation.navigate('Home');
+            navigation.navigate('TabRoute');
         } catch (err) {
             return ToastAndroid.show('User not founded', 10);
         }
