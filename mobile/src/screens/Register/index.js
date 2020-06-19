@@ -81,7 +81,7 @@ function Register() {
             fd.append('avatar', {
                 uri: avatar.uri,
                 type: 'image/jpg',
-                name: 'user_avatar',
+                name: 'user_avatar.jpg',
             });
             const response = await api.post('/user', fd, {
                 headers: {
