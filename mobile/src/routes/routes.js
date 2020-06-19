@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator,  } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Welcome from '../screens/WelcomeView';
 import Register from '../screens/Register';
@@ -9,6 +9,7 @@ import Profile from '../screens/Profile';
 import Search from '../screens/Search';
 import Likes from '../screens/Likes';
 import Icons from 'react-native-vector-icons/FontAwesome';
+import Sound from '../screens/Sound';
 import { AsyncStorage } from 'react-native';
 
 const Stack = createStackNavigator();
@@ -92,6 +93,7 @@ function TabRoute() {
             <Tab.Screen name="Search" component={Search} />
             <Tab.Screen name="Likes" component={Likes} />
             <Tab.Screen name="Profile" component={Profile} />
+            
         </Tab.Navigator>
     );
 }
@@ -105,7 +107,8 @@ function Routes() {
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Welcome" component={Welcome} />
                 <Stack.Screen name="Register" component={Register} />
-                <Stack.Screen name="Home" component={TabRoute} />
+                <Stack.Screen name="TabRoute" component={TabRoute} />
+                <Stack.Screen name='Sound' component={Sound}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
