@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, Image } from 'react-native';
-import { 
+import {
 	HeaderDark,
 	HeaderLight,
 	ContainerDark,
-	ContainerLight, 
+	ContainerLight,
 	Figure,
-	NameMusic, 
+	NameMusic,
 	Control,
 	StatusMusicText } from './style';
 import Icons from 'react-native-vector-icons/FontAwesome'
@@ -45,9 +45,9 @@ export default function Sound(props) {
 	}
 
 	async function handlerMusic(toPlay){
-		
+
 		if(!itsLoaded){
-			await music.loadAsync({uri: `http://192.168.0.100:3333/music/${props.route.params.sound}`});
+			await music.loadAsync({uri: `http://192.168.0.101:3333/music/${props.route.params.sound}`});
 			await setItsLoaded(true);
 			await music.setIsLoopingAsync(true);
 		}
@@ -60,16 +60,16 @@ export default function Sound(props) {
 				await setStatusMusic
 				(
 					<StatusMusicText theme={DarkMode}>
-						<Icon name='hand-peace-o' color={'#e848e1'} size={32}/> 
-						{' '} Now the music is playing... 
+						<Icon name='hand-peace-o' color={'#e848e1'} size={32}/>
+						{' '} Now the music is playing...
 					</StatusMusicText>
 				)
 			}else{
 				await setStatusMusic
 				(
 					<StatusMusicText theme={LightMode}>
-						<Icon name='hand-peace-o' color={'#e848e1'} size={32}/> 
-						{' '} Now the music is playing... 
+						<Icon name='hand-peace-o' color={'#e848e1'} size={32}/>
+						{' '} Now the music is playing...
 					</StatusMusicText>
 				)
 			}
@@ -81,20 +81,20 @@ export default function Sound(props) {
 				await setStatusMusic
 				(
 					<StatusMusicText theme={DarkMode}>
-						<Icon name='hand-stop-o' color={'#e848e1'} size={32}/> 
-						{' '} Now the music is pause 
+						<Icon name='hand-stop-o' color={'#e848e1'} size={32}/>
+						{' '} Now the music is pause
 					</StatusMusicText>
 				)
 			}else{
 				await setStatusMusic
 				(
 					<StatusMusicText theme={LightMode}>
-						<Icon name='hand-stop-o' color={'#e848e1'} size={32}/> 
-						{' '} Now the music is pause 
+						<Icon name='hand-stop-o' color={'#e848e1'} size={32}/>
+						{' '} Now the music is pause
 					</StatusMusicText>
 				)
 			}
-			
+
 		}else if(toPlay === 'stop'){
 			await music.stopAsync();
 
@@ -102,16 +102,16 @@ export default function Sound(props) {
 				await setStatusMusic
 				(
 					<StatusMusicText theme={DarkMode}>
-						<Icon name='hand-rock-o' color={'#e848e1'} size={32}/> 
-						{' '} Now the music is stop 
+						<Icon name='hand-rock-o' color={'#e848e1'} size={32}/>
+						{' '} Now the music is stop
 					</StatusMusicText>
 				)
 			}else{
 				await setStatusMusic
 				(
 					<StatusMusicText theme={LightMode}>
-						<Icon name='hand-rock-o' color={'#e848e1'} size={32}/> 
-						{' '} Now the music is stop 
+						<Icon name='hand-rock-o' color={'#e848e1'} size={32}/>
+						{' '} Now the music is stop
 					</StatusMusicText>
 				)
 			}
@@ -136,8 +136,8 @@ export default function Sound(props) {
 					</TouchableOpacity>
 				</HeaderDark>
 				<ContainerDark>
-					
-					<Figure source={{ uri: `http://192.168.0.100:3333/img/${props.route.params.image}` }} 
+
+					<Figure source={{ uri: `http://192.168.0.101:3333/img/${props.route.params.image}` }}
 						resizeMode="stretch" />
 					<NameMusic theme={DarkMode}>
 						{props.route.params.name}
@@ -145,22 +145,22 @@ export default function Sound(props) {
 					<Control theme={DarkMode}>
 
 						<TouchableOpacity onPress={() => handlerMusic('pause')}>
-							<Icon name="pause" 
-							size={36} 
+							<Icon name="pause"
+							size={36}
 							color={'#fff'}
 							style={{margin: 20}}/>
 						</TouchableOpacity>
 
 						<TouchableOpacity onPress={() => handlerMusic('play')}>
-							<Icon name="play" 
-							size={36} 
+							<Icon name="play"
+							size={36}
 							color={'#fff'}
 							style={{margin: 20}}/>
 						</TouchableOpacity>
 
 						<TouchableOpacity onPress={() => handlerMusic('stop')}>
-							<Icon name="stop" 
-							size={36} 
+							<Icon name="stop"
+							size={36}
 							color={'#fff'}
 							style={{margin: 20}}/>
 						</TouchableOpacity>
@@ -181,29 +181,29 @@ export default function Sound(props) {
 							color={'#101010'}
 							style={{margin: 10}}/>
 						</TouchableOpacity>
-						<Figure source={{ uri: `http://192.168.0.100:3333/img/${props.route.params.image}` }} 
+						<Figure source={{ uri: `http://192.168.0.101:3333/img/${props.route.params.image}` }}
 						resizeMode="stretch" />
 						<NameMusic theme={LightMode}>
 							{props.route.params.name}
 						</NameMusic>
 						<Control theme={LightMode}>
 							<TouchableOpacity onPress={() => handlerMusic('pause')}>
-								<Icon name="pause" 
-								size={36} 
+								<Icon name="pause"
+								size={36}
 								color={'#000'}
 								style={{margin: 20}}/>
 							</TouchableOpacity>
 
 							<TouchableOpacity onPress={() => handlerMusic('play')}>
-								<Icon name="play" 
-								size={36} 
+								<Icon name="play"
+								size={36}
 								color={'#000'}
 								style={{margin: 20}}/>
 							</TouchableOpacity>
 
 							<TouchableOpacity onPress={() => handlerMusic('stop')}>
-								<Icon name="stop" 
-								size={36} 
+								<Icon name="stop"
+								size={36}
 								color={'#fff'}
 								style={{margin: 20}}/>
 							</TouchableOpacity>
