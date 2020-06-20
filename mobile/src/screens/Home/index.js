@@ -41,7 +41,8 @@ function Home() {
             await setAllMusics(resolve.data.allmusics);
             await setLikes(resolve.data.likes_of_user);
         } catch (err) {
-            navigation.navigate('Welcome')
+            console.log(err);
+            navigation.navigate('Welcome');
         }
     }
 
@@ -86,21 +87,6 @@ function Home() {
         }
     }
 
-    async function handlerMusicPlay(url) {
-        try {
-            Audio.setAudioModeAsync(true);
-            Audio.setIsEnabledAsync(true);
-
-            const soundObj = await Audio.Sound.createAsync(
-                { uri: `http://192.168.0.100:3333/music/${url}` },
-                { shouldPlay: true }
-			);
-
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
     useEffect(() => {
         getDataByAPI();
     }, [likes]);
@@ -119,7 +105,7 @@ function Home() {
                                 <MusicContainer>
                                     <Figure
                                         source={{
-                                            uri: `http://192.168.0.100:3333/img/${music.banner_path}`,
+                                            uri: `http://192.168.0.101:3333/img/${music.banner_path}`,
                                         }}
                                         resizeMode="stretch"
                                     />
