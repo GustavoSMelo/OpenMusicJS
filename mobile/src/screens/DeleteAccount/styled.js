@@ -18,16 +18,19 @@ export const Form = styled.View`
     justify-content: space-around;
 `;
 
-export const Input = styled.TextInput`
-    padding: 10px;
+export const PasswordInput = styled.TextInput`
+    padding: 5px;
     border-radius: 5px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom-style: solid;
-    border-bottom-color: '#e848e1';
+    border-bottom-color: #e848e1;
     border-bottom-width: 2px;
+    font-size: 16px;
+    color: ${props => props.theme.color};
+`;
 
+export const CustomText = styled.TextInput`
+    color: ${props => props.theme.color};
+    font-size: 20px;
+    text-align: center;
 `;
 
 export const DeleteButton = styled.TouchableOpacity`
