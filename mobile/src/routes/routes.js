@@ -10,6 +10,8 @@ import Search from '../screens/Search';
 import Likes from '../screens/Likes';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import Sound from '../screens/Sound';
+import DeleteAccount from '../screens/DeleteAccount';
+import UpdateAccount from '../screens/UpdateAccount';
 import { AsyncStorage } from 'react-native';
 
 const Stack = createStackNavigator();
@@ -93,7 +95,7 @@ function TabRoute() {
             <Tab.Screen name="Search" component={Search} />
             <Tab.Screen name="Likes" component={Likes} />
             <Tab.Screen name="Profile" component={Profile} />
-            
+
         </Tab.Navigator>
     );
 }
@@ -109,6 +111,8 @@ function Routes() {
                 <Stack.Screen name="Register" component={Register} />
                 <Stack.Screen name="TabRoute" component={TabRoute} />
                 <Stack.Screen name='Sound' component={Sound}/>
+                <Stack.Screen name='DeleteAccount' component={DeleteAccount} />
+                <Stack.Screen name='UpdateAccount' component={UpdateAccount} />
             </Stack.Navigator>
         </NavigationContainer>
     );
