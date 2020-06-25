@@ -105,7 +105,7 @@ function Home() {
                                 <MusicContainer>
                                     <Figure
                                         source={{
-                                            uri: `http://192.168.0.101:3333/img/${music.banner_path}`,
+                                            uri: `http://192.168.0.102:3333/img/${music.banner_path}`,
                                         }}
                                         resizeMode="stretch"
                                     />
