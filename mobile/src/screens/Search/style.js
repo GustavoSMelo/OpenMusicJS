@@ -10,12 +10,18 @@ export const Header = styled.View`
     padding-top: 10px;
 `;
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
     flex: 1;
     flex-direction: column;
     background-color: ${(props) => props.theme.backgroundcolor};
     padding: 5px;
-    align-items: center;
+`;
+
+export const SectionLabel = styled.Text`
+    color: ${(props) => props.theme.color};
+    font-size: 26px;
+    font-weight: bold;
+    margin: 30px;
 `;
 
 export const InputSearch = styled.TextInput`
@@ -36,29 +42,47 @@ export const ButtonSearch = styled.TouchableOpacity`
     border-radius: 30px;
 `;
 
+export const CustomButton = styled.TouchableOpacity`
+    background-color: #e848e1;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 100px;
+    height: 50px;
+`;
+
 export const Cards = styled.View`
     flex-direction: row;
     width: 90%;
     elevation: 4;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 15px;
 `;
 
 export const Figure = styled.View`
-    width: 40%;
+    width: 50%;
     border-radius: 10px;
+    margin-right: 10px;
 `;
 
 export const CardImage = styled.Image`
     width: 100%;
     height: 100px;
+    margin-right: 10px;
+    border-radius: 5px;
 `;
 
 export const CardInfo = styled.View`
-    width: 60%;
+    width: 50%;
     height: 100%;
     padding: 5px;
 `;
 
-export const TextInfo = styled.TextInput`
+export const TextInfo = styled.Text`
     color: ${(props) => props.theme.color};
-    font-size: 16px;
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: bold;
 `;
