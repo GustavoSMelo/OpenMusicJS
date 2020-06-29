@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator,  } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Welcome from '../screens/WelcomeView';
 import Register from '../screens/Register';
@@ -12,6 +12,7 @@ import Icons from 'react-native-vector-icons/FontAwesome';
 import Sound from '../screens/Sound';
 import DeleteAccount from '../screens/DeleteAccount';
 import UpdateAccount from '../screens/UpdateAccount';
+import ArtistProfile from '../screens/ArtistProfile';
 import { AsyncStorage } from 'react-native';
 
 const Stack = createStackNavigator();
@@ -56,10 +57,10 @@ function TabRoute() {
                     inactiveBackgroundColor: '#404040',
                 }}
             >
-                <Tab.Screen name="Home" component={Home} />
-                <Tab.Screen name="Search" component={Search} />
-                <Tab.Screen name="Likes" component={Likes} />
-                <Tab.Screen name="Profile" component={Profile} />
+                <Tab.Screen name='Home' component={Home} />
+                <Tab.Screen name='Search' component={Search} />
+                <Tab.Screen name='Likes' component={Likes} />
+                <Tab.Screen name='Profile' component={Profile} />
             </Tab.Navigator>
         );
     }
@@ -91,11 +92,10 @@ function TabRoute() {
                 inactiveTintColor: '#000',
             }}
         >
-            <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Search" component={Search} />
-            <Tab.Screen name="Likes" component={Likes} />
-            <Tab.Screen name="Profile" component={Profile} />
-
+            <Tab.Screen name='Home' component={Home} />
+            <Tab.Screen name='Search' component={Search} />
+            <Tab.Screen name='Likes' component={Likes} />
+            <Tab.Screen name='Profile' component={Profile} />
         </Tab.Navigator>
     );
 }
@@ -107,12 +107,13 @@ function Routes() {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Welcome" component={Welcome} />
-                <Stack.Screen name="Register" component={Register} />
-                <Stack.Screen name="TabRoute" component={TabRoute} />
-                <Stack.Screen name='Sound' component={Sound}/>
+                <Stack.Screen name='Welcome' component={Welcome} />
+                <Stack.Screen name='Register' component={Register} />
+                <Stack.Screen name='TabRoute' component={TabRoute} />
+                <Stack.Screen name='Sound' component={Sound} />
                 <Stack.Screen name='DeleteAccount' component={DeleteAccount} />
                 <Stack.Screen name='UpdateAccount' component={UpdateAccount} />
+                <Stack.Screen name='ArtistProfile' component={ArtistProfile} />
             </Stack.Navigator>
         </NavigationContainer>
     );
