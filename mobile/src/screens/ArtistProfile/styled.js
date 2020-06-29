@@ -36,8 +36,9 @@ export const MusicSection = styled.View`
     width: 90%;
     padding-right: 15px;
     elevation: 2;
-    height: 250px;
+    height: 100px;
     flex-direction: row;
+    margin-top: 20px;
 `;
 
 export const MusicImage = styled.Image`
@@ -63,5 +64,11 @@ export const ListenButton = styled.TouchableOpacity`
     border-radius: 5px;
     text-align: center;
     justify-content: center;
+    align-items: center;
+`;
+
+export const RowContainer = styled.View`
+    flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
 `;
