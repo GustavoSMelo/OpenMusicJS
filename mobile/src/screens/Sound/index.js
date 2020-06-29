@@ -48,7 +48,7 @@ export default function Sound(props) {
     async function handlerMusic(toPlay) {
         if (!itsLoaded) {
             await music.loadAsync({
-                uri: `http://192.168.0.101:3333/music/${props.route.params.sound}`,
+                uri: `http://192.168.0.102:3333/music/${props.route.params.sound}`,
             });
             await setItsLoaded(true);
             await music.setIsLoopingAsync(true);
@@ -133,7 +133,7 @@ export default function Sound(props) {
                     <ContainerDark>
                         <Figure
                             source={{
-                                uri: `http://192.168.0.101:3333/img/${props.route.params.image}`,
+                                uri: `http://192.168.0.102:3333/img/${props.route.params.image}`,
                             }}
                             resizeMode='stretch'
                         />
@@ -194,7 +194,7 @@ export default function Sound(props) {
                         </TouchableOpacity>
                         <Figure
                             source={{
-                                uri: `http://192.168.0.101:3333/img/${props.route.params.image}`,
+                                uri: `http://192.168.0.102:3333/img/${props.route.params.image}`,
                             }}
                             resizeMode='stretch'
                         />
