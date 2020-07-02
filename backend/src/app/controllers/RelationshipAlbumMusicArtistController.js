@@ -74,7 +74,7 @@ module.exports = {
     async index(req, res) {
         const albuns = await RelationshipAAM.findAll();
         if (!albuns || albuns.length <= 0) {
-            return res.status(404).json({ Error: 'Relationship didnt found ' });
+            return res.json({ Error: 'Relationship didnt found ' });
         }
 
         return res.json(albuns);
@@ -96,11 +96,9 @@ module.exports = {
                 },
             });
         } catch (err) {
-            return res
-                .status(401)
-                .json({
-                    Error: `Error in delete music inside album, please try again,\n ${err}`,
-                });
+            return res.status(401).json({
+                Error: `Error in delete music inside album, please try again,\n ${err}`,
+            });
         }
     },
 
