@@ -51,7 +51,8 @@ export const Card = styled.article`
     box-shadow: 1px 1px 9px #707070;
     height: 300px;
     align-items: flex-start;
-
+    margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
 `;
 
