@@ -9,6 +9,7 @@ function InsertMusicInAlbum(props) {
     const [update, setUpdate] = useState(true);
 
     async function getDataByAPI() {
+        await setUpdate(false);
         const musics = await api.get('/musics', {
             headers: {
                 Authorization: localStorage.getItem('ArtistToken'),
@@ -58,31 +59,11 @@ function InsertMusicInAlbum(props) {
         setMusicsInserteds(musicsInsideThisAlbumFiltred);
 
         setMusicsOutside(musicsOutsideAlbumFiltred);
-        setUpdate(false);
-    }
-
-    async function addMusicInAlbum(music) {
-        try {
-            await api.post(
-                '/relationship/album/music',
-                { music },
-                {
-                    headers: {
-                        Authorization: localStorage.getItem('ArtistToken'),
-                    },
-                }
-            );
-
-            setUpdate(true);
-        } catch (err) {
-            console.error('error to insert music inside album');
-            console.error(err);
-        }
     }
 
     async function removeMusicInAlbum(music) {
         try {
-            await api.delete('/', {
+            await api.delete('/relationship/album/music', {
                 headers: {
                     Authorization: localStorage.getItem('ArtistToken'),
                     music,
@@ -90,18 +71,36 @@ function InsertMusicInAlbum(props) {
                 },
             });
 
-            setUpdate(true);
+            await setUpdate(true);
+            await setMusicsInserteds([]);
         } catch (err) {
             console.error('error to remove music inside album');
             console.error(err);
         }
     }
 
+    async function addMusicInAlbum(music) {
+        try {
+            await api.post(
+                '/relationship/album/music',
+                { music, album: props.idAlbum },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem('ArtistToken'),
+                    },
+                }
+            );
+
+            await setUpdate(true);
+        } catch (err) {
+            console.error('error to insert music inside album');
+            console.error(err);
+        }
+    }
+
     useEffect(() => {
-        console.log(props);
         getDataByAPI();
-        console.log(musicsInserteds);
-    }, [update]);
+    }, [update, musicsInserteds]);
 
     function Layout() {
         return (
@@ -131,7 +130,6 @@ function InsertMusicInAlbum(props) {
                                     />
                                 </figure>
                                 <button
-                                    type="button"
                                     onClick={() =>
                                         removeMusicInAlbum(mscInsert.id)
                                     }
@@ -159,7 +157,6 @@ function InsertMusicInAlbum(props) {
                                     />
                                 </figure>
                                 <button
-                                    type="button"
                                     onClick={() =>
                                         addMusicInAlbum(mscOutside.id)
                                     }
