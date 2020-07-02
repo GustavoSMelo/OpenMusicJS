@@ -46,7 +46,7 @@ module.exports = {
     },
 
     async index(req, res) {
-        const allmusics = await musics.findAll({ limit: 10 });
+        const allmusics = await musics.findAll();
 
         const authHeader = req.headers.authorization;
 
