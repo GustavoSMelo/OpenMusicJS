@@ -3,6 +3,8 @@ import styled from 'styled-components/native';
 export const Header = styled.View`
     background-color: ${(props) => props.theme.backgroundcolor};
     padding: 20px;
+    flex-direction: row;
+    justify-content: space-between;
 `;
 
 export const Container = styled.ScrollView`
