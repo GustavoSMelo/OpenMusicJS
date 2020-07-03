@@ -162,6 +162,21 @@ function ArtistProfile(props) {
                         <TouchableOpacity onPress={() => navigation.goBack()}>
                             <Icons name='arrow-left' size={32} color='#fff' />
                         </TouchableOpacity>
+                        {likedArtist === true ? (
+                            <Icons
+                                name='heart'
+                                size={26}
+                                color='#f00'
+                                onPress={() => RemoveLikeArtist()}
+                            />
+                        ) : (
+                            <Icons
+                                name='heart-o'
+                                size={26}
+                                color='#f00'
+                                onPress={() => GiveLikeArtist()}
+                            />
+                        )}
                     </Header>
                     <Container theme={DarkTheme}>
                         <ArtistSection>
@@ -172,21 +187,6 @@ function ArtistProfile(props) {
                                 {props.route.params.name} |{' '}
                                 {props.route.params.artistic_name}
                                 {'       '}
-                                {likedArtist === true ? (
-                                    <Icons
-                                        name='heart'
-                                        size={26}
-                                        color='#f00'
-                                        onPress={() => RemoveLikeArtist()}
-                                    />
-                                ) : (
-                                    <Icons
-                                        name='heart-o'
-                                        size={26}
-                                        color='#f00'
-                                        onPress={() => GiveLikeArtist()}
-                                    />
-                                )}
                             </TitleName>
                         </ArtistSection>
                         <FlatList
