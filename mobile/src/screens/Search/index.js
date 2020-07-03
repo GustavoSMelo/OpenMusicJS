@@ -56,6 +56,8 @@ function Search() {
                 }
             );
 
+            console.log(response.data);
+
             await setMusics(response.data[0].Musics);
             await setArtists(response.data[1].Artists);
             await setAlbuns(response.data[2].Albums);
@@ -171,6 +173,53 @@ function Search() {
                                             >
                                                 <TextInfo theme={DarkTheme}>
                                                     Profile
+                                                </TextInfo>
+                                            </CustomButton>
+                                        </CardInfo>
+                                    </Cards>
+                                ))}
+                            </>
+                        )}
+
+                        {albuns.length <= 0 ? (
+                            <></>
+                        ) : (
+                            <>
+                                <SectionLabel theme={DarkTheme}>
+                                    Albuns
+                                </SectionLabel>
+                                {albuns.map((album) => (
+                                    <Cards key={album.id}>
+                                        <Figure>
+                                            <CardImage
+                                                source={{
+                                                    uri: `http://192.168.0.102:3333/img/${album.banner}`,
+                                                }}
+                                            />
+                                        </Figure>
+                                        <CardInfo>
+                                            <TextInfo theme={DarkTheme}>
+                                                {album.name} | {album.genre}
+                                                {'\n'}
+                                            </TextInfo>
+                                            <CustomButton
+                                                onPress={() =>
+                                                    navigation.navigate(
+                                                        'Album',
+                                                        {
+                                                            name: album.name,
+                                                            genre: album.genre,
+                                                            description:
+                                                                album.description,
+                                                            idAlbum: album.id,
+                                                            banner:
+                                                                album.banner,
+                                                        }
+                                                    )
+                                                }
+                                            >
+                                                <TextInfo theme={DarkTheme}>
+                                                    Access
                                                 </TextInfo>
                                             </CustomButton>
                                         </CardInfo>
