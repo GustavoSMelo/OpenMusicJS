@@ -2,18 +2,19 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { AsyncStorage } from 'react-native';
+import Icons from 'react-native-vector-icons/FontAwesome';
 import Welcome from '../screens/WelcomeView';
 import Register from '../screens/Register';
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
 import Search from '../screens/Search';
 import Likes from '../screens/Likes';
-import Icons from 'react-native-vector-icons/FontAwesome';
 import Sound from '../screens/Sound';
 import DeleteAccount from '../screens/DeleteAccount';
 import UpdateAccount from '../screens/UpdateAccount';
 import ArtistProfile from '../screens/ArtistProfile';
-import { AsyncStorage } from 'react-native';
+import Album from '../screens/Album';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -114,6 +115,7 @@ function Routes() {
                 <Stack.Screen name='DeleteAccount' component={DeleteAccount} />
                 <Stack.Screen name='UpdateAccount' component={UpdateAccount} />
                 <Stack.Screen name='ArtistProfile' component={ArtistProfile} />
+                <Stack.Screen name='Album' component={Album} />
             </Stack.Navigator>
         </NavigationContainer>
     );
