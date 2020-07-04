@@ -28,7 +28,7 @@ function Header(props) {
                 >
                     <Figure source={Logo} />
                     <TouchableOpacity onPress={() => setTheme()}>
-                        <Icons name="sun-o" size={30} color={DarkMode.color} />
+                        <Icons name='sun-o' size={30} color='#E3D422' />
                     </TouchableOpacity>
                 </Navigation>
             );
@@ -40,7 +40,7 @@ function Header(props) {
             >
                 <Figure source={Logo} />
                 <TouchableOpacity onPress={() => setTheme()}>
-                    <Icons name="moon-o" size={30} color={LightMode.color} />
+                    <Icons name='moon-o' size={30} color={LightMode.color} />
                 </TouchableOpacity>
             </Navigation>
         );
