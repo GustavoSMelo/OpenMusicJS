@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Icons from 'react-native-vector-icons/FontAwesome';
+import { AsyncStorage, TouchableOpacity, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import api from '../../api/api';
-import { AsyncStorage, TouchableOpacity } from 'react-native';
 import {
     CardImage,
     CardInfo,
@@ -15,15 +16,15 @@ import {
 import GetTheme from '../../utils/getTheme';
 import DarkTheme from '../../styles/themes/dark';
 import LightTheme from '../../styles/themes/light';
+import URL from '../../config/url.config';
 
 function Likes() {
     const [theme, setTheme] = useState('');
     const [musics, setMusics] = useState([]);
-    const [likeMusics, setLikesMusics] = useState([]);
     const [artists, setArtists] = useState([]);
-    const [likeArtists, setLikeArtists] = useState([]);
     const [albuns, setAlbuns] = useState([]);
-    const [likeAlbuns, setLikeAlbuns] = useState([]);
+    const [update, setUpdate] = useState(true);
+    const navigation = useNavigation();
 
     async function getThemePage() {
         const response = await GetTheme();
@@ -63,6 +64,7 @@ function Likes() {
             );
 
             console.log(musicsFiltredWithoutUndefined);
+            setMusics(musicsFiltredWithoutUndefined);
 
             // artist
 
@@ -93,6 +95,7 @@ function Likes() {
             );
 
             console.log(ArtistsFiltredWithouUndefined);
+            setArtists(ArtistsFiltredWithouUndefined);
 
             // albuns
 
@@ -123,119 +126,258 @@ function Likes() {
             );
 
             console.log(AlbunsFiltredWithoutUndefined);
+            setAlbuns(AlbunsFiltredWithoutUndefined);
+
+            setUpdate(false);
         } catch (err) {
-            console.warn(err.response);
+            console.warn(err);
         }
     }
 
     useEffect(() => {
         getThemePage();
         getDataByAPI();
-    }, []);
+    }, [update]);
+
+    async function removeLikeMusic(music) {
+        const token = await AsyncStorage.getItem('token');
+
+        try {
+            await api.delete('/users/musics', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    music,
+                },
+            });
+
+            setUpdate(true);
+        } catch (err) {
+            console.warn(err);
+        }
+    }
+
+    async function removeLikeArtist(artist) {
+        const token = await AsyncStorage.getItem('token');
+
+        try {
+            await api.delete('/users/artists', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    artist,
+                },
+            });
+
+            setUpdate(true);
+        } catch (err) {
+            console.warn(err);
+        }
+    }
+
+    async function removeLikeAlbum(album) {
+        const token = await AsyncStorage.getItem('token');
+
+        try {
+            await api.delete('/users/albuns', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    album,
+                },
+            });
+
+            setUpdate(true);
+        } catch (err) {
+            console.warn(err);
+        }
+    }
 
     function Layout() {
         if (theme === 'DarkMode') {
             return (
                 <Container theme={DarkTheme}>
-                    <Title theme={DarkTheme}>Musics: </Title>
-                    <Card>
-                        <CardImage
-                            source={{
-                                uri: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.6TeoYfmLijC0nHcVBbjVfQHaEK%26pid%3DApi&f=1`,
-                            }}
-                        />
-                        <CardInfo>
-                            <InfoText theme={DarkTheme}>Name | Genre</InfoText>
-                            <RowContainer>
-                                <CustomButton>
-                                    <InfoText theme={DarkTheme}>
-                                        <Icons
-                                            name='gear'
-                                            size={24}
-                                            color='#fff'
-                                        />{' '}
-                                        Access
-                                    </InfoText>
-                                </CustomButton>
+                    <Text>{'\n'}</Text>
+                    {musics.length <= 0 ? (
+                        <></>
+                    ) : (
+                        <>
+                            <Title theme={DarkTheme}>Musics: </Title>
+                            {musics.map((music) => (
+                                <Card key={music.name}>
+                                    <CardImage
+                                        source={{
+                                            uri: `${URL}/img/${music.banner_path}`,
+                                        }}
+                                    />
+                                    <CardInfo>
+                                        <InfoText theme={DarkTheme}>
+                                            {music.name} | {music.genre}
+                                        </InfoText>
+                                        <RowContainer>
+                                            <CustomButton
+                                                onPress={() =>
+                                                    navigation.navigate(
+                                                        'Sound',
+                                                        {
+                                                            image:
+                                                                music.banner_path,
+                                                            name: music.name,
+                                                            sound: music.path,
+                                                        }
+                                                    )
+                                                }
+                                            >
+                                                <InfoText theme={DarkTheme}>
+                                                    <Icons
+                                                        name='headphones'
+                                                        size={24}
+                                                        color='#fff'
+                                                    />{' '}
+                                                    Listen
+                                                </InfoText>
+                                            </CustomButton>
 
-                                <TouchableOpacity>
-                                    <InfoText theme={DarkTheme}>
-                                        <Icons
-                                            name='heart'
-                                            size={24}
-                                            color='#f00'
-                                        />
-                                    </InfoText>
-                                </TouchableOpacity>
-                            </RowContainer>
-                        </CardInfo>
-                    </Card>
-                    <Title theme={DarkTheme}>Artists: </Title>
-                    <Card>
-                        <CardImage
-                            source={{
-                                uri: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.6TeoYfmLijC0nHcVBbjVfQHaEK%26pid%3DApi&f=1`,
-                            }}
-                        />
-                        <CardInfo>
-                            <InfoText theme={DarkTheme}>Name | Genre</InfoText>
-                            <RowContainer>
-                                <CustomButton>
-                                    <InfoText theme={DarkTheme}>
-                                        <Icons
-                                            name='gear'
-                                            size={24}
-                                            color='#fff'
-                                        />{' '}
-                                        Access
-                                    </InfoText>
-                                </CustomButton>
+                                            <TouchableOpacity
+                                                onPress={() =>
+                                                    removeLikeMusic(music.id)
+                                                }
+                                            >
+                                                <InfoText theme={DarkTheme}>
+                                                    <Icons
+                                                        name='heart'
+                                                        size={24}
+                                                        color='#f00'
+                                                    />
+                                                </InfoText>
+                                            </TouchableOpacity>
+                                        </RowContainer>
+                                    </CardInfo>
+                                </Card>
+                            ))}
+                        </>
+                    )}
+                    <Text>{'\n'}</Text>
+                    {artists.length <= 0 ? (
+                        <></>
+                    ) : (
+                        <>
+                            <Title theme={DarkTheme}>Artists: </Title>
+                            {artists.map((art) => (
+                                <Card key={art.name}>
+                                    <CardImage
+                                        source={{
+                                            uri: `${URL}/img/${art.avatar}`,
+                                        }}
+                                    />
+                                    <CardInfo>
+                                        <InfoText theme={DarkTheme}>
+                                            {art.name} | {art.name_artistic}
+                                        </InfoText>
+                                        <RowContainer>
+                                            <CustomButton
+                                                onPress={() =>
+                                                    navigation.navigate(
+                                                        'ArtistProfile',
+                                                        {
+                                                            name: art.name,
+                                                            avatar: `${URL}/img/${art.avatar}`,
+                                                            art_id: art.id,
+                                                            artistic_name:
+                                                                art.name_artistic,
+                                                        }
+                                                    )
+                                                }
+                                            >
+                                                <InfoText theme={DarkTheme}>
+                                                    <Icons
+                                                        name='user'
+                                                        size={24}
+                                                        color='#fff'
+                                                    />{' '}
+                                                    Access
+                                                </InfoText>
+                                            </CustomButton>
 
-                                <TouchableOpacity>
-                                    <InfoText theme={DarkTheme}>
-                                        <Icons
-                                            name='heart'
-                                            size={24}
-                                            color='#f00'
-                                        />
-                                    </InfoText>
-                                </TouchableOpacity>
-                            </RowContainer>
-                        </CardInfo>
-                    </Card>
-                    <Title theme={DarkTheme}>Albuns: </Title>
-                    <Card>
-                        <CardImage
-                            source={{
-                                uri: `https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.6TeoYfmLijC0nHcVBbjVfQHaEK%26pid%3DApi&f=1`,
-                            }}
-                        />
-                        <CardInfo>
-                            <InfoText theme={DarkTheme}>Name | Genre</InfoText>
-                            <RowContainer>
-                                <CustomButton>
-                                    <InfoText theme={DarkTheme}>
-                                        <Icons
-                                            name='gear'
-                                            size={24}
-                                            color='#fff'
-                                        />{' '}
-                                        Access
-                                    </InfoText>
-                                </CustomButton>
+                                            <TouchableOpacity
+                                                onPress={() =>
+                                                    removeLikeArtist(art.id)
+                                                }
+                                            >
+                                                <InfoText theme={DarkTheme}>
+                                                    <Icons
+                                                        name='heart'
+                                                        size={24}
+                                                        color='#f00'
+                                                    />
+                                                </InfoText>
+                                            </TouchableOpacity>
+                                        </RowContainer>
+                                    </CardInfo>
+                                </Card>
+                            ))}
+                        </>
+                    )}
+                    <Text>{'\n'}</Text>
+                    {albuns.length <= 0 ? (
+                        <></>
+                    ) : (
+                        <>
+                            <Title theme={DarkTheme}>Albuns: </Title>
+                            {albuns.map((album) => (
+                                <Card key={album.name}>
+                                    <CardImage
+                                        source={{
+                                            uri: `${URL}/img/${album.banner}`,
+                                        }}
+                                    />
+                                    <CardInfo>
+                                        <InfoText theme={DarkTheme}>
+                                            {album.name} | {album.genre}
+                                        </InfoText>
+                                        <RowContainer>
+                                            <CustomButton
+                                                onPress={() =>
+                                                    navigation.navigate(
+                                                        'Album',
+                                                        {
+                                                            name: album.name,
+                                                            genre: album.genre,
+                                                            description:
+                                                                album.description,
+                                                            idAlbum: album.id,
+                                                            banner:
+                                                                album.banner,
+                                                        }
+                                                    )
+                                                }
+                                            >
+                                                <InfoText theme={DarkTheme}>
+                                                    <Icons
+                                                        name='folder-o'
+                                                        size={24}
+                                                        color='#fff'
+                                                    />{' '}
+                                                    Access
+                                                </InfoText>
+                                            </CustomButton>
 
-                                <TouchableOpacity>
-                                    <InfoText theme={DarkTheme}>
-                                        <Icons
-                                            name='heart'
-                                            size={24}
-                                            color='#f00'
-                                        />
-                                    </InfoText>
-                                </TouchableOpacity>
-                            </RowContainer>
-                        </CardInfo>
-                    </Card>
+                                            <TouchableOpacity
+                                                onPress={() =>
+                                                    removeLikeAlbum(album.id)
+                                                }
+                                            >
+                                                <InfoText theme={DarkTheme}>
+                                                    <Icons
+                                                        name='heart'
+                                                        size={24}
+                                                        color='#f00'
+                                                    />
+                                                </InfoText>
+                                            </TouchableOpacity>
+                                        </RowContainer>
+                                    </CardInfo>
+                                </Card>
+                            ))}
+                        </>
+                    )}
                 </Container>
             );
         }
