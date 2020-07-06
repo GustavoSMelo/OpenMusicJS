@@ -19,6 +19,7 @@ import DarkTheme from '../../styles/themes/dark';
 import LightTheme from '../../styles/themes/light';
 import api from '../../api/api';
 import { useNavigation } from '@react-navigation/native';
+import URL from '../../config/url.config';
 
 function Search() {
     const [theme, setTheme] = useState('');
@@ -100,7 +101,7 @@ function Search() {
                                         <Figure>
                                             <CardImage
                                                 source={{
-                                                    uri: `http://192.168.0.102:3333/img/${msc.banner_path}`,
+                                                    uri: `${URL}/img/${msc.banner_path}`,
                                                 }}
                                             />
                                         </Figure>
@@ -149,7 +150,7 @@ function Search() {
                                         <Figure>
                                             <CardImage
                                                 source={{
-                                                    uri: `http://192.168.0.102:3333/img/${arts.avatar}`,
+                                                    uri: `${URL}/img/${arts.avatar}`,
                                                 }}
                                             />
                                         </Figure>
@@ -162,7 +163,7 @@ function Search() {
                                                     navigation.navigate(
                                                         'ArtistProfile',
                                                         {
-                                                            avatar: `http://192.168.0.102:3333/img/${arts.avatar}`,
+                                                            avatar: `${URL}/img/${arts.avatar}`,
                                                             art_id: arts.id,
                                                             name: arts.name,
                                                             artistic_name:
@@ -193,7 +194,7 @@ function Search() {
                                         <Figure>
                                             <CardImage
                                                 source={{
-                                                    uri: `http://192.168.0.102:3333/img/${album.banner}`,
+                                                    uri: `${URL}/img/${album.banner}`,
                                                 }}
                                             />
                                         </Figure>
