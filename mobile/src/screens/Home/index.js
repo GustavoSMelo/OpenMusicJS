@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AsyncStorage, TouchableOpacity, FlatList } from 'react-native';
+import Icons from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 import api from '../../api/api';
 import {
     Container,
@@ -13,15 +15,13 @@ import getTheme from '../../utils/getTheme';
 import DarkMode from '../../styles/themes/dark';
 import LightMode from '../../styles/themes/light';
 import Header from '../../components/header';
-import Icons from 'react-native-vector-icons/FontAwesome';
-import { Audio } from 'expo-av';
-import { useNavigation } from '@react-navigation/native';
+import URL from '../../config/url.config';
 
 function Home() {
     const [theme, setTheme] = useState('');
     const [allMusics, setAllMusics] = useState([]);
-	const [likes, setLikes] = useState([]);
-	const navigation = useNavigation();
+    const [likes, setLikes] = useState([]);
+    const navigation = useNavigation();
 
     async function Theme() {
         const response = await getTheme();
@@ -100,14 +100,14 @@ function Home() {
                         <FlatList
                             data={allMusics}
                             onEndReachedThreshold={0.2}
-							keyExtractor={(allMusics) => allMusics.id}
+                            keyExtractor={(allMusics) => allMusics.id}
                             renderItem={({ item: music }) => (
                                 <MusicContainer>
                                     <Figure
                                         source={{
-                                            uri: `http://192.168.0.102:3333/img/${music.banner_path}`,
+                                            uri: `${URL}/img/${music.banner_path}`,
                                         }}
-                                        resizeMode="stretch"
+                                        resizeMode='stretch'
                                     />
                                     <TextDark>{music.name}</TextDark>
                                     <TextDark>{music.genre}</TextDark>
@@ -117,13 +117,13 @@ function Home() {
                                                 navigation.navigate('Sound', {
                                                     image: music.banner_path,
                                                     name: music.name,
-                                                    sound: music.path
+                                                    sound: music.path,
                                                 })
                                             }
                                         >
                                             <TextDark>
                                                 <Icons
-                                                    name="headphones"
+                                                    name='headphones'
                                                     size={18}
                                                 />{' '}
                                                 Listen
@@ -139,7 +139,7 @@ function Home() {
                                                 }
                                             >
                                                 <Icons
-                                                    name="heart"
+                                                    name='heart'
                                                     size={28}
                                                     color={'#f00'}
                                                 />
@@ -151,7 +151,7 @@ function Home() {
                                                 }
                                             >
                                                 <Icons
-                                                    name="heart-o"
+                                                    name='heart-o'
                                                     size={28}
                                                     color={'#f00'}
                                                 />
