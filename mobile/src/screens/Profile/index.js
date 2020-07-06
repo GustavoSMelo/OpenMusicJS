@@ -4,16 +4,17 @@ import { useNavigation } from '@react-navigation/native';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import api from '../../api/api';
 import {
-	Container,
+    Container,
     Figure,
     CustomText,
     ButtonControlls,
     DeleteButton,
     EditButton,
-	ExitButton,
-	} from './style';
+    ExitButton,
+} from './style';
 import DarkTheme from '../../styles/themes/dark';
 import LightTheme from '../../styles/themes/light';
+import URL from '../../config/url.config';
 
 function Profile() {
     const [userInfo, setUserInfo] = useState({});
@@ -24,13 +25,15 @@ function Profile() {
         try {
             const responseTheme = await AsyncStorage.getItem('Theme');
             const token = await AsyncStorage.getItem('token');
-            const response = await api.get('/user/show', { headers: {
-                Authorization: `Bearer ${token}`,
-            }});
+            const response = await api.get('/user/show', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
             await setUserInfo(response.data.user);
             await setTheme(responseTheme);
-        }catch(err) {
+        } catch (err) {
             navigation.navigate('Welcome');
         }
     }
@@ -46,34 +49,44 @@ function Profile() {
     }, []);
 
     function Layout() {
-        if(Theme === 'DarkMode') {
+        if (Theme === 'DarkMode') {
             return (
-            <Container theme={DarkTheme}>
-                <Figure
-                source={{uri: `http://192.168.0.101:3333/img/${userInfo.avatar}`}}
-                resizeMode='stretch'/>
-                <CustomText theme={DarkTheme}>
-                    <Icons name='user' size={26}/> {userInfo.name}
-                    {'\n\n'}
-                    <Icons name='envelope-o' size={26}/> {userInfo.email}
-                </CustomText>
+                <Container theme={DarkTheme}>
+                    <Figure
+                        source={{
+                            uri: `${URL}/img/${userInfo.avatar}`,
+                        }}
+                        resizeMode='stretch'
+                    />
+                    <CustomText theme={DarkTheme}>
+                        <Icons name='user' size={26} /> {userInfo.name}
+                        {'\n\n'}
+                        <Icons name='envelope-o' size={26} /> {userInfo.email}
+                    </CustomText>
 
-                <ButtonControlls>
-                    <ExitButton onPress={() => handlerButtonExit()}>
-                        <Icons name='sign-out' size={26} />
-                    </ExitButton>
-                    <EditButton onPress={() => navigation.navigate('UpdateAccount', {
-                        email: userInfo.email,
-                        name: userInfo.name,
-                    })}>
-                        <Icons name='edit' size={26} />
-                    </EditButton>
-                    <DeleteButton onPress={() => navigation.navigate('DeleteAccount')}>
-                        <Icons name='trash' size={26} />
-                    </DeleteButton>
-                </ButtonControlls>
-            </Container>);
-		}
+                    <ButtonControlls>
+                        <ExitButton onPress={() => handlerButtonExit()}>
+                            <Icons name='sign-out' size={26} />
+                        </ExitButton>
+                        <EditButton
+                            onPress={() =>
+                                navigation.navigate('UpdateAccount', {
+                                    email: userInfo.email,
+                                    name: userInfo.name,
+                                })
+                            }
+                        >
+                            <Icons name='edit' size={26} />
+                        </EditButton>
+                        <DeleteButton
+                            onPress={() => navigation.navigate('DeleteAccount')}
+                        >
+                            <Icons name='trash' size={26} />
+                        </DeleteButton>
+                    </ButtonControlls>
+                </Container>
+            );
+        }
 
         return <></>;
     }
