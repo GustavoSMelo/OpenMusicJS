@@ -24,6 +24,7 @@ import {
     ListenButton,
     RowContainer,
 } from './styled';
+import URL from '../../config/url.config';
 
 function ArtistProfile(props) {
     const [token, setToken] = useState('');
@@ -196,7 +197,7 @@ function ArtistProfile(props) {
                                 <MusicSection>
                                     <MusicImage
                                         source={{
-                                            uri: `http://192.168.0.102:3333/img/${musics.banner_path}`,
+                                            uri: `${URL}/img/${musics.banner_path}`,
                                         }}
                                     />
                                     <MusicButtons>
