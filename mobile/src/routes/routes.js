@@ -23,7 +23,6 @@ let theme;
 async function getTheme() {
     theme = await AsyncStorage.getItem('Theme');
     console.log(theme);
-    return;
 }
 
 function TabRoute() {
