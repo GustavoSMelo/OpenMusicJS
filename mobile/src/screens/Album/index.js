@@ -21,6 +21,7 @@ import {
 
 import DarkTheme from '../../styles/themes/dark';
 import LightTheme from '../../styles/themes/light';
+import URL from '../../config/url.config';
 
 function Album(props) {
     const [theme, setTheme] = useState('');
@@ -184,7 +185,7 @@ function Album(props) {
                     <Container theme={DarkTheme}>
                         <ImageAlbum
                             source={{
-                                uri: `http://192.168.0.102:3333/img/${props.route.params.banner}`,
+                                uri: `${URL}/img/${props.route.params.banner}`,
                             }}
                         />
                         <TextAlbum theme={DarkTheme}>
@@ -203,7 +204,7 @@ function Album(props) {
                                     <Figure>
                                         <MusicImage
                                             source={{
-                                                uri: `http://192.168.0.102:3333/img/${music.banner_path}`,
+                                                uri: `${URL}/img/${music.banner_path}`,
                                             }}
                                         />
                                     </Figure>
