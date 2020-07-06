@@ -1,3 +1,5 @@
 {
     "prettier.packageManager": "yarn"
+    "deno.enable": false
 }
+
