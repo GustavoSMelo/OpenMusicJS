@@ -79,7 +79,7 @@ function Welcome() {
             />
             <Container>
                 <View>
-                    <LogoContainer source={Logo} resizeMode="contain" />
+                    <LogoContainer source={Logo} resizeMode='contain' />
                 </View>
                 <TextTitle>
                     Welcome to OpenMusicJS
@@ -88,13 +88,13 @@ function Welcome() {
 
                 <KeyboardAvoidingView enabled={true}>
                     <LoginField
-                        placeholder="Place your email here "
+                        placeholder='Place your email here '
                         value={email}
                         onChangeText={(text) => setEmail(text)}
                     />
                     <LoginField
                         secureTextEntry={true}
-                        placeholder="Place your password here "
+                        placeholder='Place your password here '
                         value={password}
                         onChangeText={(text) => setPassword(text)}
                     />

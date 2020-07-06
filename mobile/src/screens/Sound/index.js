@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+import { Audio } from 'expo-av';
+import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
     HeaderDark,
     HeaderLight,
@@ -10,13 +13,11 @@ import {
     Control,
     StatusMusicText,
 } from './style';
-import Icons from 'react-native-vector-icons/FontAwesome';
-import { useNavigation } from '@react-navigation/native';
+
 import getTheme from '../../utils/getTheme';
 import DarkMode from '../../styles/themes/dark';
 import LightMode from '../../styles/themes/light';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Audio } from 'expo-av';
+import URL from '../../config/url.config';
 
 export default function Sound(props) {
     const [theme, setTheme] = useState('');
@@ -48,7 +49,7 @@ export default function Sound(props) {
     async function handlerMusic(toPlay) {
         if (!itsLoaded) {
             await music.loadAsync({
-                uri: `http://192.168.0.102:3333/music/${props.route.params.sound}`,
+                uri: `${URL}/music/${props.route.params.sound}`,
             });
             await setItsLoaded(true);
             await music.setIsLoopingAsync(true);
@@ -122,7 +123,7 @@ export default function Sound(props) {
                 <>
                     <HeaderDark>
                         <TouchableOpacity onPress={() => handlerGoToBack()}>
-                            <Icons
+                            <Icon
                                 name='arrow-left'
                                 size={34}
                                 color={'#fff'}
@@ -133,7 +134,7 @@ export default function Sound(props) {
                     <ContainerDark>
                         <Figure
                             source={{
-                                uri: `http://192.168.0.102:3333/img/${props.route.params.image}`,
+                                uri: `${URL}/img/${props.route.params.image}`,
                             }}
                             resizeMode='stretch'
                         />
@@ -185,7 +186,7 @@ export default function Sound(props) {
                 <ContainerLight>
                     <HeaderLight>
                         <TouchableOpacity onPress={() => handlerGoToBack()}>
-                            <Icons
+                            <Icon
                                 name='arrow-left'
                                 size={34}
                                 color={'#101010'}
@@ -194,7 +195,7 @@ export default function Sound(props) {
                         </TouchableOpacity>
                         <Figure
                             source={{
-                                uri: `http://192.168.0.102:3333/img/${props.route.params.image}`,
+                                uri: `${URL}/img/${props.route.params.image}`,
                             }}
                             resizeMode='stretch'
                         />
