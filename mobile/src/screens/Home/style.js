@@ -32,6 +32,13 @@ export const TextDark = styled.Text`
     font-weight: bold;
 `;
 
+export const TextLight = styled.Text`
+    color: #000;
+    margin: 2px;
+    font-size: 20px;
+    font-weight: bold;
+`;
+
 export const ButtonListen = styled.TouchableOpacity`
     background-color: #eb5bf5;
     padding: 10px;

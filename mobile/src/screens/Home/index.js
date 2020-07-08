@@ -10,6 +10,7 @@ import {
     TextDark,
     ButtonListen,
     ActionContainer,
+    TextLight,
 } from './style';
 import getTheme from '../../utils/getTheme';
 import DarkMode from '../../styles/themes/dark';
@@ -166,9 +167,75 @@ function Home() {
             );
         }
         return (
-            <Container theme={LightMode}>
+            <>
                 <Header theme={theme} />
-            </Container>
+                <Container theme={LightMode}>
+                    <FlatList
+                        data={allMusics}
+                        onEndReachedThreshold={0.2}
+                        keyExtractor={(allMusics) => allMusics.id}
+                        renderItem={({ item: music }) => (
+                            <MusicContainer>
+                                <Figure
+                                    source={{
+                                        uri: `${URL}/img/${music.banner_path}`,
+                                    }}
+                                    resizeMode='stretch'
+                                />
+                                <TextLight>{music.name}</TextLight>
+                                <TextLight>{music.genre}</TextLight>
+                                <ActionContainer>
+                                    <ButtonListen
+                                        onPress={() =>
+                                            navigation.navigate('Sound', {
+                                                image: music.banner_path,
+                                                name: music.name,
+                                                sound: music.path,
+                                            })
+                                        }
+                                    >
+                                        <TextLight>
+                                            <Icons
+                                                name='headphones'
+                                                size={18}
+                                            />{' '}
+                                            Listen
+                                        </TextLight>
+                                    </ButtonListen>
+
+                                    {likes.find(
+                                        (msc) => msc.music === music.id
+                                    ) ? (
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                handlerLikeRemove(music.id)
+                                            }
+                                        >
+                                            <Icons
+                                                name='heart'
+                                                size={28}
+                                                color={'#f00'}
+                                            />
+                                        </TouchableOpacity>
+                                    ) : (
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                handlerLikeAdd(music.id)
+                                            }
+                                        >
+                                            <Icons
+                                                name='heart-o'
+                                                size={28}
+                                                color={'#f00'}
+                                            />
+                                        </TouchableOpacity>
+                                    )}
+                                </ActionContainer>
+                            </MusicContainer>
+                        )}
+                    />
+                </Container>
+            </>
         );
     }
 

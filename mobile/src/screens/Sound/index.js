@@ -231,7 +231,7 @@ export default function Sound(props) {
                                 <Icon
                                     name='stop'
                                     size={36}
-                                    color={'#fff'}
+                                    color={'#000'}
                                     style={{ margin: 20 }}
                                 />
                             </TouchableOpacity>

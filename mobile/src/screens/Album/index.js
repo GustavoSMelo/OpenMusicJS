@@ -291,7 +291,121 @@ function Album(props) {
             );
         }
 
-        return <></>;
+        return (
+            <>
+                <Header theme={LightTheme}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Icons name='arrow-left' size={26} color='#fff' />
+                    </TouchableOpacity>
+                    {albumLiked ? (
+                        <TouchableOpacity onPress={() => removeLikeAlbum()}>
+                            <Icons name='heart' size={26} color='#f00' />
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity onPress={() => addLikeAlbum()}>
+                            <Icons name='heart-o' size={26} color='#f00' />
+                        </TouchableOpacity>
+                    )}
+                </Header>
+                <Container theme={LightTheme}>
+                    <ImageAlbum
+                        source={{
+                            uri: `${URL}/img/${props.route.params.banner}`,
+                        }}
+                    />
+                    <TextAlbum theme={LightTheme}>
+                        {props.route.params.name} | {props.route.params.genre}
+                    </TextAlbum>
+                    <TextDescription>
+                        {props.route.params.description}
+                    </TextDescription>
+
+                    {musics.length <= 0 ? (
+                        <></>
+                    ) : (
+                        musics.map((music) => (
+                            <CardMusic>
+                                <Figure>
+                                    <MusicImage
+                                        source={{
+                                            uri: `${URL}/img/${music.banner_path}`,
+                                        }}
+                                    />
+                                </Figure>
+                                <CardInfo>
+                                    <InfoText theme={LightTheme}>
+                                        {music.name} | {music.genre}
+                                    </InfoText>
+                                    <RowView>
+                                        <CustomButton
+                                            onPress={() =>
+                                                navigation.navigate('Sound', {
+                                                    image: music.banner_path,
+                                                    name: music.name,
+                                                    sound: music.path,
+                                                })
+                                            }
+                                        >
+                                            <InfoText theme={LightTheme}>
+                                                <Icons
+                                                    name='headphones'
+                                                    size={26}
+                                                    color='#fff'
+                                                />{' '}
+                                                Listen
+                                            </InfoText>
+                                        </CustomButton>
+                                        {likesMusics.length > 0 ? (
+                                            likesMusics.find(
+                                                (lik) => lik.music === music.id
+                                            ) ? (
+                                                <TouchableOpacity
+                                                    onPress={() =>
+                                                        removeLikeMusic(
+                                                            music.id
+                                                        )
+                                                    }
+                                                >
+                                                    <Icons
+                                                        name='heart'
+                                                        size={26}
+                                                        color='#f00'
+                                                    />
+                                                </TouchableOpacity>
+                                            ) : (
+                                                <TouchableOpacity
+                                                    onPress={() =>
+                                                        addLikeMusic(music.id)
+                                                    }
+                                                >
+                                                    <Icons
+                                                        name='heart-o'
+                                                        size={26}
+                                                        color='#f00'
+                                                    />
+                                                </TouchableOpacity>
+                                            )
+                                        ) : (
+                                            <TouchableOpacity
+                                                onPress={() =>
+                                                    addLikeMusic(music.id)
+                                                }
+                                            >
+                                                <Icons
+                                                    name='heart-o'
+                                                    size={26}
+                                                    color='#f00'
+                                                />
+                                            </TouchableOpacity>
+                                        )}
+                                    </RowView>
+                                </CardInfo>
+                            </CardMusic>
+                        ))
+                    )}
+                </Container>
+            </>
+        );
     }
 
     return Layout();

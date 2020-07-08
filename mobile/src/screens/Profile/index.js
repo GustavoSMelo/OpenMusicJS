@@ -88,7 +88,42 @@ function Profile() {
             );
         }
 
-        return <></>;
+        return (
+            <Container theme={LightTheme}>
+                <Figure
+                    source={{
+                        uri: `${URL}/img/${userInfo.avatar}`,
+                    }}
+                    resizeMode='stretch'
+                />
+                <CustomText theme={LightTheme}>
+                    <Icons name='user' size={26} /> {userInfo.name}
+                    {'\n\n'}
+                    <Icons name='envelope-o' size={26} /> {userInfo.email}
+                </CustomText>
+
+                <ButtonControlls>
+                    <ExitButton onPress={() => handlerButtonExit()}>
+                        <Icons name='sign-out' size={26} />
+                    </ExitButton>
+                    <EditButton
+                        onPress={() =>
+                            navigation.navigate('UpdateAccount', {
+                                email: userInfo.email,
+                                name: userInfo.name,
+                            })
+                        }
+                    >
+                        <Icons name='edit' size={26} />
+                    </EditButton>
+                    <DeleteButton
+                        onPress={() => navigation.navigate('DeleteAccount')}
+                    >
+                        <Icons name='trash' size={26} />
+                    </DeleteButton>
+                </ButtonControlls>
+            </Container>
+        );
     }
 
     return Layout();

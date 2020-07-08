@@ -382,7 +382,186 @@ function Likes() {
             );
         }
 
-        return <></>;
+        return (
+            <Container theme={LightTheme}>
+                <Text>{'\n'}</Text>
+                {musics.length <= 0 ? (
+                    <></>
+                ) : (
+                    <>
+                        <Title theme={LightTheme}>Musics: </Title>
+                        {musics.map((music) => (
+                            <Card key={music.name}>
+                                <CardImage
+                                    source={{
+                                        uri: `${URL}/img/${music.banner_path}`,
+                                    }}
+                                />
+                                <CardInfo>
+                                    <InfoText theme={LightTheme}>
+                                        {music.name} | {music.genre}
+                                    </InfoText>
+                                    <RowContainer>
+                                        <CustomButton
+                                            onPress={() =>
+                                                navigation.navigate('Sound', {
+                                                    image: music.banner_path,
+                                                    name: music.name,
+                                                    sound: music.path,
+                                                })
+                                            }
+                                        >
+                                            <InfoText theme={LightTheme}>
+                                                <Icons
+                                                    name='headphones'
+                                                    size={24}
+                                                    color='#fff'
+                                                />{' '}
+                                                Listen
+                                            </InfoText>
+                                        </CustomButton>
+
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                removeLikeMusic(music.id)
+                                            }
+                                        >
+                                            <InfoText theme={LightTheme}>
+                                                <Icons
+                                                    name='heart'
+                                                    size={24}
+                                                    color='#f00'
+                                                />
+                                            </InfoText>
+                                        </TouchableOpacity>
+                                    </RowContainer>
+                                </CardInfo>
+                            </Card>
+                        ))}
+                    </>
+                )}
+                <Text>{'\n'}</Text>
+                {artists.length <= 0 ? (
+                    <></>
+                ) : (
+                    <>
+                        <Title theme={LightTheme}>Artists: </Title>
+                        {artists.map((art) => (
+                            <Card key={art.name}>
+                                <CardImage
+                                    source={{
+                                        uri: `${URL}/img/${art.avatar}`,
+                                    }}
+                                />
+                                <CardInfo>
+                                    <InfoText theme={LightTheme}>
+                                        {art.name} | {art.name_artistic}
+                                    </InfoText>
+                                    <RowContainer>
+                                        <CustomButton
+                                            onPress={() =>
+                                                navigation.navigate(
+                                                    'ArtistProfile',
+                                                    {
+                                                        name: art.name,
+                                                        avatar: `${URL}/img/${art.avatar}`,
+                                                        art_id: art.id,
+                                                        artistic_name:
+                                                            art.name_artistic,
+                                                    }
+                                                )
+                                            }
+                                        >
+                                            <InfoText theme={LightTheme}>
+                                                <Icons
+                                                    name='user'
+                                                    size={24}
+                                                    color='#fff'
+                                                />{' '}
+                                                Access
+                                            </InfoText>
+                                        </CustomButton>
+
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                removeLikeArtist(art.id)
+                                            }
+                                        >
+                                            <InfoText theme={LightTheme}>
+                                                <Icons
+                                                    name='heart'
+                                                    size={24}
+                                                    color='#f00'
+                                                />
+                                            </InfoText>
+                                        </TouchableOpacity>
+                                    </RowContainer>
+                                </CardInfo>
+                            </Card>
+                        ))}
+                    </>
+                )}
+                <Text>{'\n'}</Text>
+                {albuns.length <= 0 ? (
+                    <></>
+                ) : (
+                    <>
+                        <Title theme={LightTheme}>Albuns: </Title>
+                        {albuns.map((album) => (
+                            <Card key={album.name}>
+                                <CardImage
+                                    source={{
+                                        uri: `${URL}/img/${album.banner}`,
+                                    }}
+                                />
+                                <CardInfo>
+                                    <InfoText theme={LightTheme}>
+                                        {album.name} | {album.genre}
+                                    </InfoText>
+                                    <RowContainer>
+                                        <CustomButton
+                                            onPress={() =>
+                                                navigation.navigate('Album', {
+                                                    name: album.name,
+                                                    genre: album.genre,
+                                                    description:
+                                                        album.description,
+                                                    idAlbum: album.id,
+                                                    banner: album.banner,
+                                                })
+                                            }
+                                        >
+                                            <InfoText theme={LightTheme}>
+                                                <Icons
+                                                    name='folder-o'
+                                                    size={24}
+                                                    color='#fff'
+                                                />{' '}
+                                                Access
+                                            </InfoText>
+                                        </CustomButton>
+
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                removeLikeAlbum(album.id)
+                                            }
+                                        >
+                                            <InfoText theme={LightTheme}>
+                                                <Icons
+                                                    name='heart'
+                                                    size={24}
+                                                    color='#f00'
+                                                />
+                                            </InfoText>
+                                        </TouchableOpacity>
+                                    </RowContainer>
+                                </CardInfo>
+                            </Card>
+                        ))}
+                    </>
+                )}
+            </Container>
+        );
     }
 
     return Layout();

@@ -267,7 +267,107 @@ function ArtistProfile(props) {
             );
         }
 
-        return <></>;
+        return (
+            <>
+                <Header theme={LightTheme}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Icons name='arrow-left' size={32} color='#fff' />
+                    </TouchableOpacity>
+                    {likedArtist === true ? (
+                        <Icons
+                            name='heart'
+                            size={26}
+                            color='#f00'
+                            onPress={() => RemoveLikeArtist()}
+                        />
+                    ) : (
+                        <Icons
+                            name='heart-o'
+                            size={26}
+                            color='#f00'
+                            onPress={() => GiveLikeArtist()}
+                        />
+                    )}
+                </Header>
+                <Container theme={LightTheme}>
+                    <ArtistSection>
+                        <Figure
+                            source={{ uri: `${props.route.params.avatar}` }}
+                        />
+                        <TitleName theme={LightTheme}>
+                            {props.route.params.name} |{' '}
+                            {props.route.params.artistic_name}
+                            {'       '}
+                        </TitleName>
+                    </ArtistSection>
+                    <FlatList
+                        data={musics}
+                        keyExtractor={(musics) => musics.id}
+                        renderItem={({ item: musics }) => (
+                            <MusicSection>
+                                <MusicImage
+                                    source={{
+                                        uri: `${URL}/img/${musics.banner_path}`,
+                                    }}
+                                />
+                                <MusicButtons>
+                                    <TextMusic theme={LightTheme}>
+                                        {musics.name} | {musics.genre}
+                                    </TextMusic>
+                                    <RowContainer>
+                                        <ListenButton
+                                            onPress={() =>
+                                                navigation.navigate('Sound', {
+                                                    image: musics.banner_path,
+                                                    name: musics.name,
+                                                    sound: musics.path,
+                                                })
+                                            }
+                                        >
+                                            <TextMusic theme={LightTheme}>
+                                                <Icons
+                                                    name='headphones'
+                                                    size={26}
+                                                    color={LightTheme.color}
+                                                />{' '}
+                                                Listen
+                                            </TextMusic>
+                                        </ListenButton>
+                                        {likesMusics.find(
+                                            (like) => musics.id === like.music
+                                        ) ? (
+                                            <TouchableOpacity
+                                                onPress={() =>
+                                                    removeLikeMusic(musics.id)
+                                                }
+                                            >
+                                                <Icons
+                                                    name='heart'
+                                                    size={32}
+                                                    color='#f00'
+                                                />
+                                            </TouchableOpacity>
+                                        ) : (
+                                            <TouchableOpacity
+                                                onPress={() =>
+                                                    giveLikeMusic(musics.id)
+                                                }
+                                            >
+                                                <Icons
+                                                    name='heart-o'
+                                                    size={32}
+                                                    color='#f00'
+                                                />
+                                            </TouchableOpacity>
+                                        )}
+                                    </RowContainer>
+                                </MusicButtons>
+                            </MusicSection>
+                        )}
+                    />
+                </Container>
+            </>
+        );
     }
 
     return Layout();
