@@ -295,7 +295,7 @@ function Album(props) {
             <>
                 <Header theme={LightTheme}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Icons name='arrow-left' size={26} color='#fff' />
+                        <Icons name='arrow-left' size={26} color='#000' />
                     </TouchableOpacity>
                     {albumLiked ? (
                         <TouchableOpacity onPress={() => removeLikeAlbum()}>
