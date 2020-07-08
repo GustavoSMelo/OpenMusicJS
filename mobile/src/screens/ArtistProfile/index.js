@@ -271,7 +271,7 @@ function ArtistProfile(props) {
             <>
                 <Header theme={LightTheme}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Icons name='arrow-left' size={32} color='#fff' />
+                        <Icons name='arrow-left' size={32} color='#000' />
                     </TouchableOpacity>
                     {likedArtist === true ? (
                         <Icons
