@@ -61,4 +61,5 @@
 - :heavy_check_mark: Create the back-end.
 - :heavy_check_mark: Create the web front-end for the users.
 - :heavy_check_mark: create the web front-end for the artists.
-- :hammer: Create mobile app.
+- :heavy_check_mark: Create mobile app.
+- :hammer: New Readme.md
