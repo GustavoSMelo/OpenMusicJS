@@ -6,6 +6,7 @@ import api from '../../api';
 import DoLogin from '../../components/Layout/DoLogin';
 import { FaHeadphonesAlt, FaHeart, FaRegHeart } from 'react-icons/fa';
 import rnd from '../../utils/randomUniqueKey';
+import Global from './global';
 
 function HomeUser() {
     const [musics, setMusics] = useState([]);
@@ -71,7 +72,7 @@ function HomeUser() {
                 },
             });
 
-            await setLikes(likes.filter(like => like !== music));
+            await setLikes(likes.filter((like) => like !== music));
         } catch (err) {
             return console.log({ err });
         }
@@ -86,7 +87,7 @@ function HomeUser() {
                         <section>
                             <h1>New Musics: </h1>
                             <ul>
-                                {musics.map(song => (
+                                {musics.map((song) => (
                                     <li key={song.id}>
                                         <figure>
                                             <img
@@ -105,7 +106,7 @@ function HomeUser() {
                                             <FaHeadphonesAlt /> Listen
                                         </button>
                                         {likes.find(
-                                            like => like.music === song.id
+                                            (like) => like.music === song.id
                                         ) ? (
                                             <button
                                                 key={rnd}
@@ -132,6 +133,7 @@ function HomeUser() {
                             </ul>
                         </section>
                     </Container>
+                    <Global />
                     {LoadMusic ? <MP3Player musicpath={LoadMusic} /> : <></>}
                 </>
             );
