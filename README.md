@@ -4,6 +4,7 @@
 <h1 align="center">OpenMusicJS</h1>
 <p align="center">
 	This Readme was write in english, if you want a portuguese version <a href="/">click here</a>
+	<br/>
 	(Este "Leia me" foi escrito em ingles, se quiser a versao em portugues <a href="/">click aqui</a>)
 	<br />
 	App open source to users listen musics for free and artists unknow post yours creations
@@ -20,14 +21,9 @@
 - [Android App Light](#iphone-Android-App-Light)
 - [Android App Dark](#iphone-Android-App-Dark)
 - [Run this project](#Run-this-project)
-- []
+- [About me](#bust_in_silhouette-About-me)
 
 # Website responsive and animations
-
-<p align="center">
-	<img src="./github/frontend/CreateAccountArtist.gif" alt="CreateAccountArtists" />
-	<img src="./github/frontend/ResponsiveScreen.gif" alt="ResponsiveScreenExample" />
-</p>
 
 ![CreateAccountArtist](https://user-images.githubusercontent.com/45046288/86982307-4e6c5d80-c15f-11ea-8219-9e98ccc30b2d.gif)
 
@@ -112,7 +108,7 @@
 - After that, run `expo start` and wait until the application opens.
 - When the application opens, scan the QR CODE with your cellphone.
 
-## :bust_in_silhouette: About me:
+## :bust_in_silhouette: About me
 
     I am a simple developer that love study and play video games
     if you want to enter in contact with me:
