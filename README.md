@@ -11,7 +11,7 @@
 </p>
 <p align="center">
 	<img src="https://img.shields.io/github/forks/GustavoSMelo/OpenMusicJS" alt="forks" />
-	<img src="https://img.shields.io/github/starts/GustavoSMelo/OpenMusicJS" alt="starts" />
+	<img src="https://img.shields.io/github/stars/GustavoSMelo/OpenMusicJS" alt="stars" />
 	<img src="https://img.shields.io/github/license/GustavoSMelo/OpenMusicJS" alt="license" />
 </p>
 
@@ -47,7 +47,7 @@
 <p align="center">
 	<img src=".github/mobile/HomeScreenLight.PNG" width="250px" height="541px" alt="HomeScreenLight"/> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/SearchScreen.PNG" width="250px" height="541px" alt="SearchLight"/> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/LikeScreenLight.PNG" width="250px" height="541px" alt="LikeScreenLight"/>
 	<br />
-	<img src=".github/mobile/ProfileScreenLight.PNG" width="250px" height="541px" alt="ProfileScreenLight" /> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/PlayerMusicLight.PNG" width="250px" height="541px" alt="ProfileScreenLight" /> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/PlayerMusicLight.PNG" width="250px" height="541px" alt="ProfileScreenLight" />
+	<img src=".github/mobile/ProfileScreenLight.PNG" width="250px" height="541px" alt="ProfileScreenLight" /> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/PlayerMusicLight.PNG" width="250px" height="541px" alt="PlayerMusic" /> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/ArtistProfileLight.PNG" width="250px" height="541px" alt="ArtistProfileLight" />
 </p>
 
 # :iphone: Android App Dark
@@ -55,7 +55,7 @@
 <p align="center">
 	<img src=".github/mobile/HomeScreenDark.PNG" width="250px" height="541px" alt="HomeScreenDark"/> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/SearchScreenDark.PNG" width="250px" height="541px" alt="SearchDark"/> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/LikeScreenDark.PNG" width="250px" height="541px" alt="LikeScreenDark"/>
 	<br />
-	<img src=".github/mobile/ProfileScreenDark.PNG" width="250px" height="541px" alt="ProfileScreenDark" /> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/PlayerMusicDark.PNG" width="250px" height="541px" alt="ProfileScreenDark" /> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/PlayerMusicDark.PNG" width="250px" height="541px" alt="ProfileScreenDark" />
+	<img src=".github/mobile/ProfileScreenDark.PNG" width="250px" height="541px" alt="ProfileScreenDark" /> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/PlayerMusicDark.PNG" width="250px" height="541px" alt="PlayerMusic" /> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/ArtistProfileDark.PNG" width="250px" height="541px" alt="ArtistProfileLight" />
 </p>
 
 <h2>Tecnologies useds in this project: </h2>
