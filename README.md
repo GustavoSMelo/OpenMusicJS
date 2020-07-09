@@ -3,9 +3,9 @@
 </p>
 <h1 align="center">OpenMusicJS</h1>
 <p align="center">
-	This Readme was write in english, if you want a portuguese version <a href="/">click here</a>
+	This Readme was write in english, if you want a portuguese version <a href="https://github.com/GustavoSMelo/OpenMusicJS/blob/master/PTBR.README.md">click here</a>
 	<br/>
-	(Este "Leia me" foi escrito em ingles, se quiser a versao em portugues <a href="/">click aqui</a>)
+	(Este "Leia me" foi escrito em ingles, se quiser a versao em portugues <a href="https://github.com/GustavoSMelo/OpenMusicJS/blob/master/PTBR.README.md">click aqui</a>)
 	<br />
 	App open source to users listen musics for free and artists unknow post yours creations
 </p>
