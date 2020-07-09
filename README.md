@@ -1,6 +1,74 @@
-# :hammer: This project is currently in progress
+<p align="center">
+	<img src=".github/logo.png" alt="logo" width="400" />
+</p>
+<h1 align="center">OpenMusicJS</h1>
+<p align="center">
+	This Readme was write in english, if you want a portuguese version <a href="/">click here</a>
+	(Este "Leia me" foi escrito em ingles, se quiser a versao em portugues <a href="/">click aqui</a>)
+	<br />
+	App open source to users listen musics for free and artists unknow post yours creations
+</p>
+<p align="center">
+	<img src="https://img.shields.io/github/forks/GustavoSMelo/OpenMusicJS" alt="forks" />
+	<img src="https://img.shields.io/github/starts/GustavoSMelo/OpenMusicJS" alt="starts" />
+	<img src="https://img.shields.io/github/license/GustavoSMelo/OpenMusicJS" alt="license" />
+</p>
 
-## If you want to run it, do this:
+# :ship: Navigation menu
+
+- [Web Application Screenshots](#globe_with_meridians-Web-Application-Screenshots)
+- [Android App Light](#iphone-Android-App-Light)
+- [Android App Dark](#iphone-Android-App-Dark)
+- [Run this project](#Run-this-project)
+- []
+
+# Website responsive and animations
+
+<p align="center">
+	<img src="./github/frontend/CreateAccountArtist.gif" alt="CreateAccountArtists" />
+	<img src="./github/frontend/ResponsiveScreen.gif" alt="ResponsiveScreenExample" />
+</p>
+
+![CreateAccountArtist](https://user-images.githubusercontent.com/45046288/86982307-4e6c5d80-c15f-11ea-8219-9e98ccc30b2d.gif)
+
+![ResponsiveScreen](https://user-images.githubusercontent.com/45046288/86982624-203b4d80-c160-11ea-8d77-d722f2f76a02.gif)
+
+# :globe_with_meridians: Web Application Screenshots
+
+<p align="center">
+	<img src=".github/frontend/ArtistScreen.PNG" alt="ArtistScreen"/>
+	<img src=".github/frontend/EditAndInsertMusic.PNG" alt="EditAndInsertMusicScreen"/>
+	<img src=".github/frontend/HomeScreen.PNG" alt="HomeScreen"/>
+	<img src=".github/frontend/LikeesScreen.PNG" alt="LikesScreen"/>
+	<img src=".github/frontend/LoginScreen.PNG" alt="LoginScreen"/>
+	<img src=".github/frontend/MainPageArtist.PNG" alt="MainPageArtist"/>
+	<img src=".github/frontend/ProfileScreen.PNG" alt="ProfileScreen"/>
+	<img src=".github/frontend/SearchScreen.PNG" alt="SearchScreen"/>
+</p>
+
+# :iphone: Android App Light
+
+<p align="center">
+	<img src=".github/mobile/HomeScreenLight.PNG" width="250px" height="541px" alt="HomeScreenLight"/> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/SearchScreen.PNG" width="250px" height="541px" alt="SearchLight"/> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/LikeScreenLight.PNG" width="250px" height="541px" alt="LikeScreenLight"/>
+	<br />
+	<img src=".github/mobile/ProfileScreenLight.PNG" width="250px" height="541px" alt="ProfileScreenLight" /> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/PlayerMusicLight.PNG" width="250px" height="541px" alt="ProfileScreenLight" /> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/PlayerMusicLight.PNG" width="250px" height="541px" alt="ProfileScreenLight" />
+</p>
+
+# :iphone: Android App Dark
+
+<p align="center">
+	<img src=".github/mobile/HomeScreenDark.PNG" width="250px" height="541px" alt="HomeScreenDark"/> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/SearchScreenDark.PNG" width="250px" height="541px" alt="SearchDark"/> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/LikeScreenDark.PNG" width="250px" height="541px" alt="LikeScreenDark"/>
+	<br />
+	<img src=".github/mobile/ProfileScreenDark.PNG" width="250px" height="541px" alt="ProfileScreenDark" /> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/PlayerMusicDark.PNG" width="250px" height="541px" alt="ProfileScreenDark" /> &nbsp;&nbsp;&nbsp; <img src=".github/mobile/PlayerMusicDark.PNG" width="250px" height="541px" alt="ProfileScreenDark" />
+</p>
+
+<h2>Tecnologies useds in this project: </h2>
+
+| Backend | Frontend | Mobile       | Database |
+| ------- | -------- | ------------ | -------- |
+| NodeJS  | ReactJS  | React Native | Postgres |
+
+## Run this project
 
 ### :clipboard: Things that you need:
 
@@ -10,10 +78,10 @@
 - Expo
 - Mobile Emulator (or physical cellphone)
 
-### :file_folder: Backend:
+### :file_folder: Backend
 
 - Open the `backend` folder in your terminal.
-- Run in your console: `yarn` (in case you use yarn).
+- Run in your console: `yarn` (in case you use yarn) or `npm install`.
 - Create a new folder inside of the `backend` folder and outside the `src` folder called: "tmp".
 - Inside of `tmp`, create a new folder called `uploads` and inside of this folder
   create another two folders: `img` and `music`.
@@ -21,12 +89,12 @@
 - Run in your console: `yarn (or npx) sequelize db:migrate`.
 - After that, go to `backend` and run `yarn start`.
 
-### :computer: Frontend:
+### :computer: Frontend
 
 - Firstly, you need to do the backend step.
-- After that, you need to run `yarn` in your console (inside the `frontend` folder) and run `yarn start`.
+- After that, you need to run `yarn` or `npm install` in your console (inside the `frontend` folder) and run `yarn start` or `npm start`.
 
-### :iphone: Mobile (with Android emulator):
+### :iphone: Mobile (with Android emulator)
 
 - First, run the backend.
 - Open your Android emulator.
@@ -35,7 +103,7 @@
 - After that, run `expo start` and wait until the application opens.
 - When the application opens, enter in the console and click 'A'.
 
-### :iphone: Mobile (with physical cellphone):
+### :iphone: Mobile (with physical cellphone)
 
 - Download the Expo app in your cellphone.
 - Enter the Expo app.
@@ -44,22 +112,12 @@
 - After that, run `expo start` and wait until the application opens.
 - When the application opens, scan the QR CODE with your cellphone.
 
-# Screenshots of the project:
+## :bust_in_silhouette: About me:
 
-![Screenshot_202a0-04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963607-6c79e180-7ace-11ea-8efc-7c9dc42f5076.png)
+    I am a simple developer that love study and play video games
+    if you want to enter in contact with me:
 
-![Screenshot_2020-04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963660-83b8cf00-7ace-11ea-8d4a-21acf824a073.jpg)
+    Email: gsantos15569@gmail.com
+    Linkedin: https://www.linkedin.com/in/gustavo-santos-melo-66092317a/
 
-![Screenshot_2020-04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963672-8e736400-7ace-11ea-8344-5e122eac961c.png)
-
-![Screenshot_2020-e04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963695-a1863400-7ace-11ea-88f8-64b3a3adc555.png)
-
-![Screenshot_20202-04-10 Musicfy](https://user-images.githubusercontent.com/45046288/78963948-53bdfb80-7acf-11ea-8473-12414e4a574c.png)
-
-### Things to do:
-
-- :heavy_check_mark: Create the back-end.
-- :heavy_check_mark: Create the web front-end for the users.
-- :heavy_check_mark: create the web front-end for the artists.
-- :heavy_check_mark: Create mobile app.
-- :hammer: New Readme.md
+## Make with Love :heartbeat: Gustavo S. Melo
