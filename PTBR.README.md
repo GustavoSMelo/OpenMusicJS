@@ -17,11 +17,11 @@
 
 # :ship: Menu de navegação
 
-- [Web Application Screenshots](#globe_with_meridians-Web-Application-Screenshots)
-- [Android App Light](#iphone-Android-App-Light)
-- [Android App Dark](#iphone-Android-App-Dark)
-- [Run this project](#Run-this-project)
-- [About me](#bust_in_silhouette-About-me)
+- [Screenshots do aplicativo web](#globe_with_meridians-Screenshots-do-aplicativo-web)
+- [Android App Claro](#iphone-Android-App-Claro)
+- [Android App Escuro](#iphone-Android-App-Escuro)
+- [Rodar este projeto](#Para-rodar-este-projeto)
+- [Sobre mim](#bust_in_silhouette-Sobre-mim)
 
 # Website responsivo e animado
 
@@ -109,7 +109,7 @@
 - depois disso, execute `expo start` e aguarde até a aplicação carregar.
 - Quando a aplicação carregar, scannei o QR CODE
 
-## :bust_in_silhouette: About me
+## :bust_in_silhouette: Sobre mim
 
     Eu sou um simples desenvolvedor que é apaixonado em estudar e jogar video games.
     Caso queira entrar em contato comigo, email e linkedin abaixo
@@ -117,4 +117,4 @@
     Email: gsantos15569@gmail.com
     Linkedin: https://www.linkedin.com/in/gustavo-santos-melo-66092317a/
 
-## Make with Love :heartbeat: Gustavo S. Melo
+## Feito com amor :heartbeat: Gustavo S. Melo
