@@ -35,8 +35,8 @@
 	<img src=".github/frontend/ArtistScreen.PNG" alt="ArtistScreen"/>
 	<img src=".github/frontend/EditAndInsertMusic.PNG" alt="EditAndInsertMusicScreen"/>
 	<img src=".github/frontend/HomeScreen.PNG" alt="HomeScreen"/>
-	<img src=".github/frontend/LikeesScreen.PNG" alt="LikesScreen"/>
-	<img src=".github/frontend/LoginScreen.PNG" alt="LoginScreen"/>
+	<img src=".github/frontend/LikesScreen.PNG" alt="LikesScreen"/>
+	<img src=".github/frontend/LoginArtist.PNG" alt="LoginScreen"/>
 	<img src=".github/frontend/MainPageArtist.PNG" alt="MainPageArtist"/>
 	<img src=".github/frontend/ProfileScreen.PNG" alt="ProfileScreen"/>
 	<img src=".github/frontend/SearchScreen.PNG" alt="SearchScreen"/>
