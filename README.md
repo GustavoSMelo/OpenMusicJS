@@ -92,8 +92,9 @@
 
 ### :iphone: Mobile (with Android emulator)
 
-- First, run the backend.
+- Firstly, you need to do the backend step.
 - Open your Android emulator.
+- Download the Expo app in your emulator.
 - Open the mobile folder in the console.
 - Run `yarn` or `npm install`.
 - After that, run `expo start` and wait until the application opens.
@@ -101,6 +102,7 @@
 
 ### :iphone: Mobile (with physical cellphone)
 
+- Firstly, you need to do the backend step.
 - Download the Expo app in your cellphone.
 - Enter the Expo app.
 - Open the mobile folder in the console.
